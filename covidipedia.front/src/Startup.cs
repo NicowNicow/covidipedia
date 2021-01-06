@@ -20,6 +20,11 @@ namespace covidipedia.front {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddRazorPages();
+            //Confidentialité des pages, à travailler
+            // services.AddMvc().AddRazorPagesOptions(options => {
+            //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
+            //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

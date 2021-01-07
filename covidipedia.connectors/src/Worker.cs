@@ -18,11 +18,12 @@ namespace covidipedia.connectors
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             List<Connector> list = new List<Connector>();
             try { list = Connector.ReadJSON(@"E:\OneDrive\Cours\M2\BureauEtude\Covidipedia\connectors.json"); }
-            catch(Exception e) {
-                _logger.LogInformation(e.ToString());
+            catch(Exception) {
+                _logger.LogInformation("JSON file not found!");
                 return;
             }
             await ConnectorsProcessing(list); //Timer ici ou Task Scheduler/cron?
+            System.Environment.Exit(0);
         }
 
         private async Task ConnectorsProcessing(List<Connector> list) {
@@ -32,12 +33,12 @@ namespace covidipedia.connectors
                         await Fetch.FetchCSV(connector);
                         break;
                     
-                    case "db":
-                        await Fetch.FetchDB(connector);
-                        break;
+                    // case "db":
+                    //     await Fetch.FetchDB(connector);
+                    //     break;
 
                     default:
-                        _logger.LogInformation("Type de connecteur non reconnu.");
+                        _logger.LogInformation("Connector type unrecognized.");
                         break;
                 }
             }

@@ -16,14 +16,15 @@ namespace covidipedia.connectors
             var client = new WebClient();
             if (connector.url != "") {
                 System.Uri uri = new System.Uri(connector.url);
-                await client.DownloadFileTaskAsync(uri, Path.Combine("E:\\OneDrive\\Cours\\M2\\BureauEtude\\Covidipedia\\" + connector.name));
-                //ProcessData Method
+                try { await client.DownloadFileTaskAsync(uri, Path.Combine("E:\\OneDrive\\Cours\\M2\\BureauEtude\\Covidipedia\\" + connector.name)); }
+                catch(Exception) { _logger.LogInformation(connector.name + " - URI is not valid!"); }
+                //ProcessDataCSV Method
             }
         }
 
-        public static async Task FetchDB (Connector connector) {
-            //TODO
-            //ProcessData Method
-        }
+        // public static async Task FetchDB (Connector connector) {
+        //     //TODO
+        //     //ProcessDataDB Method
+        // }
     }
 }

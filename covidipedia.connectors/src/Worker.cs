@@ -28,15 +28,15 @@ namespace covidipedia.connectors
                 _logger.LogInformation("JSON file not found, please check the path in the config.json file");
                 return;
             }
-            await ConnectorsProcessing(list); //Timer ici ou Task Scheduler/cron?
+            await ConnectorsProcessing(list, config); //Timer ici ou Task Scheduler/cron?
             System.Environment.Exit(0);
         }
 
-        private async Task ConnectorsProcessing(List<Connector> list) {
+        private async Task ConnectorsProcessing(List<Connector> list, Config config) {
             foreach (Connector connector in list) {
                 switch(connector.type) {
                     case "csv":
-                        await Fetch.FetchCSV(connector);
+                        await Fetch.FetchCSV(connector, config);
                         break;
                     
                     // case "db":

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using covidipedia.connectors;
 
 namespace covidipedia.front.Pages {
     public class AdminModel : PageModel {

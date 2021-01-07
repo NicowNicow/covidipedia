@@ -16,10 +16,16 @@ namespace covidipedia.connectors
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+            Config config;
             List<Connector> list = new List<Connector>();
-            try { list = Connector.ReadJSON(@"E:\OneDrive\Cours\M2\BureauEtude\Covidipedia\connectors.json"); }
+            try { config = Config.ReadJSON(); }
             catch(Exception) {
-                _logger.LogInformation("JSON file not found!");
+                _logger.LogInformation("Please put the config.json file in the same folder as the service executable!");
+                return;
+            }
+            try { list = Connector.ReadJSON(config.connector_list_path); }
+            catch(Exception) {
+                _logger.LogInformation("JSON file not found, please check the path in the config.json file");
                 return;
             }
             await ConnectorsProcessing(list); //Timer ici ou Task Scheduler/cron?

@@ -12,12 +12,12 @@ namespace covidipedia.connectors
 {
     public class Fetch {
 
-        public static async Task FetchCSV(Connector connector) {
+        public static async Task FetchCSV(Connector connector, Config config) {
             var client = new WebClient();
             if (connector.url != "") {
                 System.Uri uri = new System.Uri(connector.url);
-                try { await client.DownloadFileTaskAsync(uri, Path.Combine("E:\\OneDrive\\Cours\\M2\\BureauEtude\\Covidipedia\\" + connector.name)); }
-                catch(Exception) { _logger.LogInformation(connector.name + " - URI is not valid!"); }
+                try { await client.DownloadFileTaskAsync(uri, Path.Combine(config.file_download_path + connector.name)); }
+                catch(Exception) {}
                 //ProcessDataCSV Method
             }
         }

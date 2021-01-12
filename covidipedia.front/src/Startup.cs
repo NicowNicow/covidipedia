@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace covidipedia.front {
     public class Startup {
@@ -25,6 +26,9 @@ namespace covidipedia.front {
             //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
             //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
             // });
+            
+    services.AddDbContext<AppDatabase>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("AppDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

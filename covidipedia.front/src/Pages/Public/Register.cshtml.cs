@@ -7,14 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 
-namespace covidipedia.front.Pages {
-    public class LoginModel : PageModel {
+namespace covidipedia.front.Pages
+{
+    public class RegisterModel : PageModel
+    {
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(ILogger<LoginModel> logger) {
+        public RegisterModel(ILogger<LoginModel> logger)
+        {
             _logger = logger;
         }
 
-        public void OnGet(){}
+        public void OnGet() { }
     }
 }

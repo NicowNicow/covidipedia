@@ -1,10 +1,8 @@
-@page
-@model LoginModel
+﻿@page
+@model RegisterModel
 @{
-    ViewData["Title"] = "Login";
+   
 }
-<link href="~/css/Login.css" rel="stylesheet" />
-
 
 <form action="/action_page.php" class="needs-validation" novalidate>
     <div class="form-group">
@@ -27,7 +25,7 @@
         </label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-    <p>new user? <a href="Register">create new account</a></p>
+    
 </form>
 
 <script>

@@ -1,14 +1,16 @@
 @page
 @model QueryModel
 @{
-    ViewData["Title"] = "Requêtes Spécialisées";
+  ViewData["Title"] = "Requêtes Spécialisées";
 }
 
+
 <h1>@ViewData["Title"]</h1>
-<p>Page de requêtes après connexion à faire et à sécuriser.</p>
+
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose filter</button>
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">Choose filter</button>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="#">Place</a>
       <a class="dropdown-item" href="#">Date</a>
@@ -16,6 +18,8 @@
   </div>
   <input type="text" class="form-control" aria-label="Text input with dropdown button">
 </div>
+
+
 <table class="table">
   <thead>
     <tr>
@@ -26,23 +30,25 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>07/10/2020</td>
-      <td>Toulon</td>
-      <td>Idk</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>03/12/2020</td>
-      <td>Paris</td>
-      <td>Idk</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>09/01/2021</td>
-      <td>Bordeaux</td>
-      <td>Idk</td>
-    </tr>
+    
+    @{
+      List<QueryModel.Result> result = new List<QueryModel.Result>();
+      for (var i = 0; i < 10; i++) {
+        var temp = new QueryModel.Result();
+        temp.date = new DateTime();
+        temp.place = QueryModel.RandomString(5);
+        temp.info = QueryModel.RandomString(10);
+        result.Add(temp);
+      }
+      foreach (var x in result) {
+        <tr>
+          <th scope="row">1</th>
+          <td>@x.date</td>
+          <td>@x.place</td>
+          <td>@x.info</td>
+        </tr>
+      }
+    }
+
   </tbody>
 </table>

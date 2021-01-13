@@ -3,6 +3,25 @@
 @{
   ViewData["Title"] = "Requêtes Spécialisées";
 }
+<style>
+    input[type=text] {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-image: url('searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        transition: width 0.4s ease-in-out;
+    }
+
+        input[type=text]:focus {
+            width: 100%;
+        }
+</style>
 
 <head>
   <link href="~/css/query.css" rel="stylesheet" />
@@ -11,17 +30,29 @@
 <body>
   <h1>@ViewData["Title"]</h1>
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">Choose filter</button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Place</a>
-        <a class="dropdown-item" href="#">Date</a>
-      </div>
-    </div>
-    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-  </div>
+<form>
+    <select id="country" name="country">
+        <option value="au">Australia</option>
+        <option value="ca">Canada</option>
+        <option value="usa">USA</option>
+    </select>
+    <select id="vile" name="ville">
+        <option value="au">Australia</option>
+        <option value="ca">Canada</option>
+        <option value="usa">USA</option>
+    </select>
+    <select id="departement" name="departement">
+        <option value="au">Australia</option>
+        <option value="ca">Canada</option>
+        <option value="usa">USA</option>
+    </select>
+    <select id="Date" name="Date">
+        <option value="au">Australia</option>
+        <option value="ca">Canada</option>
+        <option value="usa">USA</option>
+    </select>
+    <input type="text" name="search" placeholder="Search..">
+</form>
 
 
   <table class="table">

@@ -4,51 +4,57 @@
   ViewData["Title"] = "Requêtes Spécialisées";
 }
 
+<head>
+  <link href="~/css/query.css" rel="stylesheet" />
+</head>
 
-<h1>@ViewData["Title"]</h1>
+<body>
+  <h1>@ViewData["Title"]</h1>
 
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="false">Choose filter</button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Place</a>
-      <a class="dropdown-item" href="#">Date</a>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">Choose filter</button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Place</a>
+        <a class="dropdown-item" href="#">Date</a>
+      </div>
     </div>
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
   </div>
-  <input type="text" class="form-control" aria-label="Text input with dropdown button">
-</div>
 
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Date</th>
-      <th scope="col">Place</th>
-      <th scope="col">Info</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-    @{
-      List<QueryModel.Result> result = new List<QueryModel.Result>();
-      for (var i = 0; i < 10; i++) {
-        var temp = new QueryModel.Result();
-        temp.date = new DateTime();
-        temp.place = QueryModel.RandomString(5);
-        temp.info = QueryModel.RandomString(10);
-        result.Add(temp);
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Place</th>
+        <th scope="col">Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      @{
+        List<QueryModel.Result> result = new List<QueryModel.Result>();
+        for (var i = 0; i < 10; i++) {
+          var temp = new QueryModel.Result();
+          temp.date = new DateTime();
+          temp.place = QueryModel.RandomString(5);
+          temp.info = QueryModel.RandomString(10);
+          result.Add(temp);
+        }
+        foreach (var x in result) {
+          <tr>
+            <th scope="row">1</th>
+            <td>@x.date</td>
+            <td>@x.place</td>
+            <td>@x.info</td>
+          </tr>
+        }
       }
-      foreach (var x in result) {
-        <tr>
-          <th scope="row">1</th>
-          <td>@x.date</td>
-          <td>@x.place</td>
-          <td>@x.info</td>
-        </tr>
-      }
-    }
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+
+</body>

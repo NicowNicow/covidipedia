@@ -9,6 +9,6 @@ namespace covidipedia.front.Pages {
             _logger = logger;
         }
 
-        public void OnGet(){}
+        public void OnGet() {}
     }
 }

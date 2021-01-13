@@ -4,33 +4,39 @@
     ViewData["Title"] = "Home page";
 }
 <head>
-    <link rel="stylesheet" href="~/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/index.css" type="text/css"/>
+    <link rel="stylesheet" href="~/css/slider.css" type="text/css"/>
 </head>
 
 <body>
 
-    <div class="splashscreen-text">
-        <p>Bienvenue sur Covidipédia! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </div>
-
-
     <div class="graph-selection">
-        <h3 class= graph-title> Graphiques à afficher:</h3>
+        <h3 class= graph-title>Choisissez les jeux de données à afficher:</h3>
         <div class="checkboxes">
-            <label>Sales by Countries
-                <input type="checkbox" id="checkbox-sales-countries" checked="checked">
-                <span></span>
-            </label>
 
-            <label>Discount by Countries
-                <input type="checkbox" id="checkbox-discount-countries" checked="checked">
-                <span></span>
-            </label>
+            <div class="toggle">
+                <label class="switch-text">Sales by Countries</label>
+                <label class="switch">
+                    <input type="checkbox" id="checkbox-sales-countries" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+            <div class="toggle">
+                <label class="switch-text">Discount by Countries</label>
+                <label class="switch">
+                    <input type="checkbox" id="checkbox-discount-countries" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
 
-            <label>Profit per Month
-                <input type="checkbox" id="checkbox-profit-month" checked="checked">
-                <span></span>
-            </label>
+            <div class="toggle">
+                <label class="switch-text">Profit per month</label>
+                <label class="switch">
+                    <input type="checkbox" id="checkbox-profit-month" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
     </div>
 

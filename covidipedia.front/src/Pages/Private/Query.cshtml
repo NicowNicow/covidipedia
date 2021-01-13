@@ -3,56 +3,45 @@
 @{
   ViewData["Title"] = "Requêtes Spécialisées";
 }
-<style>
-    input[type=text] {
-        width: 130px;
-        box-sizing: border-box;
-        border: 2px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        background-color: white;
-        background-image: url('searchicon.png');
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        padding: 12px 20px 12px 40px;
-        transition: width 0.4s ease-in-out;
-    }
-
-        input[type=text]:focus {
-            width: 100%;
-        }
-</style>
-
 <head>
-  <link href="~/css/query.css" rel="stylesheet" />
+    <link href="~/css/query.css" rel="stylesheet" />
+    <script src="~/js/query.js"></script>
 </head>
 
 <body>
   <h1>@ViewData["Title"]</h1>
 
-<form>
-    <select id="country" name="country">
-        <option value="au">Australia</option>
-        <option value="ca">Canada</option>
-        <option value="usa">USA</option>
-    </select>
-    <select id="vile" name="ville">
-        <option value="au">Australia</option>
-        <option value="ca">Canada</option>
-        <option value="usa">USA</option>
-    </select>
-    <select id="departement" name="departement">
-        <option value="au">Australia</option>
-        <option value="ca">Canada</option>
-        <option value="usa">USA</option>
-    </select>
-    <select id="Date" name="Date">
-        <option value="au">Australia</option>
-        <option value="ca">Canada</option>
-        <option value="usa">USA</option>
-    </select>
-    <input type="text" name="search" placeholder="Search..">
-</form>
+  <form>
+      <select id="country" name="country">
+          <option value="au">Australia</option>
+          <option value="ca">Canada</option>
+          <option value="usa">USA</option>
+      </select>
+      <select id="vile" name="ville">
+          <option value="au">Australia</option>
+          <option value="ca">Canada</option>
+          <option value="usa">USA</option>
+      </select>
+      <select id="departement" name="departement">
+          <option value="au">Australia</option>
+          <option value="ca">Canada</option>
+          <option value="usa">USA</option>
+      </select>
+      <select id="Date" name="Date">
+          <option value="au">Australia</option>
+          <option value="ca">Canada</option>
+          <option value="usa">USA</option>
+      </select>
+      <button class="open-button" type="button" onclick="openForm()">More</button>
+      <div id="More" class="form-container">
+          <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+          <label for="vehicle1"> I have a bike</label><br>
+          <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+          <label for="vehicle2"> I have a car</label><br>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </div>
+      <input type="text" name="search" placeholder="Search..">
+  </form>
 
 
   <table class="table">

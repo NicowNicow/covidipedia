@@ -9,64 +9,103 @@
 </head>
 
 <body>
-  <h1>@ViewData["Title"]</h1>
-
-  <form>
-      <select id="country" name="country">
-          <option value="fr">France</option>
-          <option value="uk">Royaume-Unis</option>
-          <option value="it">Italie</option>
-      </select>
-      <select id="Region" name="Region">
-          <option value="idf">Ile-de-France</option>
-          <option value="sud">Sud</option>
-          <option value="ge">Grand Est</option>
-      </select>
-      <input type="date" id="detection" name="detection">
-      <button class="open-button" type="button" onclick="openForm()">More</button>
-      <div id="More" class="form-container">
-          <label for="points">Age entre</label>
-          <input type="number" id="age_start" name="agelow" step="1" max="100">
-          <label for="points">et</label>
-          <input type="number" id="age_end" name="ageup" step="1" max="100">
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-      </div>
-      <input type="text" name="search" placeholder="Search..">
-      <input type="submit">
-  </form>
+    <h1>@ViewData["Title"]</h1>
 
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Date</th>
-        <th scope="col">Place</th>
-        <th scope="col">Info</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-      @{
-        List<QueryModel.Result> result = new List<QueryModel.Result>();
-        for (var i = 0; i < 10; i++) {
-          var temp = new QueryModel.Result();
-          temp.date = new DateTime();
-          temp.place = QueryModel.RandomString(5);
-          temp.info = QueryModel.RandomString(10);
-          result.Add(temp);
+    <input type="text" name="search" placeholder="Search..">
+
+
+
+    <table class="table">
+        <form>
+            <input text="Search" type="submit">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date <input type="date" id="detection" name="detection"></th>
+                    <th scope="col">
+                        Place <select id="country" name="country">
+                            <option value="fr">France</option>
+                            <option value="uk">Royaume-Unis</option>
+                            <option value="it">Italie</option>
+                        </select> <select id="Region" name="Region">
+                            <option value="idf">Ile-de-France</option>
+                            <option value="sud">Sud</option>
+                            <option value="ge">Grand Est</option>
+                        </select>
+                    </th>
+                    <th scope="col">Info</th>
+                </tr>
+            </thead>
+        </form>
+        <tbody>
+
+            @{
+                List<QueryModel.Result> result = new List<QueryModel.Result>();
+                for (var i = 0; i < 10; i++)
+                {
+                    var temp = new QueryModel.Result();
+                    temp.date = new DateTime();
+                    temp.place = QueryModel.RandomString(5);
+                    temp.info = QueryModel.RandomString(10);
+                    result.Add(temp);
+                }
+                foreach (var x in result)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@x.date</td>
+                        <td>@x.place</td>
+                        <td>@x.info</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    <button onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
+    <script>
+        function downloadCSV(csv, filename) {
+            var csvFile;
+            var downloadLink;
+
+            // CSV file
+            csvFile = new Blob([csv], { type: "text/csv" });
+
+            // Download link
+            downloadLink = document.createElement("a");
+
+            // File name
+            downloadLink.download = filename;
+
+            // Create a link to the file
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+
+            // Hide download link
+            downloadLink.style.display = "none";
+
+            // Add the link to DOM
+            document.body.appendChild(downloadLink);
+
+            // Click download link
+            downloadLink.click();
         }
-        foreach (var x in result) {
-          <tr>
-            <th scope="row">1</th>
-            <td>@x.date</td>
-            <td>@x.place</td>
-            <td>@x.info</td>
-          </tr>
+
+        function exportTableToCSV(filename) {
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                for (var j = 0; j < cols.length; j++)
+                    row.push(cols[j].innerText);
+
+                csv.push(row.join(","));
+            }
+
+            // Download CSV file
+            downloadCSV(csv.join("\n"), filename);
         }
-      }
-
-    </tbody>
-  </table>
-
+    </script>
 </body>

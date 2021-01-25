@@ -3,26 +3,27 @@
 @{
   ViewData["Title"] = "Requêtes Spécialisées";
 }
+
 <head>
-    <link href="~/css/query.css" rel="stylesheet" />
+
     <script src="~/js/query.js"></script>
+    <link href="~/css/calendar.css" rel="stylesheet" />
+
 </head>
 
 <body>
     <h1>@ViewData["Title"]</h1>
 
 
-    <input type="text" name="search" placeholder="Search..">
-
-
-
     <table class="table">
         <form>
-            <input text="Search" type="submit">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Date <input type="date" id="detection" name="detection"></th>
+                    <th scope="col">
+                        Date<input type="text" id="datePicker">
+                        <span id="calendar"></span>
+                    </th>
                     <th scope="col">
                         Place <select id="country" name="country">
                             <option value="fr">France</option>
@@ -63,49 +64,20 @@
 
         </tbody>
     </table>
-    <button onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
+    <button class="btn-success" onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
+    <script src="~/js/calendar.js"></script>
     <script>
-        function downloadCSV(csv, filename) {
-            var csvFile;
-            var downloadLink;
-
-            // CSV file
-            csvFile = new Blob([csv], { type: "text/csv" });
-
-            // Download link
-            downloadLink = document.createElement("a");
-
-            // File name
-            downloadLink.download = filename;
-
-            // Create a link to the file
-            downloadLink.href = window.URL.createObjectURL(csvFile);
-
-            // Hide download link
-            downloadLink.style.display = "none";
-
-            // Add the link to DOM
-            document.body.appendChild(downloadLink);
-
-            // Click download link
-            downloadLink.click();
-        }
-
-        function exportTableToCSV(filename) {
-            var csv = [];
-            var rows = document.querySelectorAll("table tr");
-
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll("td, th");
-
-                for (var j = 0; j < cols.length; j++)
-                    row.push(cols[j].innerText);
-
-                csv.push(row.join(","));
+        var trigger = document.querySelector('#datePicker');
+        var dateComponent = new DatePicker({
+            el: document.querySelector('#calendar'),
+            trigger: trigger,
+            onchange: function (curr) {
+                trigger.value = curr;
             }
+        });
 
-            // Download CSV file
-            downloadCSV(csv.join("\n"), filename);
-        }
+        trigger.onfocus = function () {
+            dateComponent.show();
+        };
     </script>
 </body>

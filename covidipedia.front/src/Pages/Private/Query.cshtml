@@ -44,28 +44,22 @@
         <tbody>
 
             @{
-                List<QueryModel.Result> result = new List<QueryModel.Result>();
-                for (var i = 0; i < 10; i++)
-                {
-                    var temp = new QueryModel.Result();
-                    temp.date = new DateTime();
-                    temp.place = QueryModel.RandomString(5);
-                    temp.info = QueryModel.RandomString(10);
-                    result.Add(temp);
-                }
-                foreach (var x in result)
+                Connect connect = new Connect();
+                List<Hopital> hopitals = connect.recupHopital();
+                foreach (var x in hopitals)
                 {
                     <tr>
-                        <th scope="row">1</th>
-                        <td>@x.date</td>
-                        <td>@x.place</td>
-                        <td>@x.info</td>
+                        <td>@x.IdHopitalHopital</td>
+                        <td>@x.NomHopital</td>
+                        <td>@x.NombreLitsHopital</td>
+                        <td>@x.NombreLitsReanimationHopital</td>
                     </tr>
                 }
             }
 
         </tbody>
     </table>
+
     <button class="btn-success" onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
     <script src="~/js/calendar.js"></script>
     <script>
@@ -82,4 +76,5 @@
             dateComponent.show();
         };
     </script>
+
 </body>

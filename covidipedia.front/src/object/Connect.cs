@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-namespace covidipedia.front.src
+namespace covidipedia.front
 {
     public class Connect
     {
+        public Connect()
+        {
+
+        }
         public List<AyantLesPathology> recupAyantPatho()
         {
             List<AyantLesPathology> ayantLesPathologies = new List<AyantLesPathology>();

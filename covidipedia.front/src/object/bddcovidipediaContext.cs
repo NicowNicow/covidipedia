@@ -36,7 +36,8 @@ namespace covidipedia.front
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Name=Database");
+                //optionsBuilder.UseNpgsql("Name=Database");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=bddcovidipedia;Username=postgres;Password=aixenprovence");
             }
         }
 

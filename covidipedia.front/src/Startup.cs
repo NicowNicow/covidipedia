@@ -22,7 +22,7 @@ namespace covidipedia.front {
             //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
             // });
             
-            //services.AddDbContext<AppDatabase>(options => options.UseNpgsql("Host=localhost;Database=benis;Username=postgres;Password=aix en provence"));
+            //services.AddDbContext<bddcovidipediaContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Database")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

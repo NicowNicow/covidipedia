@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using covidipedia.front;
 
 namespace covidipedia.front.Pages
 {

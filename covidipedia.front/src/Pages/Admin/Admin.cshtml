@@ -18,7 +18,7 @@
     <form id="form1" runat="server" class="connector">
         <div class="container">
             <h2>Connectors Table</h2>
-            <table class="table" id="maintable">
+            <table class="table" id="connectortable">
                 <thead>
                     <tr>
                         <th>Firstname</th>
@@ -50,7 +50,7 @@
     <form id="form1" runat="server" class="usertable">
         <div class="container">
             <h2>Users Table</h2>
-            <table class="table" id="maintable">
+            <table class="table" id="usertable">
                 <thead>
                     <tr>
                         <th>Firstname</th>
@@ -70,7 +70,7 @@
                             <input type="text" name="email" class="form-control email01" />
                         </td>
                         <td>
-                            <button type="button" id="btnAdd" class="btn btn-xs btn-primary classAdd">Add More</button>
+                            <button type="button" id="btnAdd" class="btn btn-xs btn-primary UserAdd">Add More</button>
                         </td>
                     </tr>
                 </tbody>
@@ -89,7 +89,20 @@
                     '<td><button type="button" id="btnAdd" class="btn btn-xs btn-primary classAdd">Add More</button>' +
                     '<button type="button" id="btnDelete" class="deleteContact btn btn btn-danger btn-xs">Remove</button></td>' +
                     '</tr>';
-                $('#maintable').append(contactdiv); // Adding these controls to Main table class
+                $('#connectortable').append(contactdiv); // Adding these controls to Main table class
+            });
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".UserAdd", function () { //
+                var rowCount = $('.data-contact-person').length + 1;
+                var contactdiv = '<tr class="data-contact-person">' +
+                    '<td><input type="text" name="f-name' + rowCount + '" class="form-control f-name01" /></td>' +
+                    '<td><input type="text" name="l-name' + rowCount + '" class="form-control l-name01" /></td>' +
+                    '<td><input type="text" name="email' + rowCount + '" class="form-control email01" /></td>' +
+                    '<td><button type="button" id="btnAdd" class="btn btn-xs btn-primary classAdd">Add More</button>' +
+                    '<button type="button" id="btnDelete" class="deleteContact btn btn btn-danger btn-xs">Remove</button></td>' +
+                    '</tr>';
+                $('#usertable').append(contactdiv); // Adding these controls to Main table class
             });
         });
         $(document).on("click", ".deleteContact", function () {
@@ -99,7 +112,7 @@
     <script>
         $('form.usertable').hide();
         $(document).ready(function () {
-            $("button").click(function () {
+            $("#btntoggle").click(function () {
                 $("form.connector").toggle();
                 $("form.usertable").toggle();
             });

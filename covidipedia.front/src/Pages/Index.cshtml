@@ -5,66 +5,56 @@
 }
 <head>
     <link rel="stylesheet" href="~/lib/chartjs/Chart.css" />
-    <link rel="stylesheet" href="~/css/index.css" type="text/css"/>
-    <link rel="stylesheet" href="~/css/slider.css" type="text/css"/>
+    <link rel="stylesheet" href="~/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/slider.css" type="text/css" />
+    <link href="~/css/calendar.css" rel="stylesheet" />
 </head>
 
 <body>
+    <div>
+    <table class="table">
+        <form>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">
+                        Date<input type="text" id="datePicker">
+                        <span id="calendar"></span>
+                    </th>
+                    <th scope="col">
+                        Place <select id="country" name="country">
+                            <option value="fr">France</option>
+                            <option value="uk">Royaume-Unis</option>
+                            <option value="it">Italie</option>
+                        </select> <select id="Region" name="Region">
+                            <option value="idf">Ile-de-France</option>
+                            <option value="sud">Sud</option>
+                            <option value="ge">Grand Est</option>
+                        </select>
+                    </th>
+                </tr>
+            </thead>
+        </form>
+</div>
 
-    <div class="graph-selection">
-        <h3 class= graph-title>Choisissez les jeux de données à afficher:</h3>
-        <div class="checkboxes">
-
-            <div class="toggle">
-                <label class="switch-text">Sales by Countries</label>
-                <label class="switch">
-                    <input type="checkbox" id="checkbox-sales-countries" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            
-            <div class="toggle">
-                <label class="switch-text">Discount by Countries</label>
-                <label class="switch">
-                    <input type="checkbox" id="checkbox-discount-countries" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-
-            <div class="toggle">
-                <label class="switch-text">Profit per month</label>
-                <label class="switch">
-                    <input type="checkbox" id="checkbox-profit-month" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <div class="graph-printing">
-
-        <div id="frame" class="sales-countries">
-            <canvas id="chart-sales-countries"></canvas>
-        </div>
-
-        <iframe id="frame" class="discount-countries" width="45%" height="373.5"
-                    src="https://app.powerbi.com/view?r=eyJrIjoiNTc1NDQxZWQtNzk2ZS00MzJkLWFjNDEtZTQ1OWFmYmU3Mjk3IiwidCI6Ijg5NzM0Mjg5LWEzY2YtNDA1Mi05MDIxLTE5NWE3YmJhNDk5MiIsImMiOjh9"
-                    frameborder="0" allowFullScreen="true"></iframe>
-        
-        <iframe id="frame" class="profit-month" width="45%" height="373.5"
-                    src="https://app.powerbi.com/view?r=eyJrIjoiOGY3MGU5NjMtMWVkYy00MzgxLTk4YTctZjU0N2NhZDk4OWY1IiwidCI6Ijg5NzM0Mjg5LWEzY2YtNDA1Mi05MDIxLTE5NWE3YmJhNDk5MiIsImMiOjh9"
-                    frameborder="0" allowFullScreen="true"></iframe>
-
-    </div>
-
-    <script> //Script Graph 1: Sales by Countries
-        document.addEventListener('DOMContentLoaded', (event) => {
-            var context = document.getElementById('chart-sales-countries');
-            var myChart = new Chart(context, @Html.Raw(Model._chartSalesCountries.ChartJson) );
-        });
-    </script>
+   
 
     <script src="~/js/index.js"></script>
     <script src="~/lib/chartjs/Chart.min.js" asp-append-version="true"></script>
+    <script src="~/js/calendar.js"></script>
+    <script>
+        var trigger = document.querySelector('#datePicker');
+        var dateComponent = new DatePicker({
+            el: document.querySelector('#calendar'),
+            trigger: trigger,
+            onchange: function (curr) {
+                trigger.value = curr;
+            }
+        });
+
+        trigger.onfocus = function () {
+            dateComponent.show();
+        };
+    </script>
 
 </body>

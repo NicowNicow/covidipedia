@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -8,14 +10,10 @@ namespace covidipedia.front
 {
     public partial class bddcovidipediaContext : DbContext
     {
-        public bddcovidipediaContext()
-        {
-        }
+        public string connectionString {get;}
 
-        public bddcovidipediaContext(DbContextOptions<bddcovidipediaContext> options)
-            : base(options)
-        {
-        }
+        public bddcovidipediaContext() {}
+        public bddcovidipediaContext(DbContextOptions<bddcovidipediaContext> options) : base(options) {}
 
         public virtual DbSet<AyantLesPathology> AyantLesPathologies { get; set; }
         public virtual DbSet<Ca> Cas { get; set; }
@@ -32,12 +30,12 @@ namespace covidipedia.front
         public virtual DbSet<Traitement> Traitements { get; set; }
         public virtual DbSet<Vaccin> Vaccins { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                //optionsBuilder.UseNpgsql("Name=Database");
-                optionsBuilder.UseNpgsql("Host=localhost;Database=bddcovidipedia;Username=postgres;Password=aixenprovence");
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+            if (!optionsBuilder.IsConfigured) {
+                ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+                configurationBuilder.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json"), false);
+                IConfigurationRoot root = configurationBuilder.Build();
+                optionsBuilder.UseNpgsql(root.GetSection("ConnectionString").Value);
             }
         }
 

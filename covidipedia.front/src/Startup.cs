@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace covidipedia.front {
     public class Startup {
         public Startup(IConfiguration configuration) {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -21,8 +21,7 @@ namespace covidipedia.front {
             //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
             //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
             // });
-            
-            //services.AddDbContext<bddcovidipediaContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Database")));
+            services.AddDbContext<bddcovidipediaContext>(options => options.UseNpgsql(Configuration["ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

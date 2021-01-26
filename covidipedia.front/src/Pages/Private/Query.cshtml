@@ -3,7 +3,6 @@
 @{
   ViewData["Title"] = "Requêtes Spécialisées";
 }
-
 <head>
 
     <script src="~/js/query.js"></script>
@@ -15,53 +14,30 @@
     <h1>@ViewData["Title"]</h1>
 
 
-    <table class="table">
-        <form>
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">
-                        Date<input type="text" id="datePicker">
-                        <span id="calendar"></span>
-                    </th>
-                    <th scope="col">
-                        Place <select id="country" name="country">
-                            <option value="fr">France</option>
-                            <option value="uk">Royaume-Unis</option>
-                            <option value="it">Italie</option>
-                        </select> <select id="Region" name="Region">
-                            <option value="idf">Ile-de-France</option>
-                            <option value="sud">Sud</option>
-                            <option value="ge">Grand Est</option>
-                        </select>
-                    </th>
-                    <th scope="col">Info</th>
-                </tr>
-            </thead>
-            <button class="btn-dark" type="submit">Submit</button>
-        </form>
-       
+    
+    <form method="post">
+        <div class="form-group">
+            <input asp-for="Input.Name" class="form-control" placeholder="Rechercher un hopital"/>
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+        <button type="submit" asp-page-handler="Submit" class="btn btn-primary">Recherche</button>
+    </form>
+
+    <table>
+        <thead>
+
+        </thead>
         <tbody>
-
-            @{
-                Connect connect = new Connect();
-                List<Hopital> hopitals = connect.recupHopital();
-                foreach (var x in hopitals)
-                {
-                    <tr>
-                        <td>@x.IdHopitalHopital</td>
-                        <td>@x.NomHopital</td>
-                        <td>@x.NombreLitsHopital</td>
-                        <td>@x.NombreLitsReanimationHopital</td>
-                    </tr>
-                }
-            }
-
+             @Html.Raw(TempData["msg"])
         </tbody>
     </table>
 
+
     <button class="btn-success" onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
+
+
     <script src="~/js/calendar.js"></script>
+
     <script>
         var trigger = document.querySelector('#datePicker');
         var dateComponent = new DatePicker({

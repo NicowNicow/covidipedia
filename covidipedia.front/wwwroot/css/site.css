@@ -104,7 +104,7 @@ body {
   /* padding: 50vh 0; */
 }
 .parallax {
-  font-size: 200%;
+  /* font-size: 200%; */
   perspective: 1px;
   height: 100vh;
   overflow-x: hidden;
@@ -119,8 +119,6 @@ body {
 .parallax__layer--back {
 	-webkit-transform: translateZ(-1px) scale(2);
   transform: translateZ(-1px) scale(2);
-  /*background-image: url("bg.png");
-  background-attachment: fixed;*/
   z-index: 3;
 }
 
@@ -214,4 +212,24 @@ button{
   position: relative;
   top: 5%;
   left: 10%;
+}
+
+.table{
+  background-color: whitesmoke;
+}
+
+table tbody {
+  display: block;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+table thead, table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+label[for^="Radio"]{
+  color: white;
 }

@@ -1,0 +1,6 @@
+Covidipédia à la place du logo pour l'instant
+Bouton login
+Navbar ajouter bouton requête
+Bouton retour en haut
+Bouton exporter
+Barre de recherche

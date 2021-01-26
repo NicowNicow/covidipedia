@@ -1,4 +1,27 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function graphScroll(graph){
+    elmnt = document.getElementById("group"+graph);
+    elmnt.scrollIntoView({behavior: "smooth"})
+}
 
-// Write your Javascript code.
+document.getElementById("searchbar").addEventListener('keydown', replaceGraph);
+
+function replaceGraph(event){
+    if(event.keyCode === 13){
+        $("#low-header button").hide();
+        $("#low-header table").show();
+
+    }
+}
+
+var trigger = document.querySelector('#datePicker');
+var dateComponent = new DatePicker({
+    el: document.querySelector('#calendar'),
+    trigger: trigger,
+    onchange: function (curr) {
+        trigger.value = curr;
+    }
+});
+
+trigger.onfocus = function () {
+    dateComponent.show();
+};

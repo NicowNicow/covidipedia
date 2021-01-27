@@ -13,8 +13,7 @@ namespace covidipedia.front
             List<AyantLesPathology> ayantLesPathologies = new List<AyantLesPathology>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.AyantLesPathologies)
-                    ayantLesPathologies.Add(x);
+                ayantLesPathologies= context.AyantLesPathologies.ToList();
             }
             return ayantLesPathologies;
         }
@@ -24,8 +23,7 @@ namespace covidipedia.front
             List<Ca> cas = new List<Ca>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Cas)
-                    cas.Add(x);
+                cas=context.Cas.ToList();
             }
             return cas;
         }
@@ -35,8 +33,7 @@ namespace covidipedia.front
             List<EffetSecondaire> effetSecondaires = new List<EffetSecondaire>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.EffetSecondaires)
-                    effetSecondaires.Add(x);
+                effetSecondaires=context.EffetSecondaires.ToList();
             }
             return effetSecondaires;
         }
@@ -46,8 +43,7 @@ namespace covidipedia.front
             List<EstDiagnostique> estDiagnostiques = new List<EstDiagnostique>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.EstDiagnostiques)
-                    estDiagnostiques.Add(x);
+                estDiagnostiques=context.EstDiagnostiques.ToList();
             }
             return estDiagnostiques;
         }
@@ -57,8 +53,7 @@ namespace covidipedia.front
             List<HistoriqueCa> historiqueCas = new List<HistoriqueCa>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.HistoriqueCas)
-                    historiqueCas.Add(x);
+                historiqueCas=context.HistoriqueCas.ToList();
             }
             return historiqueCas;
         }
@@ -68,8 +63,7 @@ namespace covidipedia.front
             List<Hopital> hopitals = new List<Hopital>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Hopitals)
-                    hopitals.Add(x);
+                hopitals=context.Hopitals.ToList();
             }
             return hopitals;
         }
@@ -78,81 +72,73 @@ namespace covidipedia.front
             List<Localisation> localisations = new List<Localisation>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Localisations)
-                    localisations.Add(x);
+                localisations=context.Localisations.ToList();
             }
             return localisations;
         }
         public List<Pathologie> recupPathologie()
         {
-            List<Pathologie> Pathologie = new List<Pathologie>();
+            List<Pathologie> pathologies = new List<Pathologie>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Pathologies)
-                    Pathologie.Add(x);
+                pathologies=context.Pathologies.ToList();
             }
-            return Pathologie;
+            return pathologies;
         }
         public List<Personne> recupPersonne()
         {
-            List<Personne> Personne = new List<Personne>();
+            List<Personne> personnes = new List<Personne>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Personnes)
-                    Personne.Add(x);
+                personnes=context.Personnes.ToList();
             }
-            return Personne;
+            return personnes;
         }
         public List<RecoitLeTraitement> recupRecoitLeTraitement()
         {
-            List<RecoitLeTraitement> RecoitLeTraitement = new List<RecoitLeTraitement>();
+            List<RecoitLeTraitement> recoitLeTraitements = new List<RecoitLeTraitement>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.RecoitLeTraitements)
-                    RecoitLeTraitement.Add(x);
+                recoitLeTraitements=context.RecoitLeTraitements.ToList();
             }
-            return RecoitLeTraitement;
+            return recoitLeTraitements;
         }
         public List<RessentEffetSecondaire> recupRessentEffetSecondaire()
         {
-            List<RessentEffetSecondaire> RessentEffetSecondaire = new List<RessentEffetSecondaire>();
+            List<RessentEffetSecondaire> ressentEffetSecondaires = new List<RessentEffetSecondaire>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.RessentEffetSecondaires)
-                    RessentEffetSecondaire.Add(x);
+                ressentEffetSecondaires=context.RessentEffetSecondaires.ToList();
             }
-            return RessentEffetSecondaire;
+            return ressentEffetSecondaires;
         }
         public List<Symptome> recupSymptome()
         {
-            List<Symptome> Symptome = new List<Symptome>();
+            List<Symptome> symptomes = new List<Symptome>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Symptomes)
-                    Symptome.Add(x);
+                symptomes=context.Symptomes.ToList();
             }
-            return Symptome;
+            return symptomes;
         }
 
         public List<Traitement> recupTraitement()
         {
-            List<Traitement> Traitement = new List<Traitement>();
+            List<Traitement> traitements = new List<Traitement>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Traitements)
-                    Traitement.Add(x);
+                traitements=context.Traitements.ToList();
             }
-            return Traitement;
+            return traitements;
         }
         public List<Vaccin> recupVaccin()
         {
-            List<Vaccin> Vaccin = new List<Vaccin>();
+            List<Vaccin> vaccins = new List<Vaccin>();
             using (var context = new bddcovidipediaContext())
             {
-                foreach (var x in context.Vaccins)
-                    Vaccin.Add(x);
+                vaccins=context.Vaccins.ToList();
             }
-            return Vaccin;
+            return vaccins;
         }
     }
 }

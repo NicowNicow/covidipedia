@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace covidipedia.front
 {
+    [Index(nameof(NomHopital))]
     public partial class Hopital
     {
         public Hopital()

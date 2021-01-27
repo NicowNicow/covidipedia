@@ -20,6 +20,7 @@ namespace covidipedia.front {
             //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
             //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
             // });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +36,7 @@ namespace covidipedia.front {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>{endpoints.MapRazorPages();});
         }

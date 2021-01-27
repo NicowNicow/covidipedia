@@ -20,7 +20,7 @@ namespace covidipedia.front.Pages
         public void OnGet() { }
 
 
-        //Reception du résultat de la requêtes; Bind du bouton submit
+        //Activation du Bouton et fonction associée
 
         public class SampleModel {
             public string Name { get; set; }
@@ -30,19 +30,17 @@ namespace covidipedia.front.Pages
         public SampleModel Input { get; set; }
 
         [ValidateAntiForgeryToken]
-        public IActionResult OnPostSubmit()
-        {
+        public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
             List<Hopital> hopitals = new List<Hopital>();
             using (bddcovidipediaContext context = new bddcovidipediaContext()) {
                 hopitals = GenericQuery.QueryHopital(Input.Name, context);
             }
-            TempData["msg"] = "<table style='width: 100%'><tr><th>ID hopital </th><th>Nom hopitalto</th><th>Nombre de lits</th><th>Nombre de lits en réanimation</th></tr>";
+            ViewData["ResultTable"] = "<table style='width: 100%'><tr><th>ID hopital</th><th>Nom hopital</th><th>Nombre de lits</th><th>Nombre de lits en réanimation</th></tr>";
             foreach(Hopital h in hopitals) {
-                TempData["msg"] += $"<tr><th>{h.IdHopitalHopital}</th><th>{h.NomHopital}</th><th>{h.NombreLitsHopital}</th><th>{h.NombreLitsReanimationHopital}</th></tr>";
+                ViewData["ResultTable"] += $"<tr><th>{h.IdHopitalHopital}</th><th>{h.NomHopital}</th><th>{h.NombreLitsHopital}</th><th>{h.NombreLitsReanimationHopital}</th></tr>";
             }
-            TempData["msg"] += "</table>";
-            
+            ViewData["ResultTable"] += "</table>";
             return Page();
         }
 

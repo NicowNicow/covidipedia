@@ -3,54 +3,51 @@
 @{
   ViewData["Title"] = "Requêtes Spécialisées";
 }
+
 <head>
-
     <script src="~/js/query.js"></script>
-    <link href="~/css/calendar.css" rel="stylesheet" />
-
+    <link href="~/css/query.css" rel="stylesheet" />
 </head>
 
 <body>
     <h1>@ViewData["Title"]</h1>
 
+    <div class="query-creator">
+        <form class="query-form" method="post">
+            <div class="form-group">
 
+                <select name="select-table" id="select-table"> <!--Faudra faire ça moins statique si possible -->
+                    <option value="Cas">Cas</option>
+                    <option value="Effets Secondaires">Effets Secondaires</option>
+                    <option value="Hopital" selected="selected">Hopital</option>
+                    <option value="Pathologie">Pathologie</option>
+                    <option value="Personne">Personne</option>
+                    <option value="Symptome">Symptome</option>
+                    <option value="Traitement">Traitement</option>
+                    <option value="Vaccin">Vaccin</option>
+                </select>
+
+                @Html.TextBoxFor(model => model.Input.Name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="submit-group">
+                <a class="nav-link text-dark" >+  Plus de critères</a>
+                <button id="query-submit" type="submit" asp-page-handler="Submit" class="btn btn-primary">Recherche</button>
+            </div>
+        </form>
+    </div>
     
-    <form method="post">
-        <div class="form-group">
-            <input asp-for="Input.Name" class="form-control" placeholder="Rechercher un hopital"/>
-            <span asp-validation-for="Input.Name" class="text-danger"></span>
-        </div>
-        <button type="submit" asp-page-handler="Submit" class="btn btn-primary">Recherche</button>
-    </form>
-
-    <table>
-        <thead>
-
-        </thead>
-        <tbody>
-             @Html.Raw(TempData["msg"])
-        </tbody>
-    </table>
-
-
-    <button class="btn-success" onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
-
-
-    <script src="~/js/calendar.js"></script>
-
-    <script>
-        var trigger = document.querySelector('#datePicker');
-        var dateComponent = new DatePicker({
-            el: document.querySelector('#calendar'),
-            trigger: trigger,
-            onchange: function (curr) {
-                trigger.value = curr;
+    <div class="results-table">
+        @{
+            if (ViewData["ResultTable"] != null) {
+                <button id="csv-export" class="btn-success" onclick="exportTableToCSV('members.csv')">Exporter le tableau au format CSV</button>
             }
-        });
-
-        trigger.onfocus = function () {
-            dateComponent.show();
-        };
-    </script>
+        }
+        <table>
+            <tbody>
+                @Html.Raw(ViewData["ResultTable"])
+            </tbody>
+        </table>
+    </div>
 
 </body>

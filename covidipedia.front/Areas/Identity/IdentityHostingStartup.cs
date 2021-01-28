@@ -19,9 +19,9 @@ namespace covidipedia.front.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("LoginContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<LoginContext>();
-            
+                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<LoginContext>();
+
             });
         }
     }

@@ -10,7 +10,7 @@ using covidipedia.front.Data;
 namespace covidipedia.front.Migrations
 {
     [DbContext(typeof(LoginContext))]
-    [Migration("20210127150545_CreateIdentitySchema")]
+    [Migration("20210128144756_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

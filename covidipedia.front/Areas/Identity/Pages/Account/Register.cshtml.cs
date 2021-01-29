@@ -125,7 +125,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
                 var role = new IdentityRole
                 {
                     Name = "Admin"
-    };
+                };
                 await _roleManager.CreateAsync(role);
             }
         }

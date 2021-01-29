@@ -1,0 +1,19 @@
+﻿@page
+@model AdminModel
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> _UserManager
+@inject RoleManager<IdentityRole> _RoleManager
+<h3> Administration</h3>
+@{
+    ViewData["Title"] = "Admin";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <p>You are in Admin </p>
+}
+else
+{
+    <p>You're not signed in as a user</p>
+}

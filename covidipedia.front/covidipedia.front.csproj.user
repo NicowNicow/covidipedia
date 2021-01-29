@@ -5,8 +5,8 @@
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_LayoutPageFile>~/src/Pages/Shared/_Layout.cshtml</WebStackScaffolding_LayoutPageFile>
-    <ShowAllFiles>true</ShowAllFiles>
-    <ActiveDebugProfile>covidipedia.front</ActiveDebugProfile>
+    <ShowAllFiles>false</ShowAllFiles>
+    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

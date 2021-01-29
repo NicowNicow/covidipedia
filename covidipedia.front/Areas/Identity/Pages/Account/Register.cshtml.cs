@@ -80,7 +80,8 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
                 await CreateRole();
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                var roleresult = _userManager.AddToRoleAsync(user, "Admin");
+                //uncomment to make admin
+                //await _userManager.AddToRoleAsync(user, "Admin");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

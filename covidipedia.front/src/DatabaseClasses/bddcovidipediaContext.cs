@@ -197,6 +197,8 @@ namespace covidipedia.front
                 entity.HasKey(e => e.IdHopitalHopital)
                     .HasName("hopital_pkey");
 
+                entity.HasIndex(e => e.NomHopital).HasName("nom_hopital_index");
+
                 entity.ToTable("hopital");
 
                 entity.Property(e => e.IdHopitalHopital).HasColumnName("id_hopital_hopital");

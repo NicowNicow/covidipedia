@@ -1,5 +1,10 @@
+using covidipedia.front.Data;
+using covidipedia.front.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,11 +20,22 @@ namespace covidipedia.front {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc().WithRazorPagesRoot("/src/Pages");
+            services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHostedService<EnsureAdministrator>();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Admin");
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
             //Confidentialité des pages, à travailler
             // services.AddMvc().AddRazorPagesOptions(options => {
             //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
             //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
             // });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +50,12 @@ namespace covidipedia.front {
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy(new CookiePolicyOptions()
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>{endpoints.MapRazorPages();});
         }

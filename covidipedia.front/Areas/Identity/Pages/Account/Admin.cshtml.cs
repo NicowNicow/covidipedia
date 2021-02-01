@@ -14,17 +14,13 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class AdminModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> RoleManager;
 
-        public AdminModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+        public AdminModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> RoleManager)
         {
-            _signInManager = signInManager;
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
+            this.userManager = userManager;
+            this.RoleManager = RoleManager;
         }
     }
 }

@@ -57,7 +57,15 @@
 
     </div>
 
+    <script> //Script Graph 1: Sales by Countries
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var context = document.getElementById('chart-sales-countries'); //JS: Positionnement dans le canvas correspondant
+            var myChart = new Chart(context, @Html.Raw(Model._chartSalesCountries.ChartJson) ); //C#: Instanciation de l'objet Chart à placer
+        });
+    </script>
+
     <script src="~/js/index.js"></script>
+    <script src="~/lib/chartjs/Chart.min.js" asp-append-version="true"></script>
 
 
 </body>

@@ -29,7 +29,6 @@ namespace covidipedia.front.Pages
         [BindProperty]
         public SampleModel Input { get; set; }
 
-        [ValidateAntiForgeryToken]
         public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
             List<Hopital> hopitals = new List<Hopital>();

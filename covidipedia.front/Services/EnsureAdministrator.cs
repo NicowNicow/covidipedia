@@ -27,7 +27,6 @@ namespace covidipedia.front.Services
             // Get the DbContext instance
             var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            //Add Administrator if not found
             string adminLoginName = "Administrator";
             int adminId = await applicationDbContext.AppUsers
                 .AsNoTracking()
@@ -36,14 +35,47 @@ namespace covidipedia.front.Services
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 
+            // Reset Administrator after migration
+            var resetAdministrator = false;
+            if (adminId != 0 && resetAdministrator)
+            {
+                var admin = await applicationDbContext.AppUsers
+                .Where(a => a.Id == adminId)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+
+                applicationDbContext.AppUsers.Remove(admin);
+                try
+                {
+                    applicationDbContext.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw new InvalidOperationException("DbUpdateConcurrencyException occurred deleting old " +
+                        "admin user in EnsureAdminHostedService.cs.");
+                }
+                catch (DbUpdateException)
+                {
+                    throw new InvalidOperationException("DbUpdateException occurred deleting old admin user in " +
+                       "EnsureAdminHostedService.cs.");
+                }
+
+                adminId = 0;
+            }
+
+            // Add Administrator if not found
             if (adminId == 0)
             {
                 var password = "P@ssw0rd";
-                var adminUser = new AppUser
+
+                var customPasswordHasher = new Hash();
+                var passwordHash = customPasswordHasher.HashPassword(password);
+
+                var adminUser = new AppUser()
                 {
                     LoginName = adminLoginName,
                     LoginNameUppercase = adminLoginName.ToUpper(),
-                    Password = password
+                    PasswordHash = passwordHash
                 };
 
                 applicationDbContext.AppUsers.Add(adminUser);

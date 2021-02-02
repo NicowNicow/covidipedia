@@ -21,7 +21,7 @@ namespace covidipedia.front.src.Entities
         public string LoginNameUppercase { get; set; }
 
         [Required]
-        [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
-        public string Password { get; set; }
+        [MaxLength(84, ErrorMessage = "The {0} is max {1} characters long.")]
+        public string PasswordHash { get; set; }
     }
 }

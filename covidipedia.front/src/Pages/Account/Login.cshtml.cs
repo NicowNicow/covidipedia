@@ -111,10 +111,21 @@ namespace covidipedia.front.src.Pages.Account
             if (user == null)
                 return null;
 
-            if (password != user.Password)
-                return null;
+            //if (password != user.Password)
+            //    return null;
 
-            return user;
+            //return user;
+
+            var customPasswordHasher = new Hash();
+            if (customPasswordHasher.VerifyPassword(user.PasswordHash, password))
+            {
+                return user;
+            }
+            else
+            {
+                // Login Failed
+                return null;
+            }
         }
     }
 }

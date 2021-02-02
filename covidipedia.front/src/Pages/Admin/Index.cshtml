@@ -5,5 +5,7 @@
 }
 
 <h1>Admin</h1>
-<h5>You must be signed in to access this resource.</h5>
-<a class="btn btn-primary" asp-page="/Admin/Users/Index">Users</a>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <a class="btn btn-primary" asp-page="/Admin/Users/Index">Users</a>
+}

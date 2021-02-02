@@ -19,11 +19,20 @@
                 <input asp-for="Input.LoginName" class="form-control" />
                 <span asp-validation-for="Input.LoginName" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Input.Password" class="control-label"></label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" asp-for="Input.IsAdmin" />
+                    <label class="custom-control-label" asp-for="Input.IsAdmin">
+                        @Html.DisplayNameFor(model => model.Input.IsAdmin)
+                    </label>
+                </div>
+                <span asp-validation-for="Input.IsAdmin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

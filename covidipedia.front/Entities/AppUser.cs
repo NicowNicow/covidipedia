@@ -23,5 +23,8 @@ namespace covidipedia.front.src.Entities
         [Required]
         [MaxLength(84, ErrorMessage = "The {0} is max {1} characters long.")]
         public string PasswordHash { get; set; }
+
+        [Display(Name = "Admin")]
+        public bool IsAdmin { get; set; }
     }
 }

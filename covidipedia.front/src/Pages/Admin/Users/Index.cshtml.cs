@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using covidipedia.front.Data;
 using covidipedia.front.src.Entities;
+using System.Security.Claims;
 
 namespace covidipedia.front.src.Pages.Admin.Users
 {
@@ -21,8 +22,22 @@ namespace covidipedia.front.src.Pages.Admin.Users
 
         public IList<AppUser> AppUser { get;set; }
 
+        public int CurrentUserId { get; set; }
+
         public async Task OnGetAsync()
         {
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (idClaim != null)
+            {
+                try
+                {
+                    CurrentUserId = Int32.Parse(idClaim.Value);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             AppUser = await _context.AppUsers.ToListAsync();
         }
     }

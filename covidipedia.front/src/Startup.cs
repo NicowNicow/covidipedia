@@ -19,6 +19,19 @@ namespace covidipedia.front {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admins", policy =>
+                {
+                    policy.RequireRole("Admin");
+                });
+            });
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Admin");
+                options.Conventions.AuthorizeFolder("/Admin/Users", "Admins");
+            });
             services.AddMvc().WithRazorPagesRoot("/src/Pages");
             services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

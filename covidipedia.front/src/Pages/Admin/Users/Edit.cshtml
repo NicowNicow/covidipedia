@@ -8,27 +8,31 @@
 
 <h1>Edit</h1>
 
-<h4>AppUser</h4>
+<h4>Input</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AppUser.Id" />
+            <input type="hidden" asp-for="Input.Id" />
             <div class="form-group">
-                <label asp-for="AppUser.LoginName" class="control-label"></label>
-                <input asp-for="AppUser.LoginName" class="form-control" />
-                <span asp-validation-for="AppUser.LoginName" class="text-danger"></span>
+                <label asp-for="Input.LoginName" class="control-label"></label>
+                <input asp-for="Input.LoginName" class="form-control" />
+                <span asp-validation-for="Input.LoginName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AppUser.LoginNameUppercase" class="control-label"></label>
-                <input asp-for="AppUser.LoginNameUppercase" class="form-control" />
-                <span asp-validation-for="AppUser.LoginNameUppercase" class="text-danger"></span>
+                <label asp-for="Input.Password" class="control-label"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AppUser.PasswordHash" class="control-label"></label>
-                <input asp-for="AppUser.PasswordHash" class="form-control" />
-                <span asp-validation-for="AppUser.PasswordHash" class="text-danger"></span>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" asp-for="Input.IsAdmin" />
+                    <label class="custom-control-label" asp-for="Input.IsAdmin">
+                        @Html.DisplayNameFor(model => model.Input.IsAdmin)
+                    </label>
+                </div>
+                <span asp-validation-for="Input.IsAdmin" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

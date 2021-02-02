@@ -75,7 +75,8 @@ namespace covidipedia.front.Services
                 {
                     LoginName = adminLoginName,
                     LoginNameUppercase = adminLoginName.ToUpper(),
-                    PasswordHash = passwordHash
+                    PasswordHash = passwordHash,
+                    IsAdmin = true
                 };
 
                 applicationDbContext.AppUsers.Add(adminUser);

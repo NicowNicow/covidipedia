@@ -59,6 +59,7 @@ namespace covidipedia.front.src.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+            
 
             if (ModelState.IsValid)
             {
@@ -71,8 +72,13 @@ namespace covidipedia.front.src.Pages.Account
 
                 var claims = new List<Claim>
              {
+                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.Integer),
                  new Claim(ClaimTypes.Name, user.LoginName)
              };
+                if (user.IsAdmin)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -88,6 +94,8 @@ namespace covidipedia.front.src.Pages.Account
                 {
                     returnUrl = Url.Content("~/");
                 }
+                
+
 
                 return LocalRedirect(returnUrl);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using covidipedia.front.Data;
 using covidipedia.front.src.Entities;
@@ -69,11 +70,13 @@ namespace covidipedia.front.src.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+                string rowVersionString = Encoding.Unicode.GetString(user.RowVersion);
 
                 var claims = new List<Claim>
              {
                  new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.Integer),
-                 new Claim(ClaimTypes.Name, user.LoginName)
+                 new Claim(ClaimTypes.Name, user.LoginName),
+                 new Claim(ClaimTypes.UserData, rowVersionString)
              };
                 if (user.IsAdmin)
                 {

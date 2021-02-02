@@ -26,5 +26,7 @@ namespace covidipedia.front.src.Entities
 
         [Display(Name = "Admin")]
         public bool IsAdmin { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

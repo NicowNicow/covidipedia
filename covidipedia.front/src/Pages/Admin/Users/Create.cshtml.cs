@@ -35,6 +35,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
 
             [Display(Name = "Admin")]
             public bool IsAdmin { get; set; }
+            [Display(Name = "Must Change Password")]
+            public bool MustChangePassword { get; set; }
         }
 
         public IActionResult OnGet()
@@ -64,7 +66,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
                     LoginName = Input.LoginName,
                     LoginNameUppercase = Input.LoginName.ToUpper(),
                     PasswordHash = hashedPassword,
-                    IsAdmin= Input.IsAdmin
+                    IsAdmin= Input.IsAdmin,
+                    MustChangePassword= Input.MustChangePassword
                 };
 
                 _context.AppUsers.Add(newUser);

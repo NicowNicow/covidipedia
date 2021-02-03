@@ -49,11 +49,6 @@ namespace covidipedia.front {
             OnValidatePrincipal = CookieValidator.ValidateAsync
         };
     });
-            //Confidentialité des pages, à travailler
-            // services.AddMvc().AddRazorPagesOptions(options => {
-            //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
-            //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
-            // });
 
         }
 
@@ -67,6 +62,8 @@ namespace covidipedia.front {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // Redirects a user to the MustChangePassword page when user has a MustChangePassword claim.
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy(new CookiePolicyOptions()
@@ -76,7 +73,9 @@ namespace covidipedia.front {
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMustChangePassword();
             app.UseEndpoints(endpoints =>{endpoints.MapRazorPages();});
+            
         }
     }
 }

@@ -24,9 +24,17 @@ namespace covidipedia.front.src.Entities
         [MaxLength(84, ErrorMessage = "The {0} is max {1} characters long.")]
         public string PasswordHash { get; set; }
 
+        [Display(Name = "Must Change Password")]
+        public bool MustChangePassword { get; set; }
+
         [Display(Name = "Admin")]
         public bool IsAdmin { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        public const string MustChangePasswordClaimType = "http://userswithoutidentity/claims/mustchangepassword";
     }
+    
 }
+

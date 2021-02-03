@@ -82,6 +82,10 @@ namespace covidipedia.front.src.Pages.Account
                 {
                     claims.Add(new Claim(ClaimTypes.Role, "Admin"));
                 }
+                if (user.MustChangePassword)
+                {
+                    claims.Add(new Claim(AppUser.MustChangePasswordClaimType, string.Empty));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 

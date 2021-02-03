@@ -39,6 +39,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
             public bool IsAdmin { get; set; }
             [Timestamp]
             public byte[] RowVersion { get; set; }
+            [Display(Name = "Must Change Password")]
+            public bool MustChangePassword { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -62,7 +64,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
                 Id = user.Id,
                 LoginName = user.LoginName,
                 IsAdmin = user.IsAdmin,
-                RowVersion= user.RowVersion
+                RowVersion= user.RowVersion,
+                MustChangePassword= user.MustChangePassword
             };
 
             return Page();
@@ -109,6 +112,7 @@ namespace covidipedia.front.src.Pages.Admin.Users
             user.LoginName = Input.LoginName;
             user.LoginNameUppercase = Input.LoginName.ToUpper();
             user.IsAdmin = Input.IsAdmin;
+            user.MustChangePassword = Input.MustChangePassword;
 
             _context.Attach(user).State = EntityState.Modified;
 
@@ -142,7 +146,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
                         Id = databaseValues.Id,
                         LoginName = databaseValues.LoginName,
                         IsAdmin = databaseValues.IsAdmin,
-                        RowVersion = databaseValues.RowVersion
+                        RowVersion = databaseValues.RowVersion,
+                        MustChangePassword= databaseValues.MustChangePassword
                     };
                 }
 

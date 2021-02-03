@@ -35,6 +35,14 @@
                 </div>
             </td>
             <td>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input disabled" asp-for="@item.MustChangePassword">
+                    <label class="custom-control-label disabled">
+                        <span class="sr-only">Never</span>
+                    </label>
+                </div>
+            </td>
+            <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                 @if (Model.CurrentUserId != item.Id)

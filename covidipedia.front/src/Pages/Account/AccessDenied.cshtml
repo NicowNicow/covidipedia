@@ -6,3 +6,11 @@
 
 <h1>AccessDenied</h1>
 <h5>You do not have access to this resource.</h5>
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Wait for the validation of your medical account</h1>
+}
+else
+{
+    <h1> Conntent only available for medical staff, please register with your code if you want to access</h1>
+}

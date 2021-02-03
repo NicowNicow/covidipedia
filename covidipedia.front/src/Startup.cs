@@ -25,12 +25,17 @@ namespace covidipedia.front {
                 {
                     policy.RequireRole("Admin");
                 });
+                options.AddPolicy("Medicals", policy =>
+                {
+                    policy.RequireRole("Medical");
+                });
             });
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizeFolder("/Admin");
-                options.Conventions.AuthorizeFolder("/Admin/Users", "Admins");
+                options.Conventions.AuthorizeFolder("/Admin", "Admins");
+                options.Conventions.AuthorizeFolder("/Private", "Medicals");
+
             });
             services.AddMvc().WithRazorPagesRoot("/src/Pages");
             services.AddDbContext<ApplicationDbContext>(options =>

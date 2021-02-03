@@ -5,8 +5,12 @@
 }
 
 <head>
-    <script src="~/js/query.js"></script>
     <link href="~/css/query.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/query.js"></script>
 </head>
 
 <body>
@@ -16,10 +20,10 @@
         <form class="query-form" method="post">
             <div class="form-group">
 
-                <select name="select-table" id="select-table"> <!--Faudra faire ça moins statique si possible -->
-                    <option value="Cas">Cas</option>
-                    <option value="Effets Secondaires">Effets Secondaires</option>
-                    <option value="Historique">Historique</option>
+                <select asp-for="input.type" name="input.type" id="select-table"> <!--Faudra faire ça moins statique si possible -->
+                    <option value="Ca">Cas</option>
+                    <option value="EffetSecondaire">Effets Secondaires</option>
+                    <option value="HistoriqueCa">Historique</option>
                     <option value="Hopital" selected="selected">Hopital</option>
                     <option value="Pathologie">Pathologie</option>
                     <option value="Personne">Personne</option>
@@ -27,28 +31,36 @@
                     <option value="Traitement">Traitement</option>
                     <option value="Vaccin">Vaccin</option>
                 </select>
+                <label for="select-table">Selectionner critère principal de recherche:</label>
 
-                @Html.TextBoxFor(model => model.Input.Name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                @Html.TextBoxFor(model => model.input.name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
+                <span asp-validation-for="input.name" class="text-danger"></span>
+                <label for="input_name">Entrer le critère à rechercher:</label>
             </div>
             <div class="submit-group">
-                <a class="nav-link text-dark" >+  Plus de critères</a>
+                <a class="nav-link text-dark" >+  Plus de critères</a> <!--Système d'ajout de critères à faire ici -->
                 <button id="query-submit" type="submit" asp-page-handler="Submit" class="btn btn-primary">Recherche</button>
             </div>
         </form>
     </div>
     
-    <div class="results-table">
+    <div class="table-manager">
+        <table name="results-table" id="results-table" class="table table-bordered table-striped">
+            <thead>
+                @Html.Raw(ViewData["ResultTableHead"])
+            </thead>
+            <tbody>
+                @Html.Raw(ViewData["ResultTable"])
+            </tbody>
+        </table>
+    </div>
+
+    <div class="button-download">
         @{
             if (ViewData["ResultTable"] != null) {
                 <button id="csv-export" class="btn-success" onclick="exportTableToCSV('members.csv')">Exporter le tableau au format CSV</button>
             }
         }
-        <table>
-            <tbody>
-                @Html.Raw(ViewData["ResultTable"])
-            </tbody>
-        </table>
     </div>
 
 </body>

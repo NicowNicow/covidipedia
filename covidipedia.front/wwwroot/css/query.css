@@ -20,22 +20,31 @@
 }
 
 table {
-    border-collapse:collapse;
-    width:90%;
+    border-collapse: collapse;
+    width: 90%;
 }
 
 th, td {
     border:1px solid black;
-    width:20%;
-    text-align:center;
-    vertical-align:middle;
+    width: 20%;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.results-table {
+.table-manager {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-bottom: 3%;
 }
 
+.button-download {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding-bottom: 2%;
+}
 
-
+label {
+    display:none;
+}

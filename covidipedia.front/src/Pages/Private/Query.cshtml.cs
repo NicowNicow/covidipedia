@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using covidipedia.front;
 
 namespace covidipedia.front.Pages
 {
@@ -20,29 +19,33 @@ namespace covidipedia.front.Pages
         public void OnGet() { }
 
 
-        //Activation du Bouton et fonction associée
+        //Gestion du formulaire de requête
 
-        public class SampleModel {
-            public string Name { get; set; }
+        public class FormInput {
+            public string type { get; set; }
+            public string name { get; set; }
         }
 
         [BindProperty]
-        public SampleModel Input { get; set; }
+        public FormInput input { get; set; }
+
+
 
         public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
+            _logger.LogInformation(input.type);
             List<Hopital> hopitals = new List<Hopital>();
+            
             using (bddcovidipediaContext context = new bddcovidipediaContext()) {
-                hopitals = GenericQuery.QueryHopital(Input.Name, context);
+                hopitals = GenericQuery.QueryHopital(input.name, context);
             }
-            ViewData["ResultTable"] = "<table style='width: 100%'><tr><th>ID hopital</th><th>Nom hopital</th><th>Nombre de lits</th><th>Nombre de lits en réanimation</th></tr>";
+            ViewData["ResultTableHead"] = "<tr><th>ID hopital</th><th>Nom hopital</th><th>Nombre de lits</th><th>Nombre de lits en réanimation</th></tr>";
             foreach(Hopital h in hopitals) {
                 ViewData["ResultTable"] += $"<tr><th>{h.IdHopitalHopital}</th><th>{h.NomHopital}</th><th>{h.NombreLitsHopital}</th><th>{h.NombreLitsReanimationHopital}</th></tr>";
             }
             ViewData["ResultTable"] += "</table>";
             return Page();
         }
-
         
     }
 }

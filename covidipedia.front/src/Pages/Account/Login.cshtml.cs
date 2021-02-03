@@ -34,9 +34,8 @@ namespace covidipedia.front.src.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Login Name")]
-            [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            public string LoginName { get; set; }
+            [Display(Name = "Email")]
+            public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -64,7 +63,7 @@ namespace covidipedia.front.src.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = await AuthenticateUser(Input.LoginName, Input.Password);
+                var user = await AuthenticateUser(Input.Email, Input.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -81,6 +80,10 @@ namespace covidipedia.front.src.Pages.Account
                 if (user.IsAdmin)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                }
+                if (user.IsMedical)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "Medical"));
                 }
                 if (user.MustChangePassword)
                 {
@@ -119,7 +122,6 @@ namespace covidipedia.front.src.Pages.Account
 
             var user = await _context.AppUsers
                 .AsNoTracking()
-                .Where(a => a.LoginNameUppercase == login.ToUpper())
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 

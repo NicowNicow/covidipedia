@@ -21,6 +21,10 @@ namespace covidipedia.front.src.Entities
         public string LoginNameUppercase { get; set; }
 
         [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
         [MaxLength(84, ErrorMessage = "The {0} is max {1} characters long.")]
         public string PasswordHash { get; set; }
 
@@ -30,11 +34,18 @@ namespace covidipedia.front.src.Entities
         [Display(Name = "Admin")]
         public bool IsAdmin { get; set; }
 
+        [Display(Name = "Medical")]
+        public bool IsMedical { get; set; }
+
+        [Required]
+        [Display(Name = "Code")]
+        public int Code { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public const string MustChangePasswordClaimType = "http://userswithoutidentity/claims/mustchangepassword";
     }
-    
+
 }
 

@@ -17,7 +17,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.AppUser[0].LoginName)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser[0].Email)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.AppUser[0].IsAdmin)</th>
+            <th>@Html.DisplayNameFor(model => model.AppUser[0].MustChangePassword)</th>
+            <th>@Html.DisplayNameFor(model => model.AppUser[0].IsMedical)</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +30,8 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LoginName)
+            </td><td>
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 <div class="custom-control custom-checkbox custom-control-inline">
@@ -37,6 +44,14 @@
             <td>
                 <div class="custom-control custom-checkbox custom-control-inline">
                     <input type="checkbox" class="custom-control-input disabled" asp-for="@item.MustChangePassword">
+                    <label class="custom-control-label disabled">
+                        <span class="sr-only">Never</span>
+                    </label>
+                </div>
+            </td>
+            <td>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input disabled" asp-for="@item.IsMedical">
                     <label class="custom-control-label disabled">
                         <span class="sr-only">Never</span>
                     </label>

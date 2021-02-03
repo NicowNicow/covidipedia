@@ -28,6 +28,7 @@ namespace covidipedia.front.Services
             var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             string adminLoginName = "Administrator";
+            string adminMail = "Administrator@test.com";
             int adminId = await applicationDbContext.AppUsers
                 .AsNoTracking()
                 .Where(a => a.LoginNameUppercase == adminLoginName.ToUpper())
@@ -76,7 +77,8 @@ namespace covidipedia.front.Services
                     LoginName = adminLoginName,
                     LoginNameUppercase = adminLoginName.ToUpper(),
                     PasswordHash = passwordHash,
-                    IsAdmin = true
+                    IsAdmin = true,
+                    Email= adminMail
                 };
 
                 applicationDbContext.AppUsers.Add(adminUser);

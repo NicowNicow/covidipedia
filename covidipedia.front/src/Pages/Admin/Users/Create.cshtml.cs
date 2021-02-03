@@ -30,6 +30,10 @@ namespace covidipedia.front.src.Pages.Admin.Users
             public string LoginName { get; set; }
 
             [Required]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required]
             [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
             public string Password { get; set; }
 
@@ -67,7 +71,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
                     LoginNameUppercase = Input.LoginName.ToUpper(),
                     PasswordHash = hashedPassword,
                     IsAdmin= Input.IsAdmin,
-                    MustChangePassword= Input.MustChangePassword
+                    MustChangePassword= Input.MustChangePassword,
+                    Email= Input.Email
                 };
 
                 _context.AppUsers.Add(newUser);

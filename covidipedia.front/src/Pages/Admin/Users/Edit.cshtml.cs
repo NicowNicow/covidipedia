@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using covidipedia.front.Data;
 using covidipedia.front.src.Entities;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace covidipedia.front.src.Pages.Admin.Users
 {
@@ -36,6 +37,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
             public string Password { get; set; }
             [Display(Name = "Admin")]
             public bool IsAdmin { get; set; }
+            [Timestamp]
+            public byte[] RowVersion { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -58,7 +61,8 @@ namespace covidipedia.front.src.Pages.Admin.Users
             {
                 Id = user.Id,
                 LoginName = user.LoginName,
-                IsAdmin = user.IsAdmin
+                IsAdmin = user.IsAdmin,
+                RowVersion= user.RowVersion
             };
 
             return Page();
@@ -66,6 +70,7 @@ namespace covidipedia.front.src.Pages.Admin.Users
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -109,26 +114,59 @@ namespace covidipedia.front.src.Pages.Admin.Users
 
             try
             {
+                _context.Entry(user).OriginalValues["RowVersion"] = Input.RowVersion;
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!AppUserExists(user.Id))
+                var entry = ex.Entries.Single();
+                var databaseEntry = entry.GetDatabaseValues();
+                if (databaseEntry == null)
                 {
-                    return NotFound();
+                    ModelState.AddModelError(string.Empty,
+                        "Unable to save changes. The User was deleted by another user. Click Cancel.");
                 }
-                else
+                if (!user.RowVersion.SequenceEqual(Input.RowVersion))
                 {
-                    throw;
+                    ModelState.Clear(); // required to update Input model
+
+                    ModelState.AddModelError(string.Empty, "The record you attempted to edit " +
+                        "was modified by another user after you got the original values. The " +
+                        "edit operation was canceled and the current values in the database " +
+                        "have been displayed. You can continue to edit then Save again. " +
+                        "Otherwise click Cancel.");
+
+                    var databaseValues = (AppUser)databaseEntry.ToObject();
+                    Input = new InputModel()
+                    {
+                        Id = databaseValues.Id,
+                        LoginName = databaseValues.LoginName,
+                        IsAdmin = databaseValues.IsAdmin,
+                        RowVersion = databaseValues.RowVersion
+                    };
                 }
+
+                return Page();
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                // Retry Limit = 6
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            catch (DbUpdateException)
+            {
+                throw new InvalidOperationException("DbUpdateException occurred creating a new user.");
             }
 
             return RedirectToPage("./Index");
         }
 
+
         private bool AppUserExists(int id)
         {
             return _context.AppUsers.Any(e => e.Id == id);
         }
+
+
     }
 }

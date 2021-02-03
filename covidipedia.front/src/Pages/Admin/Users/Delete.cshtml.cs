@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using covidipedia.front.Data;
 using covidipedia.front.src.Entities;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace covidipedia.front.src.Pages.Admin.Users
 {
@@ -45,12 +46,56 @@ namespace covidipedia.front.src.Pages.Admin.Users
                 return NotFound();
             }
 
-            AppUser = await _context.AppUsers.FindAsync(id);
+            var user = await _context.AppUsers
+    .AsNoTracking()
+    .FirstOrDefaultAsync(m => m.Id == AppUser.Id);
 
-            if (AppUser != null)
+            if (user == null)
             {
-                _context.AppUsers.Remove(AppUser);
+                ModelState.AddModelError(string.Empty,
+                        "Unable to save changes. The User was deleted by another user. Click Cancel.");
+                return Page();
+            }
+
+            _context.AppUsers.Remove(user);
+
+            try
+            {
+                _context.Entry(user).OriginalValues["RowVersion"] = AppUser.RowVersion;
                 await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                var entry = ex.Entries.Single();
+                var databaseEntry = entry.GetDatabaseValues();
+                if (databaseEntry == null)
+                {
+                    ModelState.AddModelError(string.Empty,
+                        "Unable to save changes. The User was deleted by another user.");
+                }
+                else
+                {
+                    ModelState.Clear(); // required to update the model
+
+                    ModelState.AddModelError(string.Empty, "The record you attempted to delete " +
+                            "was modified by another user after you got the original values. The " +
+                            "delete operation was canceled and the current values in the database " +
+                            "have been displayed. You can continue to Delete again. " +
+                            "Otherwise click Cancel.");
+
+                    AppUser = (AppUser)databaseEntry.ToObject();
+                }
+
+                return Page();
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                // Retry Limit = 6
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            catch (DbUpdateException)
+            {
+                throw new InvalidOperationException("DbUpdateException occurred deleting a user.");
             }
 
             return RedirectToPage("./Index");

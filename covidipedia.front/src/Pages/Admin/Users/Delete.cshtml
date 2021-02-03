@@ -21,9 +21,11 @@
         </dd>
     </dl>
     
-    <form method="post">
+    <form class="" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="AppUser.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="hidden" asp-for="AppUser.RowVersion" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-primary" asp-page="/Admin/Users/Index">Cancel</a>
     </form>
 </div>

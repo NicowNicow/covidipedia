@@ -23,6 +23,7 @@
             <th>@Html.DisplayNameFor(model => model.AppUser[0].IsAdmin)</th>
             <th>@Html.DisplayNameFor(model => model.AppUser[0].MustChangePassword)</th>
             <th>@Html.DisplayNameFor(model => model.AppUser[0].IsMedical)</th>
+            <th>@Html.DisplayNameFor(model => model.AppUser[0].Code)</th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +31,8 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LoginName)
-            </td><td>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
@@ -56,6 +58,9 @@
                         <span class="sr-only">Never</span>
                     </label>
                 </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

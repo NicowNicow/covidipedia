@@ -122,6 +122,7 @@ namespace covidipedia.front.src.Pages.Account
 
             var user = await _context.AppUsers
                 .AsNoTracking()
+                .Where(a => a.Email == login)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 

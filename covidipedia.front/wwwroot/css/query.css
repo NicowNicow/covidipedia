@@ -45,6 +45,6 @@ th, td {
     padding-bottom: 2%;
 }
 
-label {
+.to-hide {
     display:none;
 }

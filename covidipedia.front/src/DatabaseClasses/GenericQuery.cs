@@ -12,9 +12,7 @@ namespace covidipedia.front {
                             .Where(hopital => hopital.NomHopital == testName)
                             .ToList();
             }
-            else { 
-                foreach (Hopital hopital in context.Hopitals) results.Add(hopital);
-            }
+            else foreach (Hopital hopital in context.Hopitals) results.Add(hopital);
             return results;
         }
     }

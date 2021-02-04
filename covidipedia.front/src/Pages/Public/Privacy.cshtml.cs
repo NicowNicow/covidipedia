@@ -1,14 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
-namespace covidipedia.front.Pages {
-    public class PrivacyModel : PageModel {
+namespace covidipedia.front.Pages
+{
+    [BindProperties]
+    public class PrivacyModel : PageModel
+    {
         private readonly ILogger<PrivacyModel> _logger;
-
-        public PrivacyModel(ILogger<PrivacyModel> logger) {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Message { get; set; }
+        public Need? Need { get; set; }
+        public PrivacyModel(ILogger<PrivacyModel> logger)
+        {
             _logger = logger;
         }
 
-        public void OnGet() {}
+        public void OnGet() { }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+                return RedirectToPage("Privacy");
+            var firstName = FirstName;
+            var lastName = LastName;
+            var email = Email;
+            var need = Need;
+            var message = Message;
+            Console.WriteLine($"firstName {FirstName}");
+            Console.WriteLine($"lastName {LastName}");
+            Console.WriteLine($"email {Email}");
+            Console.WriteLine($"need {Need}");
+            Console.WriteLine($"message {Message}");
+            return Page();
+        }
+    }
+
+    public enum Need
+    {
+        ServerProblem,
+        ConnectorProblem
     }
 }

@@ -1,6 +1,12 @@
 ﻿<ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
+        @if (!User.IsInRole("Medical"))
+        {
+            <li class="nav-item">
+                <p class="nav-link text-dark">Wait for the validation of your medical status</p>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link text-dark" asp-page="/Account/Infos">@User.Identity.Name</a>
         </li>

@@ -67,7 +67,7 @@ namespace covidipedia.front.Services
             // Add Administrator if not found
             if (adminId == 0)
             {
-                var password = "P@ssw0rd";
+                var password = "EKsDY@4#UmM^scyZM5ys$$f2748XrkV^GXrpHekGa!a&*$eLQB$HiJQG!U4*&EYiwDNZ*aE87dg6PbU8WF3XNReik9!SZW*dDFDGP8Zavz%FhQeNzGYgrR5T@6FGbwJp";
 
                 var customPasswordHasher = new Hash();
                 var passwordHash = customPasswordHasher.HashPassword(password);

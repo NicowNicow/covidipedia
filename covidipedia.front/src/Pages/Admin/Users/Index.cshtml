@@ -23,7 +23,7 @@
             <th>@Html.DisplayNameFor(model => model.AppUser[0].IsAdmin)</th>
             <th>@Html.DisplayNameFor(model => model.AppUser[0].MustChangePassword)</th>
             <th>@Html.DisplayNameFor(model => model.AppUser[0].IsMedical)</th>
-            <th>@Html.DisplayNameFor(model => model.AppUser[0].Code)</th>
+            <th>@Html.DisplayNameFor(model => model.AppUser[0].RPPS)</th>
         </tr>
     </thead>
     <tbody>
@@ -60,7 +60,7 @@
                 </div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Code)
+                @Html.DisplayFor(modelItem => item.RPPS)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

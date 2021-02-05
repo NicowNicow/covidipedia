@@ -37,9 +37,13 @@ namespace covidipedia.front.src.Entities
         [Display(Name = "Medical")]
         public bool IsMedical { get; set; }
 
-        [Required]
         [Display(Name = "Code")]
         public int Code { get; set; }
+        [Required]
+        [MaxLength(11)]
+        [MinLength(11)]
+        [Display(Name = "RPPS")]
+        public string RPPS { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

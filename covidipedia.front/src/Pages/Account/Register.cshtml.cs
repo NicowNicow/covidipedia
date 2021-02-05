@@ -41,8 +41,10 @@ namespace covidipedia.front.src.Pages.Account
             public string Password { get; set; }
 
             [Required]
+            [MaxLength(11)]
+            [MinLength(11)]
             [Display(Name = "RPPS")]
-            public int Code { get; set; }
+            public string RPPS { get; set; }
 
 
         }
@@ -75,7 +77,7 @@ namespace covidipedia.front.src.Pages.Account
                     LoginNameUppercase = Input.LoginName.ToUpper(),
                     PasswordHash = hashedPassword,
                     Email = Input.Email,
-                    Code = Input.Code
+                    RPPS = Input.RPPS
                 };
 
                 _context.AppUsers.Add(newUser);

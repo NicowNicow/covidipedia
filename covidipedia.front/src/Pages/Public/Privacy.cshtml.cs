@@ -5,43 +5,44 @@ using System;
 
 namespace covidipedia.front.Pages
 {
-    [BindProperties]
+    public enum Need {
+        ServerProblem,
+        ConnectorProblem,
+        Other
+    }
+
     public class PrivacyModel : PageModel
     {
+        //Inner Classes
+        public class ContactForm {
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public string email { get; set; }
+            public string message { get; set; }
+            public Need? need { get; set; }
+        }
+        
+
+        //Variables
         private readonly ILogger<PrivacyModel> _logger;
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Message { get; set; }
-        public Need? Need { get; set; }
-        public PrivacyModel(ILogger<PrivacyModel> logger)
-        {
+
+        [BindProperty]
+        public ContactForm contact {get; set;}
+
+
+        //Constructor
+        public PrivacyModel(ILogger<PrivacyModel> logger) {
             _logger = logger;
         }
 
+
+        //Methods
         public void OnGet() { }
 
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-                return RedirectToPage("Privacy");
-            var firstName = FirstName;
-            var lastName = LastName;
-            var email = Email;
-            var need = Need;
-            var message = Message;
-            Console.WriteLine($"firstName {FirstName}");
-            Console.WriteLine($"lastName {LastName}");
-            Console.WriteLine($"email {Email}");
-            Console.WriteLine($"need {Need}");
-            Console.WriteLine($"message {Message}");
+        public IActionResult OnPost() {
+            if (!ModelState.IsValid) return RedirectToPage("Privacy");
+            _logger.LogInformation($"A new contact form has been received: {Environment.NewLine}firstName: {contact.firstName}; {Environment.NewLine}lastName: {contact.lastName}; {Environment.NewLine}email: {contact.email}; {Environment.NewLine}need: {contact.need}; {Environment.NewLine}message: {contact.message};");
             return Page();
         }
-    }
-
-    public enum Need
-    {
-        ServerProblem,
-        ConnectorProblem
     }
 }

@@ -42,7 +42,7 @@ namespace covidipedia.front.Pages
         public IActionResult OnPost() {
             if (!ModelState.IsValid) return RedirectToPage("Privacy");
             _logger.LogInformation($"A new contact form has been received: {Environment.NewLine}firstName: {contact.firstName}; {Environment.NewLine}lastName: {contact.lastName}; {Environment.NewLine}email: {contact.email}; {Environment.NewLine}need: {contact.need}; {Environment.NewLine}message: {contact.message};");
-            SendMail(Email,Need.ToString(),Message,FirstName,LastName);
+            SendMail(contact.email,contact.need.ToString(),contact.message,contact.firstName,contact.lastName);
             return Page();
         }
 

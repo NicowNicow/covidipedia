@@ -16,6 +16,7 @@
         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
         deserunt mollit anim id est laborum.</p>
+
     <div class="container">
         <div class=" text-center mt-5 ">
             <h1>Contact Us</h1>
@@ -30,14 +31,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group"> <label for="form_lastname">Firstname *</label>
-                                                <input id="form_name" asp-for="FirstName" type="text" name="firstname"
+                                                <input id="form_name" asp-for="contact.firstName" type="text" name="firstname"
                                                     class="form-control" placeholder="Please enter your name *"
                                                     required="required" data-error="First Name is required.">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group"> <label for="form_lastname">Lastname *</label>
-                                                <input id="form_lastname" asp-for="LastName" type="text" name="lastname"
+                                                <input id="form_lastname" asp-for="contact.lastName" type="text" name="lastname"
                                                     class="form-control" placeholder="Please enter your lastname *"
                                                     required="required" data-error="Lastname is required.">
                                             </div>
@@ -46,7 +47,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group"> <label for="form_email">Email *</label>
-                                                <input id="form_email" asp-for="Email" type="email" name="email"
+                                                <input id="form_email" asp-for="contact.email" type="email" name="email"
                                                     class="form-control" placeholder="Please enter your email *"
                                                     required="required" data-error="Valid email is required.">
                                             </div>
@@ -54,10 +55,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group"> <label for="form_need">Please specify your
                                                     need*</label>
-                                                <select asp-for="Need" id="form_need" name="need" class="form-control"
+                                                <select asp-for="contact.need" id="form_need" name="need" class="form-control"
                                                     required="required" data-error="Please specify your need."
                                                     asp-items="Html.GetEnumSelectList<Need>()">
-                                                    <option value="">Choose your need</option>
+                                                    <option value="" disabled selected>Choose your need</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -65,7 +66,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group"> <label for="form_message">Message *</label>
-                                                <textarea asp-for="Message" id="form_message" name="message"
+                                                <textarea asp-for="contact.message" id="form_message" name="message"
                                                     class="form-control" placeholder="Write your message here." rows="4"
                                                     required="required"
                                                     data-error="Please, leave us a message."></textarea>

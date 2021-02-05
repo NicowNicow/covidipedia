@@ -20,22 +20,24 @@
         <form class="query-form" method="post">
             <div class="form-group">
 
-                <select asp-for="input.type" name="input.type" id="select-table"> <!--Faudra faire ça moins statique si possible -->
+                <label for="select-table" class="to-hide">Selectionner critère principal de recherche:</label>
+                <select asp-for="input.type" name="input.type" id="select-table"> 
                     <option value="Ca">Cas</option>
                     <option value="EffetSecondaire">Effets Secondaires</option>
                     <option value="HistoriqueCa">Historique</option>
                     <option value="Hopital" selected="selected">Hopital</option>
+                    <option value="Localisation">Localisation</option>
                     <option value="Pathologie">Pathologie</option>
                     <option value="Personne">Personne</option>
                     <option value="Symptome">Symptome</option>
                     <option value="Traitement">Traitement</option>
                     <option value="Vaccin">Vaccin</option>
                 </select>
-                <label for="select-table">Selectionner critère principal de recherche:</label>
-
+                
+                <label for="input_name" class="to-hide">Entrer le critère à rechercher:</label>
                 @Html.TextBoxFor(model => model.input.name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
                 <span asp-validation-for="input.name" class="text-danger"></span>
-                <label for="input_name">Entrer le critère à rechercher:</label>
+                
             </div>
             <div class="submit-group">
                 <a class="nav-link text-dark" >+  Plus de critères</a> <!--Système d'ajout de critères à faire ici -->
@@ -51,14 +53,18 @@
             </thead>
             <tbody>
                 @Html.Raw(ViewData["ResultTable"])
-            </tbody>
+            </tbody> 
         </table>
     </div>
 
     <div class="button-download">
         @{
             if (ViewData["ResultTable"] != null) {
-                <button id="csv-export" class="btn-success" onclick="exportTableToCSV('members.csv')">Exporter le tableau au format CSV</button>
+                <form method="post" asp-page="Query" asp-page-handler="DownloadFile">
+                    <div>
+                         <button id="csv-export" type="submit" class="btn-success">Exporter les résultats au format CSV</button>
+                    </div>
+                </form>
             }
         }
     </div>

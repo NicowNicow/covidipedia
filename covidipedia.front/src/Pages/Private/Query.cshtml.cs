@@ -31,41 +31,48 @@ namespace covidipedia.front.Pages
         }
 
 
-        //Model Methods
+        //View-Model Methods
         public void OnGet() { }
 
         public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
-            List<Hopital> hopitals = new List<Hopital>(); //ArrayList plutôt que List pour la query, on va pas être strongly typed ici
-            using (bddcovidipediaContext context = new bddcovidipediaContext()) hopitals = GenericQuery.QueryHopital(input.name, context);
-            TempDataStorage(new ArrayList(hopitals));
-            ViewDataStorage(new ArrayList(hopitals));
+            ArrayList results = new ArrayList();
+            using (bddcovidipediaContext context = new bddcovidipediaContext()) results = GenericQuery.QuerySelector(input.name, input.type, context);
+            //TempDataStorage(results); A régler + TODO: Selection Multicritères
+            ViewDataStorage(results, input.type);
             return Page();
         }
 
         public async Task<IActionResult> OnPostDownloadFile() {
-            string fileName = Path.Combine("./resultsquery-" + TempData.Peek("input.type").ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + ".csv"); //Format: ./resultsquery-[TABLENAME]-[DATE].csv
+            string fileName = Path.Combine("resultsquery-" + TempData.Peek("input.type").ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + ".csv"); //Format de fileName: ./resultsquery-[TABLENAME]-[DATE].csv
             CSVWriter.TypeParser(JsonConvert.DeserializeObject<ArrayList>(TempData.Peek("queryResults").ToString()), TempData.Peek("input.type").ToString(), fileName);
-            MemoryStream memory = new MemoryStream();  
-            //Check if file exist, otherwise popup d'erreur?
-            using (FileStream stream = new FileStream(fileName, FileMode.Open))  await stream.CopyToAsync(memory);
-            System.IO.File.Delete(fileName);
-            memory.Position = 0;  
-            return File(memory, "text/csv", fileName);
+            return await FileDownloader(fileName);
         }
 
-        private void TempDataStorage(ArrayList queryResults) {
+
+        //Model Inner Methods
+        private void TempDataStorage(ArrayList queryResults) { //La conversion JSON force l'arrêt du localhost, problème à régler débrouille toi au réveil enculé -Nico
             TempData["input.type"] = input.type;
             string queryResultsJSON = JsonConvert.SerializeObject(queryResults);
             TempData["queryResults"] = queryResultsJSON;
         }
 
-        private void ViewDataStorage(ArrayList queryResult) {
-            ViewData["ResultTableHead"] = "<tr><th>ID hopital</th><th>Nom hopital</th><th>Nombre de lits</th><th>Nombre de lits en réanimation</th></tr>";
-            foreach(Hopital hopital in queryResult) {
-                ViewData["ResultTable"] += $"<tr><th>{hopital.IdHopitalHopital}</th><th>{hopital.NomHopital}</th><th>{hopital.NombreLitsHopital}</th><th>{hopital.NombreLitsReanimationHopital}</th></tr>";
+        private void ViewDataStorage(ArrayList queryResult, string type) {
+            ViewData["ResultTableHead"] = GenericQuery.TableHeadSelector(input.type);
+            ViewData["ResultTable"] = GenericQuery.TableContentSelector(queryResult, input.type);
+        }
+
+        private async Task<IActionResult> FileDownloader(string fileName) {
+            MemoryStream memory = new MemoryStream();  
+            try {
+                using (FileStream stream = new FileStream(fileName, FileMode.Open))  await stream.CopyToAsync(memory);
+                System.IO.File.Delete(fileName);
+                memory.Position = 0;  
             }
-            ViewData["ResultTable"] += "</table>";
+            catch {
+                _logger.LogError("File "+ fileName + " not found");
+            }
+            return File(memory, "text/csv", fileName);
         }
     }
 }

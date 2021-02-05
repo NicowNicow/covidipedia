@@ -10,13 +10,11 @@ namespace covidipedia.front.Pages
 
         public ChartPrinter _chartSalesCountries { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
+        public IndexModel(ILogger<IndexModel> logger) {
             _logger = logger;
         }
 
-        public void OnGet()
-        {
+        public void OnGet() {
             _chartSalesCountries = new ChartPrinter();
             _chartSalesCountries.SalesCountriesTest();
         }

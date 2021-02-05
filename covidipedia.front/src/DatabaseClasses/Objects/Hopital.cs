@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace covidipedia.front
 {
-    [Index(nameof(NomHopital))]
+    
     public partial class Hopital
     {
         public Hopital()

@@ -19,7 +19,7 @@
 
     <div class="container">
         <div class=" text-center mt-5 ">
-            <h1>Contact Us</h1>
+            <h1>Nous contactez</h1>
         </div>
         <div class="row ">
             <div class="col-lg-7 mx-auto">
@@ -30,17 +30,17 @@
                                 <div class="controls">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group"> <label for="form_lastname">Firstname *</label>
+                                            <div class="form-group"> <label for="form_lastname">Prénom *</label>
                                                 <input id="form_name" asp-for="contact.firstName" type="text" name="firstname"
-                                                    class="form-control" placeholder="Please enter your name *"
-                                                    required="required" data-error="First Name is required.">
+                                                    class="form-control" placeholder="Entrez votre prénom *"
+                                                    required="required" data-error="Votre prénom est requis.">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group"> <label for="form_lastname">Lastname *</label>
+                                            <div class="form-group"> <label for="form_lastname">Nom *</label>
                                                 <input id="form_lastname" asp-for="contact.lastName" type="text" name="lastname"
-                                                    class="form-control" placeholder="Please enter your lastname *"
-                                                    required="required" data-error="Lastname is required.">
+                                                    class="form-control" placeholder="Entrez votre nom*"
+                                                    required="required" data-error="Votre nom est requis.">
                                             </div>
                                         </div>
                                     </div>
@@ -48,17 +48,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group"> <label for="form_email">Email *</label>
                                                 <input id="form_email" asp-for="contact.email" type="email" name="email"
-                                                    class="form-control" placeholder="Please enter your email *"
-                                                    required="required" data-error="Valid email is required.">
+                                                    class="form-control" placeholder="Entrez votre email *"
+                                                    required="required" data-error="Un email valide est requis.">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group"> <label for="form_need">Please specify your
-                                                    need*</label>
+                                            <div class="form-group"> <label for="form_need">Notifiez votre besoin*</label>
                                                 <select asp-for="contact.need" id="form_need" name="need" class="form-control"
-                                                    required="required" data-error="Please specify your need."
+                                                    required="required" data-error="Notifiez votre besoin"
                                                     asp-items="Html.GetEnumSelectList<Need>()">
-                                                    <option value="" disabled selected>Choose your need</option>
+                                                    <option value="" disabled selected>Notifiez votre besoin</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -67,13 +66,13 @@
                                         <div class="col-md-12">
                                             <div class="form-group"> <label for="form_message">Message *</label>
                                                 <textarea asp-for="contact.message" id="form_message" name="message"
-                                                    class="form-control" placeholder="Write your message here." rows="4"
+                                                    class="form-control" placeholder="Ecrivez votre message ici." rows="4"
                                                     required="required"
-                                                    data-error="Please, leave us a message."></textarea>
+                                                    data-error="S'il vous plaît, laissez nous un message"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12"> <input type="submit"
-                                                class="btn btn-success btn-send pt-2 btn-block " value="Send Message">
+                                                class="btn btn-success btn-send pt-2 btn-block " value="envoyez votre message">
                                         </div>
                                     </div>
                                 </div>

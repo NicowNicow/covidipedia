@@ -11,13 +11,13 @@ namespace covidipedia.front {
                 case "Hopital":
                     return QueryHopital(mainCriteriaName, context);
 
-                case "Ca":
+                case "Cas":
                     return QueryCas(mainCriteriaName, context);
                 
-                case "EffetSecondaire":
+                case "EffetsSecondaires":
                     return QueryEffetSecondaire(mainCriteriaName, context);
 
-                case "HistoriqueCa":
+                case "Historique":
                     return QueryHistoriqueCas(mainCriteriaName, context);
 
                 case "Pathologie":
@@ -158,13 +158,13 @@ namespace covidipedia.front {
                 case "Hopital":
                     return "<tr><th>ID Hopital</th><th>Nom Hopital</th><th>Nombre de Lits</th><th>Nombre de Lits en Réanimation</th></tr>";
 
-                case "Ca":
+                case "Cas":
                     return "<tr><th>ID Cas</th><th>Etat Actuel</th></tr>";
                 
-                case "EffetSecondaire":
+                case "EffetsSecondaires":
                     return "<tr><th>ID Effet Secondaire</th><th>Nom Effet Secondaire</th><th>Type Effet Secondaire</th></tr>";
 
-                case "HistoriqueCa":
+                case "Historique":
                     return "<tr><th>ID Historique</th><th>Date Detection</th><th>Date MaJ Historique</th><th>Etat Cas</th><th>Souche Virus</th></tr>";
 
                 case "Pathologie":
@@ -199,21 +199,21 @@ namespace covidipedia.front {
                     }
                     break;
 
-                case "Ca":
+                case "Cas":
                     foreach(Ca cas in queryResult) {
                         pageContent += $"<tr><th>{cas.IdCasCas}</th><th>{cas.EtatActuelCas.Trim()}</th></tr>";
                     }
                     break;
                 
-                case "EffetSecondaire":
+                case "EffetsSecondaires":
                     foreach(EffetSecondaire effet in queryResult) {
                         pageContent += $"<tr><th>{effet.IdEffetEffetSecondaire}</th><th>{effet.NomEffetEffetSecondaire.Trim()}</th><th>{effet.TypeEffetEffetSecondaire.Trim()}</th></tr>";
                     }
                     break;
 
-                case "HistoriqueCa":
+                case "Historique":
                     foreach(HistoriqueCa historique in queryResult) {
-                        pageContent += $"<tr><th>{historique.IdHistoriqueHistoriqueCas}</th><th>{historique.DateDetectionHistoriqueCas}</th><th>{historique.DateMajHistoriqueCas}</th><th>{historique.DateMajHistoriqueCas}</th><th>{historique.EtatCasHistoriqueCas.Trim()}</th><th>{historique.SoucheVirusHistoriqueCas.Trim()}</th></tr>";
+                        pageContent += $"<tr><th>{historique.IdHistoriqueHistoriqueCas}</th><th>{historique.DateDetectionHistoriqueCas}</th><th>{historique.DateMajHistoriqueCas}</th><th>{historique.EtatCasHistoriqueCas.Trim()}</th><th>{historique.SoucheVirusHistoriqueCas.Trim()}</th></tr>";
                     }
                     break;
 

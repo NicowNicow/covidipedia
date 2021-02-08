@@ -1,6 +1,5 @@
 using System.Collections;
 using System.IO;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace covidipedia.front {
@@ -15,15 +14,15 @@ namespace covidipedia.front {
                     HopitalToCSV(results, fileName);
                     break;
 
-                case "Ca":
+                case "Cas":
                     CasToCSV(results, fileName);
                     break;
                 
-                case "EffetSecondaire":
+                case "EffetsSecondaires":
                     EffetSecondaireToCSV(results, fileName);
                     break;
 
-                case "HistoriqueCa":
+                case "Historique":
                     HistoriqueCasToCSV(results, fileName);
                     break;
 
@@ -45,6 +44,10 @@ namespace covidipedia.front {
                 
                 case "Vaccin":
                     VaccinToCSV(results, fileName);
+                    break;
+                
+                case "Localisation":
+                    LocalisationToCSV(results, fileName);
                     break;
                 
                 default:

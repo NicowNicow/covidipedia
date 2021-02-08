@@ -1,0 +1,77 @@
+.extended-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+input[type=number] {
+    width: 15%;
+}
+
+input[type=date] {
+    width: 40%;
+}
+
+label[class="partial-view-label"] {
+    display: inline-block;
+    padding-right: 3%;
+}
+
+.range-number, .range-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.advanced-criterias {
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    padding-bottom: 3%;
+}
+
+.input-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3%;
+    flex-wrap: wrap;
+}
+
+.input-text-inf, .select-inf, .input-date-inf{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-type-traitement, .input-type-symptome, .input-type-pathologie, .input-type-vaccin, .input-type-effet,
+.input-type-localisation, .select-partial-view, .input-type-hopital, .input-type-historique, .input-type-cas {
+    width: 45%;
+}
+
+.minimal-value {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3%;
+}
+
+.maximal-value {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3%;
+}
+

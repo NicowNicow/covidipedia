@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,46 +8,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace covidipedia.front
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
             this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddMvc().WithRazorPagesRoot("/src/Pages");
-            //Confidentialité des pages, à travailler
-            // services.AddMvc().AddRazorPagesOptions(options => {
-            //     options.Conventions.AllowAnonymousToFolder("/AuthorizedFolder/AllowFolder");
-            //     options.Conventions.AllowAnonymousToPage("/AuthorizedFolder/AllowPage");
-            // });
             services.AddDbContext<bddcovidipediaContext>(options => options.UseNpgsql(Configuration["ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
+            else {
                 app.UseExceptionHandler("/Public/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                //app.UseHsts();
+                app.UseHsts();
             }
-            //app.UseStatusCodePages();
             app.UseStatusCodePagesWithReExecute("/Public/Error", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
         }
     }

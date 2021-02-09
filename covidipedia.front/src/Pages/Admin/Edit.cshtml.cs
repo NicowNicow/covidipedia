@@ -33,6 +33,11 @@ namespace covidipedia.front.src.Pages.Admin
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+            [Display(Name = "Admin")]
+            public bool IsAdmin { get; set; }
+
+            [Display(Name = "Medical")]
+            public bool IsMedical { get; set; }
 
         }
         public async Task<IActionResult> OnGetAsync(string id)
@@ -53,7 +58,10 @@ namespace covidipedia.front.src.Pages.Admin
             {
                 Id = user.Id,
                 LoginName = user.UserName,
-                Email= user.Email
+                Email= user.Email,
+                IsAdmin= await userManager.IsInRoleAsync(user, "Admin"),
+                IsMedical= await userManager.IsInRoleAsync(user, "Medical")
+                
             };
 
             return Page();
@@ -77,6 +85,21 @@ namespace covidipedia.front.src.Pages.Admin
 
             user.UserName = Input.LoginName;
             user.Email = Input.Email;
+            if(Input.IsAdmin)
+            {
+                await userManager.AddToRoleAsync(user, "Admin");
+            } else
+            {
+                await userManager.RemoveFromRoleAsync(user, "Admin");
+            }
+            
+            if(Input.IsMedical)
+            {
+                await userManager.AddToRoleAsync(user, "Medical");
+            } else
+            {
+                await userManager.RemoveFromRoleAsync(user, "Medical");
+            }
 
             if (!string.IsNullOrEmpty(Input.Email) && !string.IsNullOrEmpty(Input.LoginName))
             {

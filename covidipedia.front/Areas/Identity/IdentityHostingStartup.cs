@@ -21,7 +21,9 @@ namespace covidipedia.front.Areas.Identity
                         context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
 
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+                
             });
         }
     }

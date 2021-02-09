@@ -8,7 +8,7 @@
 }
 <h1 class="bg-info text-white">All Users</h1>
 <a asp-page="Create" class="btn btn-sm btn-secondary">Create New</a>
-
+<a asp-page="Role" class="btn btn-sm btn-secondary">Role</a>
 <table class="table table-sm table-bordered">
     <tr><th>ID</th><th>Name</th><th>Email</th><th>Update</th><th>Delete</th></tr>
     @foreach (var user in _UserManager.Users)

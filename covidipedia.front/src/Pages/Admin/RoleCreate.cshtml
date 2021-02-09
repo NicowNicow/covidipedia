@@ -1,0 +1,20 @@
+﻿@page
+@model covidipedia.front.src.Pages.Admin.RoleCreateModel
+@{
+    ViewData["Title"] = "Create Role";
+}
+<body>
+    <h1 class="bg-info text-white">Create Role</h1>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form method="post">
+
+        <div class="form-group">
+            <label asp-for="Input.RoleName" class="control-label"></label>
+            <input asp-for="Input.RoleName" class="form-control" />
+            <span asp-validation-for="Input.RoleName" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</body>

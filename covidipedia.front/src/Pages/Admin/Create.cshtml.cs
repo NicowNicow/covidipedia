@@ -54,7 +54,7 @@ namespace covidipedia.front.Pages {
 
             IdentityResult result = await userManager.CreateAsync(newUser);
             if (result.Succeeded)
-                return RedirectToPage("Index");
+                return RedirectToPage("./Index");
             else
             {
                 foreach (IdentityError error in result.Errors)

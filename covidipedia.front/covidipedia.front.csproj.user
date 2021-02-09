@@ -7,5 +7,9 @@
     <WebStackScaffolding_LayoutPageFile>~/src/Pages/Shared/_Layout.cshtml</WebStackScaffolding_LayoutPageFile>
     <WebStackScaffolding_DbContextDialogWidth>600</WebStackScaffolding_DbContextDialogWidth>
     <WebStackScaffolding_IdentityDialogWidth>600</WebStackScaffolding_IdentityDialogWidth>
+    <ActiveDebugProfile>covidipedia.front</ActiveDebugProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

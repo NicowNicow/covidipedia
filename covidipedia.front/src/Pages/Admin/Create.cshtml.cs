@@ -8,11 +8,11 @@ using covidipedia.front.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace covidipedia.front.Pages {
-    public class AdminModel : PageModel {
+    public class CreateModel : PageModel {
 
             private UserManager<ApplicationUser> userManager;
 
-            public AdminModel(UserManager<ApplicationUser> usrMgr)
+            public CreateModel(UserManager<ApplicationUser> usrMgr)
             {
                 userManager = usrMgr;
             }

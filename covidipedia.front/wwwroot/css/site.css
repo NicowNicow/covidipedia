@@ -1,235 +1,73 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+	white-space: normal;
+	text-align: center;
+	word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+	color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+	color: #fff;
+	background-color: #1b6ec2;
+	border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+	color: #fff;
+	background-color: #1b6ec2;
+	border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+	font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+	html {
+		font-size: 16px;
+	}
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+	border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+	font-size: 1rem;
+	line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+	position: relative;
+	min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  height: 100vh;
-  overflow-y: hidden;
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-}
-
-/* header{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 55px;
-} */
-
-/*.main-container{
-  background-image: url("mapemonde.png");
-  background-attachment: fixed;
-  margin-top: 55px; 
-
-}*/
-
-.title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.parallax__layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* padding: 50vh 0; */
-}
-.parallax {
-  /* font-size: 200%; */
-  perspective: 1px;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.parallax__layer--base {
-	-webkit-transform: translateZ(0px);
-  transform: translateZ(0px);
-  z-index: 4;
-}
-.parallax__layer--back {
-	-webkit-transform: translateZ(-1px) scale(2);
-  transform: translateZ(-1px) scale(2);
-  z-index: 3;
-}
-
-.parallax__group {
-  position: relative;
-  height: 100vh;
-  transform-style: preserve-3d;
-}
-
-/* ajouter max-height et min-height 100% pour fit le container des bg */
-
-#group1{
-  z-index: 5;
-}
-
-#group2{
-  z-index: 3;
-}
-
-.first{
-  background-image: url("mapemonde.png");
-}
-
-.second{
-  background-image: url("cybersecurity-background.jpg");
-}
-
-.front{
-  background-color: white;
-  width: 100%;
-  height: 60%;
-}
-
-.upper-header{
-  height: 15%;
-  width: 100%;
-  border-bottom: solid 0.5px white;
-}
-
-.low-header{
-  height: 80%;
-  width: 100%;
-}
-
-.mid-header{
-  height: 5%;
-  width: 100%;
-}
-
-.header{
-  background-image: url("bg.png");
-}
-
-ul{
-  list-style-type: none;
-}
-
-a{
-  color: white;
-  text-decoration: none;
-}
-a:hover{
-  text-decoration: none;
-  color: white;
-}
-
-li:hover{
-  border-bottom: solid #fff 1px;
-  text-decoration: none;
-}
-
-button{
-  position: relative;
-  top: 50%;
-  left: 50%;
-}
-
-#searchbar{
-  background-color: white;
-}
-
-#low-header-right img {
-  height: 25%;
-  position: relative;
-  top: 5%;
-  left: 20%;
-}
-
-#low-header-left img{
-  height: 25%;
-  position: relative;
-  top: 5%;
-  left: 10%;
-}
-
-.table{
-  background-color: whitesmoke;
-}
-
-table tbody {
-  display: block;
-  max-height: 300px;
-  overflow-y: scroll;
-}
-
-table thead, table tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-label[for^="Radio"]{
-  color: white;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	white-space: nowrap;
+	line-height: 60px; /* Vertically center the text there */
 }

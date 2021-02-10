@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using covidipedia.front.Areas.Identity.Data;
 using covidipedia.front.Data;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace covidipedia.front.Pages {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel {
 
             private UserManager<ApplicationUser> userManager;
@@ -23,16 +25,23 @@ namespace covidipedia.front.Pages {
             public InputModel Input { get; set; }
             public class InputModel
             {
-                [Required]
-                [Display(Name = "Login Name")]
-                public string LoginName { get; set; }
+                
 
                 [Required]
                 [Display(Name = "Email")]
                 public string Email { get; set; }
+            [Required]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
 
-                
-            }
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+
+        }
 
 
             public async Task<IActionResult> OnPostAsync()
@@ -48,11 +57,11 @@ namespace covidipedia.front.Pages {
 
             var newUser = new ApplicationUser
             {
-                UserName = Input.LoginName,
+                UserName = Input.Email,
                 Email = Input.Email
             };
 
-            IdentityResult result = await userManager.CreateAsync(newUser);
+            IdentityResult result = await userManager.CreateAsync(newUser, Input.Password);
             if (result.Succeeded)
                 return RedirectToPage("./Index");
             else

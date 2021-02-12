@@ -2,11 +2,13 @@
 using Microsoft.Extensions.Logging;
 using covidipedia.front.chart;
 
-namespace covidipedia.front.Pages {
-    public class IndexModel : PageModel {
+namespace covidipedia.front.Pages
+{
+    public class IndexModel : PageModel
+    {
         private readonly ILogger<IndexModel> _logger;
 
-        public ChartPrinter _chartSalesCountries {get; set;}
+        public ChartPrinter _chartSalesCountries { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger) {
             _logger = logger;
@@ -14,8 +16,10 @@ namespace covidipedia.front.Pages {
 
         public void OnGet() {
             _chartSalesCountries = new ChartPrinter();
-            _chartSalesCountries.SalesCountriesTest();
+            _chartSalesCountries.CountNumberPersonDateVaccin1();
+            _chartSalesCountries.CountNumberProgressPersonDateVaccin2();
+            //_chartSalesCountries.SalesCountriesTest();
         }
-            
+
     }
 }

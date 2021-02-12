@@ -11,6 +11,77 @@
 <body>
     <h1>@ViewData["Title"]</h1>
 
-    <p class="privacy-policies-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</body>
+    <p class="privacy-policies-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum.</p>
 
+    <div class="container">
+        <div class=" text-center mt-5 ">
+            <h1>Nous contacter</h1>
+        </div>
+        <div class="row ">
+            <div class="col-lg-7 mx-auto">
+                <div class="card mt-2 mx-auto p-4 bg-light">
+                    <div class="card-body bg-light">
+                        <div class="container">
+                            <form method="post" id="contact-form" role="form">
+                                <div class="controls">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group"> <label for="form_lastname">Prénom *</label>
+                                                <input id="form_name" asp-for="contact.firstName" type="text" name="firstname"
+                                                    class="form-control" placeholder="Entrez votre prénom *"
+                                                    required="required" data-error="Votre prénom est requis.">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group"> <label for="form_lastname">Nom *</label>
+                                                <input id="form_lastname" asp-for="contact.lastName" type="text" name="lastname"
+                                                    class="form-control" placeholder="Entrez votre nom*"
+                                                    required="required" data-error="Votre nom est requis.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group"> <label for="form_email">Email *</label>
+                                                <input id="form_email" asp-for="contact.email" type="email" name="email"
+                                                    class="form-control" placeholder="Entrez votre email *"
+                                                    required="required" data-error="Un email valide est requis.">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group"> <label for="form_need">Notifiez votre besoin*</label>
+                                                <select asp-for="contact.need" id="form_need" name="need" class="form-control"
+                                                    required="required" data-error="Notifiez votre besoin"
+                                                    asp-items="Html.GetEnumSelectList<Need>()">
+                                                    <option value="" disabled selected>Notifiez votre besoin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group"> <label for="form_message">Message *</label>
+                                                <textarea asp-for="contact.message" id="form_message" name="message"
+                                                    class="form-control" placeholder="Ecrivez votre message ici." rows="4"
+                                                    required="required"
+                                                    data-error="S'il vous plaît, laissez nous un message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12"> <input type="submit"
+                                                class="btn btn-success btn-send pt-2 btn-block " value="envoyez votre message">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- /.8 -->
+            </div> <!-- /.row-->
+        </div>
+    </div>
+
+</body>

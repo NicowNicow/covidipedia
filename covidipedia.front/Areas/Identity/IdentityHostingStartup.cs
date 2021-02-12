@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using covidipedia.front.Areas.Identity.Data;
 using covidipedia.front.Data;
+using covidipedia.front.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -15,14 +18,19 @@ namespace covidipedia.front.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<LoginContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("LoginContextConnection")));
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseNpgsql(
+                        context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>().AddEntityFrameworkStores<LoginContext>();
+                
+                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+                services.AddHostedService<EnsureAdministrator>();
 
             });
         }
+       
     }
 }

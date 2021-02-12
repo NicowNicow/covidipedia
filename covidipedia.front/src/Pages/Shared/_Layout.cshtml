@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,18 +22,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Public/Privacy">Confidentialité</a>
                         </li>
+                        @* @if (this.User.IsInRole("Admin") || this.User.IsInRole("Medical"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Private/Query">Requêtes Spécialisées</a>
+                            </li>
+                        } *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Admin">Test</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Private/Query">Requêtes Spécialisées</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Design/Design">Design</a>
-                        </li>
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Page d'Administration</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

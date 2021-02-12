@@ -21,7 +21,7 @@ namespace covidipedia.front
         public DateTime? DateVaccin2Personne { get; set; }
         public string EthniePersonne { get; set; }
         public int IdLocalisationLocalisation { get; set; }
-        public int VaccinIdVaccinVaccin { get; set; }
+        public int? VaccinIdVaccinVaccin { get; set; }
 
         public virtual Localisation IdLocalisationLocalisationNavigation { get; set; }
         public virtual Vaccin VaccinIdVaccinVaccinNavigation { get; set; }

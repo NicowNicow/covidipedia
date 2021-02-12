@@ -10,8 +10,36 @@
     catch {}
 });
 
+window.onload = function() {
+    var currentDate = new Date().toISOString().split("T")[0];
+    var list = document.querySelectorAll(".input-date");
+    for (var index=0; index < list.length; index++) {
+        list[index].max = currentDate;
+        if (list[index].classList.contains('input-maximum')) {
+            list[index].value = currentDate;
+        }
+    }
+};
+
+
 function ShowCriterias() {
     $('#partial-view').toggle();
+}
+
+function FillEmptyRequired() {
+    const inputList = document.querySelectorAll(".input-number, .input-date");
+    for (let index = 0; index < inputList.length; index++) {
+        if (((inputList[index].value == null) || (inputList[index].value < inputList[index].min)) && (inputList[index].classList.contains('input-minimum'))) {
+            inputList[index].value = inputList[index].min;
+        }
+        else if (((inputList[index].value.length == 0) || (inputList[index].value > inputList[index].max))  && (inputList[index].classList.contains('input-maximum'))) {
+            inputList[index].value = inputList[index].max;
+        }
+    }
+}
+
+if ( $('[type="date"]').prop('type') != 'date' ) {
+    $('[type="date"]').datepicker();
 }
 
 window.addEventListener("load", ChangeAdvancedCriteriaForm(document.getElementById("select-table").value), false);

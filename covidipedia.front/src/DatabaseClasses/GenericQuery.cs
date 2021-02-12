@@ -1,159 +1,141 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System;
 
 namespace covidipedia.front {
 
     public static class GenericQuery {
+        //TODO: Pour les nombres de cas, il faut passer par des queries plus optimisées (overflow pour des comparaisons > 90k)
 
-        public static ArrayList QuerySelector(string mainCriteriaName, string type, bddcovidipediaContext context) {
+        public static ArrayList QuerySelector(QueryFormInput input, string type, bddcovidipediaContext context) {
             switch(type) {
                 case "Hopital":
-                    return QueryHopital(mainCriteriaName, context);
+                    return QueryHopital(input, context);
 
                 case "Cas":
-                    return QueryCas(mainCriteriaName, context);
+                    return QueryCas(input, context);
                 
                 case "EffetsSecondaires":
-                    return QueryEffetSecondaire(mainCriteriaName, context);
+                    return QueryEffetSecondaire(input, context);
 
                 case "Historique":
-                    return QueryHistoriqueCas(mainCriteriaName, context);
+                    return QueryHistoriqueCas(input, context);
 
                 case "Pathologie":
-                    return QueryPathologie(mainCriteriaName, context);
+                    return QueryPathologie(input, context);
                 
                 case "Personne":
-                    return QueryPersonne(mainCriteriaName, context);
+                    return QueryPersonne(input, context);
                 
                 case "Symptome":
-                    return QuerySymptome(mainCriteriaName, context);
+                    return QuerySymptome(input, context);
 
                 case "Traitement":
-                    return QueryTraitement(mainCriteriaName, context);
+                    return QueryTraitement(input, context);
                 
                 case "Vaccin":
-                    return QueryVaccin(mainCriteriaName, context);
+                    return QueryVaccin(input, context);
                 
                 case "Localisation":
-                    return QueryLocalisation(mainCriteriaName, context);
+                    return QueryLocalisation(input, context);
 
                 default:
                     return null;
             }
         }
 
-        public static ArrayList QueryHopital(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Hopital> results = new List<Hopital>();
-            if (mainCriteriaName != null) {
-                results = context.Hopitals
-                            .Where(hopital => hopital.NomHopital == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Hopital hopital in context.Hopitals) results.Add(hopital);
-            return new ArrayList(results);
+        public static ArrayList QueryHopital(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Hopital> results = context.Hopitals;
+            if (input.name != null) results = results.Where(item => item.NomHopital == input.name);
+            results = results.Where(item => (item.NombreLitsHopital >= input.hopitalQuery.totalBeds[0]));
+            results = results.Where(item => (item.NombreLitsHopital <= input.hopitalQuery.totalBeds[1])); //TODO: potentiel overflow
+            results = results.Where(item => (item.NombreLitsReanimationHopital >= input.hopitalQuery.totalIntensiveBeds[0]));
+            results = results.Where(item => (item.NombreLitsReanimationHopital <= input.hopitalQuery.totalIntensiveBeds[1])); //TODO: potentiel overflow
+            //TODO: Queries composées Hopital une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryCas(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Ca> results = new List<Ca>();
-            if (mainCriteriaName != null) {
-                results = context.Cas
-                            .Where(cas => cas.EtatActuelCas == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Ca cas in context.Cas) results.Add(cas);
-            return new ArrayList(results);
+        public static ArrayList QueryCas(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Ca> results = context.Cas;
+            if (input.name != null) results = results.Where(item => item.EtatActuelCas == input.name);
+            //TODO: Queries composées Cas une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryEffetSecondaire(string mainCriteriaName, bddcovidipediaContext context) {
-            List<EffetSecondaire> results = new List<EffetSecondaire>();
-            if (mainCriteriaName != null) {
-                results = context.EffetSecondaires
-                            .Where(effet => effet.NomEffetEffetSecondaire == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (EffetSecondaire effet in context.EffetSecondaires) results.Add(effet);
-            return new ArrayList(results);
+        public static ArrayList QueryEffetSecondaire(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<EffetSecondaire> results = context.EffetSecondaires;
+            if (input.name != null) results = results.Where(item => item.NomEffetEffetSecondaire == input.name);
+            if (input.effetQuery.effetType != null) results = results.Where(item => item.TypeEffetEffetSecondaire == input.effetQuery.effetType);
+            //TODO: Queries composées Effet Secondaire une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryHistoriqueCas(string mainCriteriaName, bddcovidipediaContext context) {
-            List<HistoriqueCa> results = new List<HistoriqueCa>();
-            if (mainCriteriaName != null) {
-                results = context.HistoriqueCas
-                            .Where(historique => historique.EtatCasHistoriqueCas == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (HistoriqueCa historique in context.HistoriqueCas) results.Add(historique);
-            return new ArrayList(results);
+        public static ArrayList QueryHistoriqueCas(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<HistoriqueCa> results = context.HistoriqueCas;
+            if (input.name != null) results = results.Where(item => item.EtatCasHistoriqueCas == input.name);
+            if (input.historiqueQuery.virusStrain != null) results = results.Where(item => item.SoucheVirusHistoriqueCas == input.historiqueQuery.virusStrain);
+            results = results.Where(item => ((item.DateDetectionHistoriqueCas >= input.historiqueQuery.detectionDate[0]) && (item.DateDetectionHistoriqueCas < input.historiqueQuery.detectionDate[1])));
+            results = results.Where(item => ((item.DateMajHistoriqueCas >= input.historiqueQuery.majDate[0]) && (item.DateMajHistoriqueCas < input.historiqueQuery.majDate[1])));
+            //TODO: Queries composées Historique une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryPathologie(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Pathologie> results = new List<Pathologie>();
-            if (mainCriteriaName != null) {
-                results = context.Pathologies
-                            .Where(pathologie => pathologie.NomPathologiePathologie == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Pathologie pathologie in context.Pathologies) results.Add(pathologie);
-            return new ArrayList(results);
+        public static ArrayList QueryPathologie(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Pathologie> results = context.Pathologies;
+            if (input.name != null) results = results.Where(item => item.NomPathologiePathologie == input.name);
+            if (input.pathologieQuery.pathologieType != null) results = results.Where(item => item.TypePathologiePathologie == input.pathologieQuery.pathologieType);
+            //TODO: Queries composées Pathologie une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryPersonne(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Personne> results = new List<Personne>();
-            if (mainCriteriaName != null) {
-                results = context.Personnes
-                            .Where(personne => personne.IdentifiantPersonne == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Personne personne in context.Personnes) results.Add(personne);
-            return new ArrayList(results);
+        public static ArrayList QueryPersonne(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Personne> results = context.Personnes;
+            if (input.name != null) results = results.Where(item => item.IdentifiantPersonne == input.name);
+            if (input.casPersonneQuery.ethnicOrigin != null) results = results.Where(item => item.EthniePersonne == input.casPersonneQuery.ethnicOrigin);
+            results = results.Where(item => ((item.AgePersonne >= input.casPersonneQuery.age[0]) && (item.AgePersonne <= input.casPersonneQuery.age[1])));
+            results = results.Where(item => ((item.DateVaccin1Personne >= input.casPersonneQuery.vaccinDate1[0]) && (item.DateVaccin1Personne < input.casPersonneQuery.vaccinDate1[1])));
+            results = results.Where(item => ((item.DateVaccin2Personne >= input.casPersonneQuery.vaccinDate2[0]) && (item.DateVaccin1Personne < input.casPersonneQuery.vaccinDate2[1])));
+            //TODO: Query Gender pour Personne (Boolean issue)
+            //TODO: Queries composées Personne une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QuerySymptome(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Symptome> results = new List<Symptome>();
-            if (mainCriteriaName != null) {
-                results = context.Symptomes
-                            .Where(symptome => symptome.NomSymptomeSymptome == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Symptome symptome in context.Symptomes) results.Add(symptome);
-            return new ArrayList(results);
+        public static ArrayList QuerySymptome(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Symptome> results = context.Symptomes;
+            if (input.name != null) results = results.Where(item => item.NomSymptomeSymptome == input.name);
+            if (input.symptomeQuery.symptomeType != null) results = results.Where(item => item.TypeSymptomeSymptome == input.symptomeQuery.symptomeType);
+            //TODO: Queries composées Symptome une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryTraitement(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Traitement> results = new List<Traitement>();
-            if (mainCriteriaName != null) {
-                results = context.Traitements
-                            .Where(traitement => traitement.NomTraitementTraitement == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Traitement traitement in context.Traitements) results.Add(traitement);
-            return new ArrayList(results);
+        public static ArrayList QueryTraitement(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Traitement> results = context.Traitements;
+            if (input.name != null) results = results.Where(item => item.NomTraitementTraitement == input.name);
+            if (input.traitementQuery.traitementType != null) results = results.Where(item => item.TypeTraitementTraitement == input.traitementQuery.traitementType);
+            //TODO: Queries composées Traitement une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryVaccin(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Vaccin> results = new List<Vaccin>();
-            if (mainCriteriaName != null) {
-                results = context.Vaccins
-                            .Where(vaccin => vaccin.NomVaccinVaccin == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Vaccin vaccin in context.Vaccins) results.Add(vaccin);
-            return new ArrayList(results);
+        public static ArrayList QueryVaccin(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Vaccin> results = context.Vaccins;
+            if (input.name != null) results = results.Where(item => item.NomVaccinVaccin == input.name);
+            if (input.vaccinQuery.vaccinTypeManufacturer[0] != null) results = results.Where(item => item.TypeVaccinVaccin == input.vaccinQuery.vaccinTypeManufacturer[0]);
+            if (input.vaccinQuery.vaccinTypeManufacturer[1] != null) results = results.Where(item => item.FabricantVaccin == input.vaccinQuery.vaccinTypeManufacturer[1]);
+            //TODO: Queries composées Vaccin une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static ArrayList QueryLocalisation(string mainCriteriaName, bddcovidipediaContext context) {
-            List<Localisation> results = new List<Localisation>();
-            if (mainCriteriaName != null) {
-                results = context.Localisations
-                            .Where(localisation => localisation.VilleLocalisation == mainCriteriaName)
-                            .ToList();
-            }
-            else foreach (Localisation localisation in context.Localisations) results.Add(localisation);
-            return new ArrayList(results);
+        public static ArrayList QueryLocalisation(QueryFormInput input, bddcovidipediaContext context) {
+            IQueryable<Localisation> results = context.Localisations;
+            if (input.name != null) results = results.Where(item => item.RegionLocalisation == input.name);
+            if (input.localisationQuery.department != 0) results = results.Where(item => item.DepartementLocalisation == input.localisationQuery.department);
+            if (input.localisationQuery.city != null) results = results.Where(item => item.VilleLocalisation == input.localisationQuery.city);
+            //TODO: Queries composées Localisation une fois le contenu de la database généré proprement
+            return new ArrayList(results.ToList());
         }
 
-        public static string TableHeadSelector(string type) { //C'est pas hyper joli mais on manque de temps pour faire plus propre
+        public static string TableHeadSelector(string type) { 
             switch(type) {
                 case "Hopital":
                     return "<tr><th>ID Hopital</th><th>Nom Hopital</th><th>Nombre de Lits</th><th>Nombre de Lits en Réanimation</th></tr>";
@@ -190,8 +172,10 @@ namespace covidipedia.front {
             }
         }
 
-        public static string TableContentSelector(ArrayList queryResult, string type) { //C'est pas hyper joli mais on manque de temps pour faire plus propre, 2ème édition
+        public static string TableContentSelector(ArrayList queryResult, string type, Dictionary<int,string> departmentList) { 
             string pageContent = "";
+            string department;
+            string gender;
             switch(type) {
                 case "Hopital":
                     foreach(Hopital hopital in queryResult) {
@@ -225,7 +209,20 @@ namespace covidipedia.front {
                 
                 case "Personne":
                     foreach(Personne personne in queryResult) {
-                        pageContent += $"<tr><th>{personne.IdPersonnePersonne}</th><th>{personne.AgePersonne}</th><th>{personne.SexePersonne}</th><th>{personne.IdentifiantPersonne.Trim()}</th><th>{personne.DateVaccin1Personne}</th><th>{personne.DateVaccin2Personne}</th><th>{personne.EthniePersonne.Trim()}</th></tr>";
+                        switch(personne.SexePersonne) {
+                            case true:
+                                gender = "Homme";
+                                break;
+                            
+                            case false:
+                                gender = "Femme";
+                                break;
+                            
+                            default:
+                                gender = "Inconnu";
+                                break;
+                        }
+                        pageContent += $"<tr><th>{personne.IdPersonnePersonne}</th><th>{personne.AgePersonne}</th><th>{gender}</th><th>{personne.IdentifiantPersonne.Trim()}</th><th>{personne.DateVaccin1Personne}</th><th>{personne.DateVaccin2Personne}</th><th>{personne.EthniePersonne.Trim()}</th></tr>";
                     }
                     break;
                 
@@ -249,7 +246,8 @@ namespace covidipedia.front {
                 
                 case "Localisation":
                     foreach(Localisation localisation in queryResult) {
-                        pageContent += $"<tr><th>{localisation.IdLocalisationLocalisation}</th><th>{localisation.RegionLocalisation.Trim()}</th><th>{localisation.DepartementLocalisation}</th><th>{localisation.VilleLocalisation.Trim()}</th></tr>";
+                        department = departmentList[(int)localisation.DepartementLocalisation];
+                        pageContent += $"<tr><th>{localisation.IdLocalisationLocalisation}</th><th>{localisation.RegionLocalisation.Trim()}</th><th>{department}</th><th>{localisation.VilleLocalisation.Trim()}</th></tr>";
                     }
                     break;
 

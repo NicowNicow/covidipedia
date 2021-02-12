@@ -16,7 +16,9 @@ namespace covidipedia.front.Pages
 
         public void OnGet() {
             _chartSalesCountries = new ChartPrinter();
-            _chartSalesCountries.SalesCountriesTest();
+            _chartSalesCountries.CountNumberPersonDateVaccin1();
+            _chartSalesCountries.CountNumberProgressPersonDateVaccin2();
+            //_chartSalesCountries.SalesCountriesTest();
         }
 
     }

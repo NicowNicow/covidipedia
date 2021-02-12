@@ -3,15 +3,16 @@
 @{
     ViewData["Title"] = "Home";
 }
+
 <head>
     <link rel="stylesheet" href="~/lib/chartjs/Chart.css" />
-    <link rel="stylesheet" href="~/css/index.css" type="text/css"/>
-    <link rel="stylesheet" href="~/css/slider.css" type="text/css"/>
+    <link rel="stylesheet" href="~/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/slider.css" type="text/css" />
 </head>
 
 <body>
-  <div class="graph-selection">
-        <h3 class= graph-title>Choisissez les jeux de données à afficher:</h3>
+    <div class="graph-selection">
+        <h3 class=graph-title>Choisissez les jeux de données à afficher:</h3>
         <div class="checkboxes">
 
             <div class="toggle">
@@ -21,7 +22,7 @@
                     <span class="slider round"></span>
                 </label>
             </div>
-            
+
             <div class="toggle">
                 <label class="switch-text">Discount by Countries</label>
                 <label class="switch">
@@ -42,24 +43,21 @@
 
     <div class="graph-printing">
 
-        <div id="frame" class="sales-countries">
-            <canvas id="chart-sales-countries"></canvas>
+        <div id="frame" class="count-vaccin-1">
+            <canvas id="chart-count-vaccin-1"></canvas>
         </div>
-
-        <iframe id="frame" class="discount-countries" width="45%" height="373.5"
-                    src="https://app.powerbi.com/view?r=eyJrIjoiNTc1NDQxZWQtNzk2ZS00MzJkLWFjNDEtZTQ1OWFmYmU3Mjk3IiwidCI6Ijg5NzM0Mjg5LWEzY2YtNDA1Mi05MDIxLTE5NWE3YmJhNDk5MiIsImMiOjh9"
-                    frameborder="0" allowFullScreen="true"></iframe>
-        
-        <iframe id="frame" class="profit-month" width="45%" height="373.5"
-                    src="https://app.powerbi.com/view?r=eyJrIjoiOGY3MGU5NjMtMWVkYy00MzgxLTk4YTctZjU0N2NhZDk4OWY1IiwidCI6Ijg5NzM0Mjg5LWEzY2YtNDA1Mi05MDIxLTE5NWE3YmJhNDk5MiIsImMiOjh9"
-                    frameborder="0" allowFullScreen="true"></iframe>
-
+        <div id="frame" class="count-vaccin-2">
+            <canvas id="chart-count-vaccin-2"></canvas>
+        </div>
     </div>
 
     <script> //Script Graph 1: Sales by Countries
         document.addEventListener('DOMContentLoaded', (event) => {
-            var context = document.getElementById('chart-sales-countries'); //JS: Positionnement dans le canvas correspondant
-            var myChart = new Chart(context, @Html.Raw(Model._chartSalesCountries.ChartJson) ); //C#: Instanciation de l'objet Chart à placer
+
+            var context = document.getElementById('chart-count-vaccin-1');
+            var myChart = new Chart(context, @Html.Raw(Model._chartSalesCountries.ChartJson));
+            var context2 = document.getElementById('chart-count-vaccin-2');
+            var myChart2 = new Chart(context2, @Html.Raw(Model._chartSalesCountries.ChartJson2));
         });
     </script>
 

@@ -5,81 +5,84 @@
 }
 
 <head>
+    <link href="~/css/query.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
-    <script src="~/js/query.js"></script>
-    <link href="~/css/calendar.css" rel="stylesheet" />
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
     <h1>@ViewData["Title"]</h1>
 
+    <div class="query-creator">
+        <form class="query-form" method="post">
+            <div class="form-group">
+                <p class="main-criteria-text">Critère principal de recherche:</p>
+                <div class="form-group-nowrap">
+                    <label for="select-table" class="to-hide">Selectionner critère principal de recherche:</label>
+                    <select asp-for="input.type" name="input.type" id="select-table" class="select-table" onchange="ChangeAdvancedCriteriaForm(this.value)"> 
+                        <option disabled selected>Choisissez votre critère principal:</option>
+                        <option value="Cas">Cas</option>
+                        <option value="EffetsSecondaires">Effets Secondaires</option>
+                        <option value="Historique">Historique</option>
+                        <option value="Hopital" >Hopital</option>
+                        <option value="Localisation">Localisation</option>
+                        <option value="Pathologie">Pathologie</option>
+                        <option value="Personne">Personne</option> <!-- Affichage correct du sexe à faire ici -->
+                        <option value="Symptome">Symptome</option>
+                        <option value="Traitement">Traitement</option>
+                        <option value="Vaccin">Vaccin</option>
+                    </select>
 
-    <table class="table">
-        <form>
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">
-                        Date<input type="text" id="datePicker">
-                        <span id="calendar"></span>
-                    </th>
-                    <th scope="col">
-                        Place <select id="country" name="country">
-                            <option value="fr">France</option>
-                            <option value="uk">Royaume-Unis</option>
-                            <option value="it">Italie</option>
-                        </select> <select id="Region" name="Region">
-                            <option value="idf">Ile-de-France</option>
-                            <option value="sud">Sud</option>
-                            <option value="ge">Grand Est</option>
-                        </select>
-                    </th>
-                    <th scope="col">Info</th>
-                </tr>
-            </thead>
-            <button class="btn-dark" type="submit">Submit</button>
+                    <label for="input_name" class="to-hide">Entrer le critère à rechercher:</label>
+                    @Html.TextBoxFor(model => model.input.name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
+                </div>
+                
+                <br/><span asp-validation-for="input.type" class="text-danger"></span>
+
+            </div>
+
+            <div id="partial-view" class="partial-view" >
+                @{ await Html.RenderPartialAsync("PartialViewForm"); }
+            </div>
+
+            <div class="submit-group">
+                <button type="button" class="btn btn-link" id="extend-criterias" onclick="ShowCriterias()">+  Plus de critères</button> 
+                <button id="query-submit" type="submit" asp-page-handler="Submit" class="btn btn-primary">Recherche</button>
+            </div>
         </form>
-       
-        <tbody>
+    </div>
+    
+    @{
+        if (ViewData["ResultTable"] != null) {
+            <hr class="separator">
+        }
+    }
 
-            @{
-                List<QueryModel.Result> result = new List<QueryModel.Result>();
-                for (var i = 0; i < 10; i++)
-                {
-                    var temp = new QueryModel.Result();
-                    temp.date = new DateTime();
-                    temp.place = QueryModel.RandomString(5);
-                    temp.info = QueryModel.RandomString(10);
-                    result.Add(temp);
-                }
-                foreach (var x in result)
-                {
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>@x.date</td>
-                        <td>@x.place</td>
-                        <td>@x.info</td>
-                    </tr>
-                }
+    <div class="table-manager">
+        <table name="results-table" id="results-table" class="table table-bordered table-striped">
+            <thead>
+                @Html.Raw(ViewData["ResultTableHead"])
+            </thead>
+            <tbody>
+                @Html.Raw(ViewData["ResultTable"])
+            </tbody> 
+        </table>
+    </div>
+
+    <div class="button-download">
+        @{
+            if (ViewData["ResultTable"] != null) {
+                <form method="post" asp-page="Query" asp-page-handler="DownloadFile">
+                    <div>
+                         <button id="csv-export" type="submit" class="btn-success">Exporter les résultats au format CSV</button>
+                    </div>
+                </form>
             }
+        }
+    </div>
 
-        </tbody>
-    </table>
-    <button class="btn-success" onclick="exportTableToCSV('members.csv')">Export HTML Table To CSV File</button>
-    <script src="~/js/calendar.js"></script>
-    <script>
-        var trigger = document.querySelector('#datePicker');
-        var dateComponent = new DatePicker({
-            el: document.querySelector('#calendar'),
-            trigger: trigger,
-            onchange: function (curr) {
-                trigger.value = curr;
-            }
-        });
+    <script src="~/js/query.js"></script>
 
-        trigger.onfocus = function () {
-            dateComponent.show();
-        };
-    </script>
 </body>

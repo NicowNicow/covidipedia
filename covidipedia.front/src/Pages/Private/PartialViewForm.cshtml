@@ -1,0 +1,510 @@
+@model QueryModel
+
+<head>
+    <link href="~/css/partialviewquery.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="no-main-criteria" class="extended-form">
+        <p class="advanced-criterias">Please select a main criteria first!</p>
+    </div>
+
+    @{
+        SelectList departmentSelectList = new SelectList(Model.departmentList.Select(couple => new { Value = couple.Key, Text = couple.Value }), "Value", "Text");
+        SelectList genderSelectList = new SelectList(Model.genderList.Select(couple => new { Value = couple.Key, Text = couple.Value }), "Value", "Text");
+    }
+
+
+
+
+    <div id="criteria-cas-personne" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-age-cas">Age minimum des personnes: </label>
+                <input asp-for="input.casPersonneQuery.age[0]" type="number" min="0" max="130" value="0" class="input-number input-minimum" id="input-minimum-age-cas" onchange="document.getElementById('input-maximum-age-cas').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-age-cas">Age maximal des personnes: </label>
+                <input asp-for="input.casPersonneQuery.age[1]" type="number" min="0" max="130" value="130" class="input-number input-maximum" id="input-maximum-age-cas" onchange="document.getElementById('input-minimum-age-cas').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-ethnie-cas">Groupe Ethnique: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.ethnicOrigin" id="input-type-ethnie-cas"/>
+            </div>
+            <div class="select-inf">
+                <label class="partial-view-label" for="select-gender-cas">Recherche par Sexe: </label>
+                @Html.DropDownListFor(model => model.input.casPersonneQuery.personGender, genderSelectList)
+            </div>
+        </div>
+
+        <div class="range-date">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-date-vaccin-1">Date de 1er vaccin minimale: </label>
+                <input asp-for="input.casPersonneQuery.vaccinDate1[0]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-minimum" id="input-minimum-date-vaccin-1" onchange="document.getElementById('input-maximum-date-vaccin-1').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-date-vaccin-1">Date de 1er vaccin maximale: </label>
+                <input asp-for="input.casPersonneQuery.vaccinDate1[1]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-maximum" id="input-maximum-date-vaccin-1" onchange="document.getElementById('input-minimum-date-vaccin-1').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-date">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-date-vaccin-2">Date de 2nd vaccin minimale: </label>
+                <input asp-for="input.casPersonneQuery.vaccinDate2[0]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-minimum" id="input-minimum-date-vaccin-2" onchange="document.getElementById('input-maximum-date-vaccin-2').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-date-vaccin-2">Date de 2nd vaccin maximale: </label>
+                <input asp-for="input.casPersonneQuery.vaccinDate2[1]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-maximum" id="input-maximum-date-vaccin-2" onchange="document.getElementById('input-minimum-date-vaccin-2').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-vaccin-cas">Nom de vaccin: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.vaccinNameTypeManufacturer[0]" id="input-name-vaccin-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-vaccin-cas">Type du vaccin: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.vaccinNameTypeManufacturer[1]" id="input-type-vaccin-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-manufacturer-vaccin-cas">Fabricant du vaccin: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.vaccinNameTypeManufacturer[2]" id="input-manufacturer-vaccin-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-effet-cas">Nom d'Effet Secondaire: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.effetNameType[0]" id="input-name-effet-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-effet-cas">Type d'Effet Secondaire: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.effetNameType[1]" id="input-type-effet-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-region-cas">Nom de Region: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.region" id="input-name-region-cas"/>
+            </div>
+            <div class="select-inf">
+                <label class="partial-view-label" for="select-department-cas">Recherche par Département: </label>
+                @Html.DropDownListFor(model => model.input.casPersonneQuery.department, departmentSelectList)
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-city-cas">Nom de Ville: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.city" id="input-name-city-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-hopital-cas">Nom d'hopital': </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.hopitalName" id="input-name-hopital-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-status-cas">Etat du Patient: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.currentState" id="input-status-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-strain-cas">Souche du Virus: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.virusStrain" id="input-strain-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-pathologie-cas">Nom de Pathologie: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.pathologieNameType[0]" id="input-name-pathologie-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-pathologie-cas">Type de Pathologie: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.pathologieNameType[1]" id="input-type-pathologie-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-symptome-cas">Nom de Symptome: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.symptomeNameType[0]" id="input-name-symptome-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-symptome-cas">Type de Symptome: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.symptomeNameType[1]" id="input-type-symptome-cas"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-traitement-cas">Nom de Traitement: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.traitementNameType[0]" id="input-name-traitement-cas"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-traitement-cas">Type de Traitement: </label>
+                <input class="input-type-cas" asp-for="input.casPersonneQuery.traitementNameType[1]" id="input-type-traitement-cas"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-effets-secondaires" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input_effetQuery_effetType">Type d'Effet Secondaire: </label>
+                <input class="input-type-effet" asp-for="input.effetQuery.effetType" id="input-type-effet"/>
+            </div>
+            <div class="select-inf">
+                <label class="partial-view-label" for="select-gender-effet">Recherche par Sexe: </label>
+                @Html.DropDownListFor(model => model.input.effetQuery.personneGender, genderSelectList)
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-vaccin-effet">Nom de vaccin: </label>
+                <input class="input-type-effet" asp-for="input.effetQuery.vaccinNameTypeManufacturer[0]" id="input-name-vaccin-effet"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-vaccin-effet">Type du vaccin: </label>
+                <input class="input-type-effet" asp-for="input.effetQuery.vaccinNameTypeManufacturer[1]" id="input-type-vaccin-effet"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-manufacturer-vaccin-effet">Fabricant du vaccin: </label>
+                <input class="input-type-effet" asp-for="input.effetQuery.vaccinNameTypeManufacturer[2]" id="input-manufacturer-vaccin-effet"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-traitement-effet">Nom de Traitement: </label>
+                <input class="input-type-vaccin" asp-for="input.effetQuery.traitementNameType[0]" id="input-name-traitement-effet"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-traitement-effet">Type de Traitement: </label>
+                <input class="input-type-vaccin" asp-for="input.effetQuery.traitementNameType[1]" id="input-type-traitement-effet"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-age">Age minimum des personnes atteintes: </label>
+                <input asp-for="input.effetQuery.personneAge[0]" type="number" min="0" value="0" max="130" class="input-number input-minimum" id="input-minimum-age" onchange="document.getElementById('input-maximum-age').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-age">Age maximal des personnes atteintes: </label>
+                <input asp-for="input.effetQuery.personneAge[1]" type="number" min="0" max="130" value="130" class="input-number input-maximum" id="input-maximum-age" onchange="document.getElementById('input-minimum-age').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-case">Nombre de cas minimal: </label>
+                <input asp-for="input.effetQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-case" onchange="document.getElementById('input-maximum-case').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-case">Nombre de cas maximal: </label>
+                <input asp-for="input.effetQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-case" onchange="document.getElementById('input-minimum-case').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-historique" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-status-historique">Etat actuel du patient: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.currentState" id="input-status-historique"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-strain-historique">Souche du virus: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.virusStrain" id="input-strain-historique"/>
+            </div>
+        </div>
+
+        <div class="range-date">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-date-detection">Date de détection minimale: </label>
+                <input asp-for="input.historiqueQuery.detectionDate[0]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-minimum" id="input-minimum-date-detection" onchange="document.getElementById('input-maximum-date-detection').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-date-detection">Date de détection maximale: </label>
+                <input asp-for="input.historiqueQuery.detectionDate[1]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-maximum" id="input-maximum-date-detection" onchange="document.getElementById('input-minimum-date-detection').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-date">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-date-maj">Date de MaJ minimale: </label>
+                <input asp-for="input.historiqueQuery.majDate[0]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-minimum" id="input-minimum-date-maj" onchange="document.getElementById('input-maximum-date-maj').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-date-maj">Date de MaJ maximale: </label>
+                <input asp-for="input.historiqueQuery.majDate[1]" type="date" min="2018-01-01" value="2018-01-01" class="input-date input-maximum" id="input-maximum-date-maj" onchange="document.getElementById('input-minimum-date-maj').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-pathologie-historique">Nom de la Pathologie: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.pathologieNameType[0]" id="input-name-pathologie-historique"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-pathologie-historique">Type de la Pathologie: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.pathologieNameType[1]" id="input-type-pathologie-historique"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-symptome-historique">Nom du Symptome: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.symptomeNameType[0]" id="input-name-symptome-historique"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-symptome-historique">Type du Symptome: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.symptomeNameType[1]" id="input-type-symptome-historique"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-traitement-historique">Nom du Traitement: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.traitementNameType[0]" id="input-name-traitement-historique"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-traitement-historique">Type du Traitement: </label>
+                <input class="input-type-historique" asp-for="input.historiqueQuery.traitementNameType[1]" id="input-type-traitement-historique"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-hopital" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-region-hopital">Nom de Region: </label>
+                <input class="input-type-hopital" asp-for="input.hopitalQuery.region" id="input-name-region-hopital"/>
+            </div>
+            <div class="select-inf">
+                <label class="partial-view-label" for="select-department-hopital">Recherche par Département: </label>
+                @Html.DropDownListFor(model => model.input.casPersonneQuery.department, departmentSelectList)
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-city-hopital">Nom de Ville: </label>
+                <input class="input-type-hopital" asp-for="input.hopitalQuery.city" id="input-name-city-hopital"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-case-hopital">Nombre de cas minimal: </label>
+                <input asp-for="input.hopitalQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-case-hopital" onchange="document.getElementById('input-maximum-case-hopital').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-case-hopital">Nombre de cas maximal: </label>
+                <input asp-for="input.hopitalQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-case-hopital" onchange="document.getElementById('input-minimum-case-hopital').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-total-beds-hopital">Nombre total minimal de lits: </label>
+                <input asp-for="input.hopitalQuery.totalBeds[0]" type="number" min="0" max="10000" value="0" class="input-number input-minimum" id="input-minimum-total-beds-hopital" onchange="document.getElementById('input-maximum-total-beds-hopital').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-total-beds-hopital">Nombre total maximal de lits: </label>
+                <input asp-for="input.hopitalQuery.totalBeds[1]" type="number" min="0" max="10000" value="10000" class="input-number input-maximum" id="input-maximum-total-beds-hopital" onchange="document.getElementById('input-minimum-total-beds-hopital').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-free-beds-hopital">Nombre minimal de lits libres: </label>
+                <input asp-for="input.hopitalQuery.freeBeds[0]" type="number" min="0" max="10000" value="0" class="input-number input-minimum" id="input-minimum-free-beds-hopital" onchange="document.getElementById('input-maximum-free-beds-hopital').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-free-beds-hopital">Nombre maximal de lits libres: </label>
+                <input asp-for="input.hopitalQuery.freeBeds[1]" type="number" min="0" max="10000" value="10000" class="input-number input-maximum" id="input-maximum-free-beds-hopital" onchange="document.getElementById('input-minimum-free-beds-hopital').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-total-intensive-beds-hopital">Nombre total minimal de lits en réanimation: </label>
+                <input asp-for="input.hopitalQuery.totalIntensiveBeds[0]" type="number" min="0" max="10000" value="0" class="input-number input-minimum" id="input-minimum-total-intensive-beds-hopital" onchange="document.getElementById('input-maximum-total-intensive-beds-hopital').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-total-intensive-beds-hopital">Nombre total maximal de lits en réanimation: </label>
+                <input asp-for="input.hopitalQuery.totalIntensiveBeds[1]" type="number" min="0" max="10000" value="10000" class="input-number input-maximum" id="input-maximum-total-intensive-beds-hopital" onchange="document.getElementById('input-minimum-total-intensive-beds-hopital').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-free-intensive-beds-hopital">Nombre minimal de lits en réanimation libres: </label>
+                <input asp-for="input.hopitalQuery.freeIntensiveBeds[0]" type="number" min="0" max="10000" value="0" class="input-number input-minimum" id="input-minimum-free-intensive-beds-hopital" onchange="document.getElementById('input-maximum-free-intensive-beds-hopital').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-free-intensive-beds-hopital">Nombre maximal de lits en réanimation libres: </label>
+                <input asp-for="input.hopitalQuery.freeIntensiveBeds[1]" type="number" min="0" max="10000" value="10000" class="input-number input-maximum" id="input-maximum-free-intensive-beds-hopital" onchange="document.getElementById('input-minimum-free-intensive-beds-hopital').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-localisation" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <div class="select-inf">
+                <label class="partial-view-label" for="select-department-localisation">Recherche par Département: </label>
+                @Html.DropDownListFor(model => model.input.localisationQuery.department, departmentSelectList)
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-localisation">Nom de Ville: </label>
+                <input class="input-type-localisation" asp-for="input.localisationQuery.city" id="input-name-localisation"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-localisation">Nombre de cas minimal: </label>
+                <input asp-for="input.localisationQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-localisation" onchange="document.getElementById('input-maximum-localisation').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-localisation">Nombre de cas maximal: </label>
+                <input asp-for="input.localisationQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-localisation" onchange="document.getElementById('input-minimum-localisation').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-pathologie" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <label class="partial-view-label" for="input-type-pathologie">Type de pathologie: </label>
+            <input class="input-type-pathologie" asp-for="input.pathologieQuery.pathologieType" id="input-type-pathologie"/>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-pathologie">Nombre de cas minimal: </label>
+                <input asp-for="input.pathologieQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-pathologie" onchange="document.getElementById('input-maximum-pathologie').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-pathologie">Nombre de cas maximal: </label>
+                <input asp-for="input.pathologieQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-pathologie" onchange="document.getElementById('input-minimum-pathologie').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-symptome" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <label class="partial-view-label" for="input-type-symptome">Type de symptome: </label>
+            <input class="input-type-symptome" asp-for="input.symptomeQuery.symptomeType" id="input-type-symptome"/>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-symptome">Nombre de cas minimal: </label>
+                <input asp-for="input.symptomeQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-symptome" onchange="document.getElementById('input-maximum-symptome').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-symptome">Nombre de cas maximal: </label>
+                <input asp-for="input.symptomeQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-symptome" onchange="document.getElementById('input-minimum-symptome').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-traitement" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <label class="partial-view-label" for="input-type-traitement">Type de traitement: </label>
+            <input class="input-type-traitement" asp-for="input.traitementQuery.traitementType" id="input-type-traitement"/>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-traitement">Nombre de cas minimal: </label>
+                <input asp-for="input.traitementQuery.caseNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-traitement" onchange="document.getElementById('input-maximum-traitement').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-traitement">Nombre de cas maximal: </label>
+                <input asp-for="input.traitementQuery.caseNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-traitement" onchange="document.getElementById('input-minimum-traitement').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="criteria-vaccin" class="extended-form" hidden>
+        <p class="advanced-criterias">Critères avancés:</p>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-vaccin">Type de vaccin: </label>
+                <input class="input-type-vaccin" asp-for="input.vaccinQuery.vaccinTypeManufacturer[0]" id="input-type-vaccin"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-manufacturer-vaccin">Fabricant du vaccin: </label>
+                <input class="input-type-vaccin" asp-for="input.vaccinQuery.vaccinTypeManufacturer[1]" id="input-manufacturer-vaccin"/>
+            </div>
+        </div>
+
+        <div class="input-text">
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-name-effet-vaccin">Nom d'Effet Secondaire: </label>
+                <input class="input-type-vaccin" asp-for="input.vaccinQuery.effetNameType[0]" id="input-name-effet-vaccin"/>
+            </div>
+            <div class="input-text-inf">
+                <label class="partial-view-label" for="input-type-effet-vaccin">Type d'Effet Secondaire: </label>
+                <input class="input-type-vaccin" asp-for="input.vaccinQuery.effetNameType[1]" id="input-type-effet-vaccin"/>
+            </div>
+        </div>
+
+        <div class="range-number">
+            <div class="minimal-value">
+                <label class="partial-view-label" for="input-minimum-vaccin">Nombre minimal de personnes vaccinées: </label>
+                <input asp-for="input.vaccinQuery.vaccinatedNumber[0]" type="number" min="0" max="99999" value="0" class="input-number input-minimum" id="input-minimum-vaccin" onchange="document.getElementById('input-maximum-vaccin').min=this.value; FillEmptyRequired();"/>
+            </div>
+            <div class="maximal-value">
+                <label class="partial-view-label" for="input-maximum-vaccin">Nombre maximal de personnes vaccinées: </label>
+                <input asp-for="input.vaccinQuery.vaccinatedNumber[1]" type="number" min="0" max="99999" value="99999" class="input-number input-maximum" id="input-maximum-vaccin" onchange="document.getElementById('input-minimum-vaccin').max=this.value; FillEmptyRequired();"/>
+            </div>
+        </div>
+    </div>
+</body>

@@ -14,5 +14,6 @@ namespace covidipedia.front.src.Pages.Admin
     public class IndexModel : PageModel
     {
         
+
     }
 }

@@ -35,7 +35,7 @@ namespace covidipedia.front
                 ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
                 configurationBuilder.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json"), false);
                 IConfigurationRoot root = configurationBuilder.Build();
-                optionsBuilder.UseNpgsql(root.GetSection("ConnectionString").Value);
+                optionsBuilder.UseNpgsql(root.GetSection("ConnectionStrings:MainDBConnection").Value);
             }
         }
 

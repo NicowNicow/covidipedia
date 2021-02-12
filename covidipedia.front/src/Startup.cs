@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,9 +28,7 @@ namespace covidipedia.front
             services.AddMvc().WithRazorPagesRoot("/src/Pages");
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddDbContext<bddcovidipediaContext>(options =>
-                    options.UseNpgsql(
-                        context.Configuration.GetConnectionString("MainDBConnection")));
+            services.AddDbContext<bddcovidipediaContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MainDBConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

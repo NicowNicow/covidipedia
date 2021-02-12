@@ -1,17 +1,23 @@
-document.getElementById('checkbox-sales-countries').onchange = function(){
-    var salesCountries = document.getElementsByClassName('sales-countries')[0];
-    if (this.checked) salesCountries.classList.remove('hide');
-    else salesCountries.classList.add('hide');
+$('.card-title').click(function() {
+  if(!$('#criteria-collapser').hasClass("collapsed")){
+      $('.arrow-down').animate(
+          { deg: -90 },
+          {
+            duration: 300,
+            step: function(now) {
+              $(this).css({ transform: 'rotate(' + now + 'deg)' });
+            }
+          }
+      );
+  }else{
+      $('.arrow-down').animate(
+          { deg: 0 },
+          {
+            duration: 300,
+            step: function(now) {
+              $(this).css({ transform: 'rotate(' + now + 'deg)' });
+            }
+          }
+      );
   }
-
-document.getElementById('checkbox-discount-countries').onchange = function(){
-    var salesCountries = document.getElementsByClassName('discount-countries')[0];
-    if (this.checked) salesCountries.classList.remove('hide');
-    else salesCountries.classList.add('hide');
-  }
-
-document.getElementById('checkbox-profit-month').onchange = function(){
-    var salesCountries = document.getElementsByClassName('profit-month')[0];
-    if (this.checked) salesCountries.classList.remove('hide');
-    else salesCountries.classList.add('hide');
-    }
+});

@@ -1,112 +1,333 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Design";
 }
 <head>
-    <link rel="stylesheet" href="~/lib/chartjs/Chart.css" />
-    <link rel="stylesheet" href="~/css/index.css" type="text/css" />
-    <link rel="stylesheet" href="~/css/slider.css" type="text/css" />
-    <link href="~/css/calendar.css" rel="stylesheet" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
+
+	<title>Spark - Responsive Admin &amp; Dashboard Template</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/index.css" rel="stylesheet" />
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <h1 class="border-bottom">HOME OF DATA FOR COVID-19 AND HIS VARIANTS</h1>
-    <div class="row">
-        
-        <form class="col-sm-3">
-            <h2>Here your request</h2>
+	<div class="splash active">
+		<div class="splash-icon"></div>
+	</div>
 
+	<div class="wrapper">
+		<div class="main">
+			<main class="content">
+				<div class="container-fluid">
+                    <br>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-lg-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Cas</h5>
+										</div>
 
-            <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-            </div>
-            <select class="btn btn-primary dropdown-toggle" id="country" name="country">
-                <option value="fr">France</option>
-                <option value="uk">Royaume-Unis</option>
-                <option value="it">Italie</option>
-            </select> <select class="btn btn-primary dropdown-toggle" id="Region" name="Region">
-                <option value="idf">Ile-de-France</option>
-                <option value="sud">Sud</option>
-                <option value="ge">Grand Est</option>
-            </select>
-            <input type="text" id="datePicker">
-            <span id="calendar"></span>
-            <button class="btn-dark" type="submit">Submit</button>
-        </form>
-        <div class="col-sm-6">
-            <h2>Table of Data</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">
-                            Date
-                        </th>
-                        <th scope="col">
-                            Place
-                        </th>
-                    </tr>
-                </thead>
+										<div class="col-auto">
+											<div class="avatar">
+												<div class="avatar-title rounded-circle bg-primary-dark">
+													<span class="iconify" data-icon="fluent:patient-24-filled" data-inline="false" width="24" height="24"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h1 class="display-5 mt-1 mb-3">2 562</h1>
+									<div class="mb-0">
+										<span class="text-danger"> +5.75% </span>
+										Plus que d'habitude
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="col-12 col-sm-6 col-lg-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Décès</h5>
+										</div>
 
-                <tbody>
+										<div class="col-auto">
+											<div class="avatar">
+												<div class="avatar-title rounded-circle bg-primary-dark">
+													<span class="iconify" data-icon="la:book-dead" data-inline="false" width="24" height="24"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h1 class="display-5 mt-1 mb-3">571</h1>
+									<div class="mb-0">
+										<span class="text-danger"> +1.14% </span>
+										En train de stagner
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="col-12 col-sm-6 col-lg-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Vaccinés</h5>
+										</div>
 
-                    @{
-                        List<QueryModel.Result> result = new List<QueryModel.Result>();
-                        for (var i = 0; i < 10; i++)
-                        {
-                            var temp = new QueryModel.Result();
-                            temp.date = new DateTime();
-                            temp.place = QueryModel.RandomString(5);
-                            temp.info = QueryModel.RandomString(10);
-                            result.Add(temp);
-                        }
-                        foreach (var x in result)
-                        {
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>@x.date</td>
-                                <td>@x.place</td>
-                                <td>@x.info</td>
-                            </tr>
-                        }
-                    }
+										<div class="col-auto">
+											<div class="avatar">
+												<div class="avatar-title rounded-circle bg-primary-dark">
+													<span class="iconify" data-icon="tabler:vaccine" data-inline="false" width="24" height="24"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h1 class="display-5 mt-1 mb-3">13 357</h1>
+									<div class="mb-0">
+										<span class="text-success"> 4.17% </span>
+										Légère augmentation
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="col-12 col-sm-6 col-lg-3">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">Lits</h5>
+										</div>
 
-                </tbody>
+										<div class="col-auto">
+											<div class="avatar">
+												<div class="avatar-title rounded-circle bg-primary-dark">
+													<span class="iconify" data-icon="medical-icon:i-inpatient" data-inline="false" width="24" height="24"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h1 class="display-5 mt-1 mb-3">8 547</h1>
+									<div class="mb-0">
+										<span class="text-danger"> -15,72% </span>
+										En grande baisse
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+                        <div class="col-12 col-md-12 col-xxl-6">
+							<div id="criteria-card">
+								<div class="card flex-fill w-100">
+									<div class="card-header">
+										<div class="card-actions float-right">
+											<a href="#" class="mr-1">
+												<span class="iconify" data-icon="feather-refresh-cw" data-inline="false" width="24" height="24"></span>
+											</a>
+											<div class="d-inline-block dropdown show">
+												<a href="#" data-toggle="dropdown" data-display="static">
+													<span class="iconify" data-icon="carbon:overflow-menu-vertical" data-inline="false" width="24" height="24"></span>
+												</a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<a class="dropdown-item" href="#">Action</a>
+													<a class="dropdown-item" href="#">Another action</a>
+													<a class="dropdown-item" href="#">Something else here</a>
+												</div>
+											</div>
+										</div>
 
-            </table>
-            <button class="btn-success" onclick="exportTableToCSV('members.csv')" style="display: none;">Export HTML Table To CSV File</button>
-        </div>
-        <div class="col-sm-3">
-            <h2>Graph</h2>
-        </div>
-        
-        
-    </div>
+										<h5 id="criteria-collapser" class="card-title mb-0" type="button" data-toggle="collapse" data-target="#criteria" aria-expanded="true" aria-controls="criteria">
+											Critères de recherche <span class="iconify arrow-down" data-icon="bx:bxs-down-arrow" data-inline="false" width="10" height="10"></span>
+										</h5>
+									</div>
+									<div id="criteria" class="collapse show in" data-parent="#criteria-card">
+										<div class="card-body px-4">
+											<form>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+													<label for="inputEmail4">Email</label>
+													<input type="email" class="form-control" id="inputEmail4">
+													</div>
+													<div class="form-group col-md-6">
+													<label for="inputPassword4">Password</label>
+													<input type="password" class="form-control" id="inputPassword4">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="inputAddress">Address</label>
+													<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+												</div>
+												<div class="form-group">
+													<label for="inputAddress2">Address 2</label>
+													<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+													<label for="inputCity">City</label>
+													<input type="text" class="form-control" id="inputCity">
+													</div>
+													<div class="form-group col-md-4">
+													<label for="inputState">State</label>
+													<select id="inputState" class="form-control">
+														<option selected>Choose...</option>
+														<option>...</option>
+													</select>
+													</div>
+													<div class="form-group col-md-2">
+													<label for="inputZip">Zip</label>
+													<input type="text" class="form-control" id="inputZip">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="form-check">
+													<input class="form-check-input" type="checkbox" id="gridCheck">
+													<label class="form-check-label" for="gridCheck">
+														Check me out
+													</label>
+													</div>
+												</div>
+												<button type="submit" class="btn btn-primary">Sign in</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+					<br>
+					<div class="row">
+						<div class="col-12 col-md-6 col-xxl-3">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Graph 1</h5>
+								</div>
+								<div class="card-body d-flex">
+									<div class="align-self-center w-100">
+										<div id="graph1">
 
-   
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-xxl-3">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Légende 1</h5>
+								</div>
+								<div class="card-body d-flex">
+									<div class="align-self-center w-100">
+										<div id="legend1">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+                    <div class="row">
+						<div class="col-12">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<a href="#" class="mr-1">
+											<span class="iconify" data-icon="feather-refresh-cw" data-inline="false" width="24" height="24"></span>
+										</a>
+										<div class="d-inline-block dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+												<span class="iconify" data-icon="carbon:overflow-menu-vertical" data-inline="false" width="24" height="24"></span>
+											</a>
 
-    <script src="~/js/index.js"></script>
-    <script src="~/lib/chartjs/Chart.min.js" asp-append-version="true"></script>
-    <script src="~/js/calendar.js"></script>
-    <script>
-        var trigger = document.querySelector('#datePicker');
-        var dateComponent = new DatePicker({
-            el: document.querySelector('#calendar'),
-            trigger: trigger,
-            onchange: function (curr) {
-                trigger.value = curr;
-            }
-        });
-
-        trigger.onfocus = function () {
-            dateComponent.show();
-        };
-    </script>
-
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+                                            
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Tableau de Résultat</h5>
+								</div>
+								<div class="card-body py-3 overflow-auto">
+									<div class="chart chart-sm">
+										<table id="datatables" class="table table-striped my-0">
+											<thead>
+												<tr>
+													<th>Début</th>
+													<th>Fin</th>
+													<th>Région</th>
+													<th>Cas</th>
+													<th>Décès</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>01/02/2021</td>
+													<td>8/02/2021</td>
+													<td>Bourgogne-Franche-Comté</td>
+													<td>584</td>
+													<td>87</td>
+													<td><span class="badge badge-danger">Critique</span></td>
+												</tr>
+												<tr>
+													<td>01/02/2021</td>
+													<td>8/02/2021</td>
+													<td>Provence-Alpes-Côte d'Azur</td>
+													<td>257</td>
+													<td>46</td>
+													<td><span class="badge badge-warning">Modéré</span></td>
+												</tr>
+												<tr>
+													<td>01/02/2021</td>
+													<td>8/02/2021</td>
+													<td>Corse</td>
+													<td>28</td>
+													<td>4</td>
+													<td><span class="badge badge-success">Sure</span></td>
+												</tr>
+												<tr>
+													<td>01/02/2021</td>
+													<td>8/02/2021</td>
+													<td>Grand Est</td>
+													<td>641</td>
+													<td>137</td>
+													<td><span class="badge badge-danger">Critique</span></td>
+												</tr>
+												<tr>
+													<td>01/02/2021</td>
+													<td>8/02/2021</td>
+													<td>Île-de-France</td>
+													<td>1049</td>
+													<td>207</td>
+													<td><span class="badge badge-danger">Critique</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
 </body>
+
+<script src="~/js/index.js"></script>

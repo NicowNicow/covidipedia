@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using covidipedia.front.Areas.Identity.Data;
 using covidipedia.front.Data;
+using covidipedia.front.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -20,11 +22,15 @@ namespace covidipedia.front.Areas.Identity
                     options.UseNpgsql(
                         context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
 
+                
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-                
+
+                services.AddHostedService<EnsureAdministrator>();
+
             });
         }
+       
     }
 }

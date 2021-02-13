@@ -16,7 +16,10 @@ namespace covidipedia.front.chart
 
         public string ChartJson2 { get; set; }
 
-        public ChartPrinter() { }
+        public ChartPrinter() { 
+            this.CountNumberPersonDateVaccin1();
+            this.CountNumberProgressPersonDateVaccin2();
+        }
 
         public void CountNumberPersonDateVaccin1()
         {

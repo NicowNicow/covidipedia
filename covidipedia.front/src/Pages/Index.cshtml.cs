@@ -17,7 +17,7 @@ namespace covidipedia.front.Pages
         //Model Variables
         private readonly ILogger<IndexModel> _logger;
 
-        public ChartPrinter chartPrinter { get; set; }
+        public ChartPrinter chartPrinter { get; set; } = new ChartPrinter();
 
         [BindProperty]
         public QueryFormInput input { get; set; }
@@ -34,15 +34,10 @@ namespace covidipedia.front.Pages
 
 
         //Model Methods
-        public void OnGet() {
-            chartPrinter = new ChartPrinter();
-            chartPrinter.CountNumberPersonDateVaccin1();
-            chartPrinter.CountNumberProgressPersonDateVaccin2();
-        }
+        public void OnGet() {}
 
         public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
-            _logger.LogInformation(input.casPersonneQuery.department + "");
             ArrayList results = new ArrayList();
             using (bddcovidipediaContext context = new bddcovidipediaContext()) results = GenericQuery.QuerySelector(input, input.type, context);
             TempDataStorage(results); 

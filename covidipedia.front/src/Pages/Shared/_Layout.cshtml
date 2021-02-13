@@ -29,15 +29,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Public/Privacy">Confidentialité</a>
                         </li>
-                        @* @if (this.User.IsInRole("Admin") || this.User.IsInRole("Medical"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Private/Query">Requêtes Spécialisées</a>
-                            </li>
-                        } *@
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Private/Query">Requêtes Spécialisées</a>
-                        </li>
                         @if (this.User.IsInRole("Admin"))
                         {
                             <li class="nav-item">

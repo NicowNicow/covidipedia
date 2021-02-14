@@ -45,12 +45,13 @@ namespace covidipedia.front.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDownloadFile() {
+        public async Task<IActionResult> OnPostDownloadFile() { //TODO: Bordel le dl en csv marche plus
             string fileName = Path.Combine("resultsquery-" + TempData.Peek("input.type").ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + ".csv"); //Format de fileName: ./resultsquery-[TABLENAME]-[DATE].csv
+            _logger.LogInformation(fileName);
             try {
                 CSVWriter.TypeParser(JsonConvert.DeserializeObject<ArrayList>(HttpContext.Session.GetString("queryResults")), TempData.Peek("input.type").ToString(), fileName);
             } catch {
-                //Popup ou prompt ici
+                //TODO: Popup ou prompt ici idk
                 _logger.LogError("Session has expired: data is no longer retrievable");
             }
             return await FileDownloader(fileName);

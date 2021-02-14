@@ -6,7 +6,6 @@ using System;
 namespace covidipedia.front {
 
     public static class GenericQuery {
-        //TODO: Pour les nombres de cas, il faut passer par des queries plus optimisées (overflow pour des comparaisons > 90k)
 
         public static ArrayList QuerySelector(QueryFormInput input, string type, bddcovidipediaContext context) {
             switch(type) {
@@ -96,7 +95,7 @@ namespace covidipedia.front {
             results = results.Where(item => ((item.AgePersonne >= input.casPersonneQuery.age[0]) && (item.AgePersonne <= input.casPersonneQuery.age[1])));
             results = results.Where(item => ((item.DateVaccin1Personne >= input.casPersonneQuery.vaccinDate1[0]) && (item.DateVaccin1Personne < input.casPersonneQuery.vaccinDate1[1])));
             results = results.Where(item => ((item.DateVaccin2Personne >= input.casPersonneQuery.vaccinDate2[0]) && (item.DateVaccin1Personne < input.casPersonneQuery.vaccinDate2[1])));
-            //TODO: Query Gender pour Personne (Boolean issue)
+            if (input.casPersonneQuery.personGender != "none") results = results.Where(item => (item.SexePersonne.ToString().ToLower() == input.casPersonneQuery.personGender));
             //TODO: Queries composées Personne une fois le contenu de la database généré proprement
             return new ArrayList(results.ToList());
         }

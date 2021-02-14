@@ -26,13 +26,13 @@ function ShowCriterias() {
     $('#partial-view').toggle();
 }
 
-function FillEmptyRequired() {
+function FillEmptyRequired() { //TODO: Y'a un problème avec les input-number maximum, ils se resetent constament au max
     const inputList = document.querySelectorAll(".input-number, .input-date");
     for (let index = 0; index < inputList.length; index++) {
         if (((inputList[index].value == null) || (inputList[index].value < inputList[index].min)) && (inputList[index].classList.contains('input-minimum'))) {
             inputList[index].value = inputList[index].min;
         }
-        else if (((inputList[index].value.length == 0) || (inputList[index].value > inputList[index].max))  && (inputList[index].classList.contains('input-maximum'))) {
+        else if (((inputList[index].value == null) || (inputList[index].value > inputList[index].max))  && (inputList[index].classList.contains('input-maximum'))) {
             inputList[index].value = inputList[index].max;
         }
     }

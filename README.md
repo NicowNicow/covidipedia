@@ -19,4 +19,4 @@
     Fix APIKey shall not be null error:
         > dotneet user-secrets init
         > dotnet user-secrets set SendGridUser Covidipedia
-        > dotnet user-secrets set SendGridKey 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
+        > dotnet user-secrets set SendGridKey [ SENDGRID APIKEY]

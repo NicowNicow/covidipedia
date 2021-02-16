@@ -169,11 +169,11 @@
 											<!--Form from old Query Page-->
 											<div class="query-creator">
 												<form class="query-form" method="post">
-													<div class="form-group">
-														<p class="main-criteria-text">Critère principal de recherche:</p>
-														<div class="form-group-nowrap">
+													<h3 class="main-criteria-text">Critère principal de recherche:</h3>
+													<div class="form-row">
+														<div class="form-group col-md-4">
 															<label for="select-table" class="to-hide">Selectionner critère principal de recherche:</label>
-															<select asp-for="input.type" name="input.type" id="select-table" class="select-table" onchange="ChangeAdvancedCriteriaForm(this.value)"> 
+															<select asp-for="input.type" name="input.type" id="select-table" class="custom-select custom-select-lg mb-3" onchange="ChangeAdvancedCriteriaForm(this.value)"> 
 																<option disabled selected>Choisissez votre critère principal:</option>
 																<option value="Cas">Cas</option>
 																<option value="EffetsSecondaires">Effets Secondaires</option>
@@ -186,11 +186,11 @@
 																<option value="Traitement">Traitement</option>
 																<option value="Vaccin">Vaccin</option>
 															</select>
-
-															<label for="input_name" class="to-hide">Entrer le critère à rechercher:</label>
-															@Html.TextBoxFor(model => model.input.name, new { @class = "form-control", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
 														</div>
-														
+														<div class="form-group col-md-8">
+															<label for="input_name" class="to-hide">Entrer le critère à rechercher:</label>
+															@Html.TextBoxFor(model => model.input.name, new { @class = "form-control mb-3", placeholder = new string("Entrez le nom à rechercher, ou laissez vide pour une recherche globale.") })  
+														</div>
 														<br/><span asp-validation-for="input.type" class="text-danger"></span>
 
 													</div>

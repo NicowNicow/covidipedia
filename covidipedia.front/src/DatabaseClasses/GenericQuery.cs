@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
 
 namespace covidipedia.front {
 
@@ -256,7 +257,14 @@ namespace covidipedia.front {
                                                                           (hopital, localisation) => new {hopital, localisation})
                                                                     .Where(item => item.localisation.VilleLocalisation == input.hopitalQuery.city)
                                                                     .Select(item => item.hopital);
-            //TODO: Hopital Counts Cas, Lits Dispo, Lits Dispo en réanimation
+            if(input.hopitalQuery.caseNumber != null) 
+                results = results.Where( x=> x.Cas.Count() >= input.hopitalQuery.caseNumber[0] && x.Cas.Count() <= input.hopitalQuery.caseNumber[1]);
+
+            if(input.hopitalQuery.freeBeds != null)
+                results = results.Where( x => x.NombreLitsHopital - x.Cas.Where(y => y.EtatActuelCas=="Hospitalise").Count() >= input.hopitalQuery.freeBeds[0] && x.NombreLitsHopital - x.Cas.Where(y => y.EtatActuelCas=="Hospitalise").Count() <= input.hopitalQuery.freeBeds[1]);
+
+            if(input.hopitalQuery.freeIntensiveBeds != null)
+                results = results.Where( x => x.NombreLitsReanimationHopital - x.Cas.Where(y => y.EtatActuelCas=="En reanimation").Count() >= input.hopitalQuery.freeIntensiveBeds[0] && x.NombreLitsReanimationHopital - x.Cas.Where(y => y.EtatActuelCas=="En reanimation").Count() <= input.hopitalQuery.freeIntensiveBeds[1]);
             return results;
         }
 
@@ -581,7 +589,8 @@ namespace covidipedia.front {
                                 (firstJoin, personne) => new {firstJoin, personne})
                             .Where(item => ((item.personne.AgePersonne >= input.effetQuery.personneAge[0])&&(item.personne.AgePersonne <= input.effetQuery.personneAge[1])))
                             .Select(item => item.firstJoin.effet);
-            //TODO: Effets Counts Cas
+            if(input.effetQuery.caseNumber != null) 
+                results = results.Where(x => x.RessentEffetSecondaires.Count() >= input.effetQuery.caseNumber[0] && x.RessentEffetSecondaires.Count() <= input.effetQuery.caseNumber[1]);
             return results;
         }
     
@@ -656,7 +665,8 @@ namespace covidipedia.front {
         }
 
         private static IQueryable<Pathologie> JoinQueryPathologie(IQueryable<Pathologie> results, QueryFormInput input, bddcovidipediaContext context) {
-            //TODO: Pathologie Counts Cas
+            if(input.pathologieQuery.caseNumber != null)
+                results = results.Where(x => x.AyantLesPathologies.Count() >= input.pathologieQuery.caseNumber[0] && x.AyantLesPathologies.Count() <= input.pathologieQuery.caseNumber[1]);
             return results;
         }
     
@@ -848,12 +858,14 @@ namespace covidipedia.front {
         }
 
         private static IQueryable<Symptome> JoinQuerySymptome(IQueryable<Symptome> results, QueryFormInput input, bddcovidipediaContext context) {
-            //TODO: Symptome Counts Cas
+            if(input.symptomeQuery.caseNumber != null)
+                results = results.Where( x=> x.EstDiagnostiques.Count() >= input.symptomeQuery.caseNumber[0] && x.EstDiagnostiques.Count() <= input.symptomeQuery.caseNumber[1]);
             return results;
         }
     
         private static IQueryable<Traitement> JoinQueryTraitement(IQueryable<Traitement> results, QueryFormInput input, bddcovidipediaContext context) {
-            //TODO: Traitement Counts Cas
+            if(input.traitementQuery.caseNumber != null)
+                results = results.Where( x=> x.RecoitLeTraitements.Count() >= input.traitementQuery.caseNumber[0] && x.RecoitLeTraitements.Count() <= input.traitementQuery.caseNumber[1]);
             return results;
         }
 
@@ -888,12 +900,14 @@ namespace covidipedia.front {
                                                                                     (secondJoin, effet) => new {secondJoin, effet})
                                                                             .Where(item => item.effet.TypeEffetEffetSecondaire == input.vaccinQuery.effetNameType[1])
                                                                             .Select(item => item.secondJoin.firstJoin.vaccin);
-            //TODO: Vaccin Counts Cas
+            if(input.vaccinQuery.vaccinatedNumber != null)
+                results = results.Where(x=> x.Personnes.Count() >= input.vaccinQuery.vaccinatedNumber[0] && x.Personnes.Count() <= input.vaccinQuery.vaccinatedNumber[1]);
             return results;
         }
     
         private static IQueryable<Localisation> JoinQueryLocalisation(IQueryable<Localisation> results, QueryFormInput input, bddcovidipediaContext context) {
-            //TODO: Localisation Counts Cas
+            if(input.localisationQuery.caseNumber != null)
+                results = results.Where(x=> x.Personnes.Count() >= input.localisationQuery.caseNumber[0] && x.Personnes.Count() <= input.localisationQuery.caseNumber[1]);
             return results;
         }
     }

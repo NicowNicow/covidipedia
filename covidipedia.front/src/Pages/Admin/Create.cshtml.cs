@@ -58,7 +58,8 @@ namespace covidipedia.front.Pages {
             var newUser = new ApplicationUser
             {
                 UserName = Input.Email,
-                Email = Input.Email
+                Email = Input.Email,
+                EmailConfirmed = true
             };
 
             IdentityResult result = await userManager.CreateAsync(newUser, Input.Password);

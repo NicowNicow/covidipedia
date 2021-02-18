@@ -2,7 +2,7 @@
 
     Connexion Initiale à la Database Principale:
         > psql -U postgres
-        > CREATE DATABASE covidipediabdd;
+        > CREATE DATABASE bddcovidipedia;
         > \c covidipediabdd
         > \i le fichier de creation de tables
         > \i le fichier de remplissage des tables (si besoin)
@@ -10,7 +10,7 @@
 
     Connexion initiale à la Database d'Authentification
         > dotnet tool install --global dotnet-ef
-        > dotnet ef database update --context Applicationdbcontext
+        > dotnet ef database update --context applicationdbcontext
 
 **IMPORTANT:** Penser à adapter le mot de passe et l'utilisateur dans "appsettings.json" > connectionStrings > MainDBConnection & ApplicationDbContextConnection
 

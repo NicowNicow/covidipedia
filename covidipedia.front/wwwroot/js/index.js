@@ -1,6 +1,6 @@
 $('.card-title').click(function() {
-  if(!$('#criteria-collapser').hasClass("collapsed")){
-      $('.arrow-down').animate(
+  if(!$("*").hasClass("collapsed")){
+      $(this).children().animate(
           { deg: -90 },
           {
             duration: 300,
@@ -9,8 +9,9 @@ $('.card-title').click(function() {
             }
           }
       );
-  }else{
-      $('.arrow-down').animate(
+  }
+  if($("*").hasClass("collapsed")){
+      $(this).children().animate(
           { deg: 0 },
           {
             duration: 300,

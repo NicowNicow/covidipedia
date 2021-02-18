@@ -6,12 +6,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1 class="bg-info text-white">All Role</h1>
+<h1 class="card-title mb-0">All Roles</h1>
+<br />
 <a asp-page="RoleCreate" class="btn btn-sm btn-secondary">Create New</a>
 <a asp-page="Index" class="btn btn-sm btn-secondary">Users</a>
 
 
-<table class="table table-sm table-bordered">
+<table class="table table-bordered table-striped">
     <tr><th>ID</th><th>Name</th><th>Update</th><th>Delete</th></tr>
     @foreach (var role in _RoleManager.Roles)
     {

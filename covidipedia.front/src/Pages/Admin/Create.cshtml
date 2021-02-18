@@ -1,10 +1,9 @@
 ﻿@page
 @model CreateModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create User";
 }
 
-<h1>@ViewData["Title"]</h1>
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,13 +12,12 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1 class="card-title mb-0">Create User</h1>
+    <h1>@ViewData["Title"]</h1>
+    <hr/>
     <a asp-page="./Index" class="btn btn-secondary">Back</a>
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <form method="post">
-
-
         <div class="form-group">
             <label asp-for="Input.Email" class="control-label"></label>
             <input asp-for="Input.Email" class="form-control" />
@@ -34,7 +32,7 @@
             <label asp-for="Input.ConfirmPassword"></label>
             <input asp-for="Input.ConfirmPassword" class="form-control" />
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </body>

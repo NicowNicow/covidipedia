@@ -30,3 +30,7 @@ svg {
     transition-property: height, visibility;
     transition-duration: .3s;
 }
+
+.input-group-text {
+    background-color: #dceafd;
+}

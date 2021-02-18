@@ -45,7 +45,7 @@ namespace covidipedia.front.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDownloadFile() { //TODO: Bordel le dl en csv marche plus
+        public async Task<IActionResult> OnPostDownloadFile() { //TODO: CSV: Add criterias
             string fileName = Path.Combine("resultsquery-" + TempData.Peek("input.type").ToString() + "-" + DateTime.Now.ToString("yyyyMMdd") + ".csv"); //Format de fileName: ./resultsquery-[TABLENAME]-[DATE].csv
             _logger.LogInformation(fileName);
             try {

@@ -18,6 +18,8 @@ namespace covidipedia.front.chart
 
         public ChartPrinter() { 
             //TODO: Besoin d'un moyen de recharger les données tout les jours, là c'est instancié une unique fois au lancement du serveur
+            //TODO: Chart avec requetes correctes
+            //TODO: meilleur affichage des charts
             this.CountNumberPersonDateVaccin1();
             this.CountNumberProgressPersonDateVaccin2();
         }

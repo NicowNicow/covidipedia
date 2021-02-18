@@ -101,7 +101,6 @@ ALTER TABLE cas ADD CONSTRAINT FK_cas_hopital_id_hopital_hopital FOREIGN KEY (ho
 ALTER TABLE cas ADD CONSTRAINT FK_cas_personne_id_personne_personne FOREIGN KEY (personne_id_personne_personne) REFERENCES personne (id_personne_personne);
 ALTER TABLE historique_cas ADD CONSTRAINT FK_historique_cas_id_cas_cas FOREIGN KEY (id_cas_cas) REFERENCES cas (id_cas_cas);
 ALTER TABLE hopital ADD CONSTRAINT FK_hopital_id_localisation_localisation FOREIGN KEY (id_localisation_localisation) REFERENCES localisation (id_localisation_localisation);
-
 ALTER TABLE personne ADD CONSTRAINT FK_personne_id_localisation_localisation FOREIGN KEY (id_localisation_localisation) REFERENCES localisation (id_localisation_localisation);
 ALTER TABLE personne ADD CONSTRAINT FK_personne_vaccin_id_vaccin_vaccin FOREIGN KEY (vaccin_id_vaccin_vaccin) REFERENCES vaccin (id_vaccin_vaccin);
 ALTER TABLE est_diagnostique ADD CONSTRAINT FK_est_diagnostique_id_symptome_symptome FOREIGN KEY (id_symptome_symptome) REFERENCES symptome (id_symptome_symptome);
@@ -113,4 +112,17 @@ ALTER TABLE recoit_le_traitement ADD CONSTRAINT FK_recoit_le_traitement_id_cas_c
 ALTER TABLE ressent_effet_secondaire ADD CONSTRAINT FK_ressent_effet_secondaire_id_effet_effet_secondaire FOREIGN KEY (id_effet_effet_secondaire) REFERENCES effet_secondaire (id_effet_effet_secondaire);
 ALTER TABLE ressent_effet_secondaire ADD CONSTRAINT FK_ressent_effet_secondaire_id_personne_personne FOREIGN KEY (id_personne_personne) REFERENCES personne (id_personne_personne);
 
-CREATE INDEX nom_hopital_index ON hopital (nom_hopital);
+
+CREATE INDEX date_vaccin_1_personne_index ON personne (date_vaccin_1_personne);
+CREATE INDEX date_vaccin_2_personne_index ON personne (date_vaccin_2_personne);
+CREATE INDEX vaccin_index ON personne (vaccin_id_vaccin);
+CREATE INDEX age_index ON personne (age_personne);
+CREATE INDEX ethnie_index ON personne (ethnie_personne);
+CREATE INDEX localisation_index ON personne (id_localisation_localisation);
+CREATE INDEX date_detection_historique_cas_index ON historique_cas (date_detection_historique_cas);
+CREATE INDEX date_maj_historique_cas_index ON historique_cas (date_maj_historique_cas);
+CREATE INDEX souche_virus_index ON historique_cas (souche_virus_historique_cas);
+CREATE INDEX id_cas_index ON historique_cas (id_cas_cas);
+CREATE INDEX etat_cas_index ON cas (etat_actuel_cas);
+CREATE INDEX hopital_cas_index ON cas (hopital_id_hopital_hopital);
+CREATE INDEX personne_cas_index ON cas (personne_id_personne_personne);

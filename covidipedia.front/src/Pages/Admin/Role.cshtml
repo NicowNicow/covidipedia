@@ -13,17 +13,14 @@
 
 
 <table class="table table-bordered table-striped">
-    <tr><th>ID</th><th>Name</th><th>Update</th><th>Delete</th></tr>
+    <tr><th>ID</th><th>Name</th><th>Delete</th></tr>
     @foreach (var role in _RoleManager.Roles)
     {
         <tr>
             <td>@role.Id</td>
             <td>@role.Name</td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@role.Id" class="btn btn-sm btn-primary">Edit</a>
-            </td>
-            <td>
-                <a asp-page="./Delete" asp-route-id="@role.Id" class="btn btn-sm btn-danger">Delete</a>
+                <a asp-page="./RoleDelete" asp-route-id="@role.Id" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
     }

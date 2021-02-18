@@ -18,6 +18,26 @@ namespace covidipedia.front.src.Pages.Admin
         {
             userManager = usrMgr;
         }
+        public string LoginName { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            LoginName = user.UserName;
+
+
+            return Page();
+        }
         public async Task<IActionResult> OnPostAsync(string id)
         {
             ApplicationUser user = await userManager.FindByIdAsync(id);

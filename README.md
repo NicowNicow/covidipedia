@@ -23,19 +23,43 @@ Cette commande permet de vérifier que l'installation a bien fonctionnée. Dans 
 
 <details><summary>Guide d'installation de PostgreSQL</summary>
 
-ToDo
+PostgreSQL est un système d'administration de base de données disponible à [cette addresse](https://www.postgresql.org/download/).
 
 ---
 </details>
 
 <details><summary>Guide d'installation de Visual Studio Code et de ses extensions</summary>
+<br>
 
-ToDo
+L'IDE utilisé lors du développement de ce projet est [Visual Studio Code](https://code.visualstudio.com/). Ci dessous est fournie une liste des extensions de l'IDE importantes utilisées lors du développement de l'application:
+
+* C# Extension, *by Microsoft*
+* Docker, *by Microsoft*
+* Git Graph, *by mhutchie*
+* Git History, *by Don Jayamanne*
+* GitHub Pull Requests, *by GitHub*
+* gitignore, *by CodeZombie*
+* GitLens - Git supercharged, *by Eric Amodio*
+* HTML CSS Support, *by ecmel*
+* HTML Snippets, *by Mohamed Abusaid*
+* IntelliSense for CSS, *by Zignd*
+* Kubernetes, *by Microsoft*
+* Live Share, *by Microsoft*
+* Live Share Whiteboard, *by Jonathan Carter*
+* markdownlint, *by David Anson*
+* NuGet Gallery, *by pcislo*
+* NuGet Package Manager, *by jmrog*
+* Powershell, *by Microsoft*
+* Remote - WSL, *by Microsoft*
+* Todo Tree, *by Gruntfuggly*
+* Visual Studio IntelliCode, *by Microsoft*
+
+Aucune de ces extensions n'est obligatoire, cependant leur présence facilite grandement le développement. Elles sont toutes disponibles depuis l'Extension Marketplace de Visual Studio Code.
 
 ---
 </details>
 
-<details><summary>Guide de préparation du code source via l'extension Git Visual Studio Code</summary>
+<details><summary>Guide de préparation du code source via l'extension GitLens Visual Studio Code</summary>
 <br>
 La première étape consiste à autoriser la connection entre l'extension de Visual Studio et Github. Une fois l'authentification validée, il est désormais temps de pull le repository sur la machine. Pour cela, dans Visual Studio Code:  
 <br>
@@ -58,6 +82,11 @@ On renseigne un nom, puis une URL de repository. On crée ensuite une nouvelle b
 
 On choisit à quelle branche du Github notre branche locale correspondra. Au moment de la création, on choisit alors l'option "Create and Switch". Visual Studio Code est alors prêt à l'utilisation.
 
+---
+</details>
+
+<details><summary>Préparamétrage de l'Application</summary><br>
+
 Dans une Console de Commande (cmd - bash -powershell):
 
 ```powershell linenums="1"
@@ -67,7 +96,7 @@ dotnet user-secrets set SendGridUser Covidipedia
 dotnet user-secrets set SendGridKey $SENDGRID_APIKEY
 ```
 
-Cette manipulation permet d'éviter l'appartition d'une `API Key Error` au démarrage de l'application.
+Cette manipulation permet d'éviter l'apparitition d'une `API Key Error` au démarrage de l'application.
 
 > :heavy_check_mark: **API Key et Identifiants Administrateurs**: L'API Key SendGrid, ainsi que les identifiants administrateurs de base de l'application sont explicités dans le manuel d'utilisation, livré séparément.
 

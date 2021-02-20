@@ -5,28 +5,73 @@ Ceci est un manuel détaillant la mise en place d'un environement de développem
 ## Installation en environnement de développement  
 
 <details><summary>Guide d'installation du SDK .NET Core</summary>
+<br>
+Ce projet est développé sous l'environement .NET. Plus précisément, le software development kit utilisé est le [.NET Core SDK 3.1.406](https://dotnet.microsoft.com/download/dotnet/3.1), compatible pour Windows, Linux et MacOS.  
+
+Dans une Console de Commande (cmd - bash -powershell):
+
+```powershell linenums="1"
+dotnet --version
+```
+
+Cette commande permet de vérifier que l'installation a bien fonctionnée. Dans le cas ou la commande n'est pas reconnue, il faut alors redémarer l'ordinateur.
+
+> :heavy_check_mark: **Redémarrage**: Il est recommandé d'avoir au préalable procédé à l'étape d'installation de PostgreSQL avant d'effectuer un redémarrage, cette étape en demandant également un.
 
 ---
 </details>
 
 <details><summary>Guide d'installation de PostgreSQL</summary>
 
+ToDo
+
 ---
 </details>
 
 <details><summary>Guide d'installation de Visual Studio Code et de ses extensions</summary>
 
+ToDo
+
 ---
 </details>
 
-<details><summary>Guide de préparation du code source</summary>
+<details><summary>Guide de préparation du code source via l'extension Git Visual Studio Code</summary>
+<br>
+La première étape consiste à autoriser la connection entre l'extension de Visual Studio et Github. Une fois l'authentification validée, il est désormais temps de pull le repository sur la machine. Pour cela, dans Visual Studio Code:  
+<br>
+<br>
+<img src="./readme_img/integration-github-0.jpg">
+<br>
+<br>
+Une fois le repository local initialisé, il faut ajour le repository Github contenant le code source en temps que Remote:
+<br>
+<br>
+<img src="./readme_img/integration-github-1.jpg">
+<br>
+<br>
+On renseigne un nom, puis une URL de repository. On crée ensuite une nouvelle branche sur notre repository local:
+<br>
+<br>
+<img src="./readme_img/integration-github-2.jpg">
+<br>
+<br>
 
-Fix APIKey shall not be null error:
-        > dotneet user-secrets init
-        > dotnet user-secrets set SendGridUser Covidipedia
-        > dotnet user-secrets set SendGridKey [ SENDGRID APIKEY]
+On choisit à quelle branche du Github notre branche locale correspondra. Au moment de la création, on choisit alors l'option "Create and Switch". Visual Studio Code est alors prêt à l'utilisation.
 
-**IMPORTANT:** Penser à adapter le mot de passe et l'utilisateur dans "appsettings.json" > connectionStrings > MainDBConnection & ApplicationDbContextConnection
+Dans une Console de Commande (cmd - bash -powershell):
+
+```powershell linenums="1"
+cd $Path_to_Covidipedia_Front_Folder
+dotnet user-secrets init
+dotnet user-secrets set SendGridUser Covidipedia
+dotnet user-secrets set SendGridKey $SENDGRID_APIKEY
+```
+
+Cette manipulation permet d'éviter l'appartition d'une `API Key Error` au démarrage de l'application.
+
+> :heavy_check_mark: **API Key et Identifiants Administrateurs**: L'API Key SendGrid, ainsi que les identifiants administrateurs de base de l'application sont explicités dans le manuel d'utilisation, livré séparément.
+
+> :warning: **ConnectionString des bases de données**: Lors du développement, il faut penser à adapter les connectionStrings dans le fichier `appsettings.json`. Pour cela, il faut remplacer le nom d'utilisateur et le mot de passe dans les connectionStrings `MainDBConnection` et `ApplicationDbContextConnection` par ceux définis lors de l'installation de PostgreSQL.
 
 ---
 </details>
@@ -92,7 +137,7 @@ cd $Path_to_covidipedia_front_folder
 dotnet run
 ```
 
-Si la commande `dotnet run` est executée dans le dossier où se situe le fichier `covidipedia.front.csproj`, un système d'hosting Microsoft va se lancer. Au bout de quelques secondes, le port du localhost sur lequel est hébergé l'application web sera mis à disposition.
+Si la commande `dotnet run` est exécutée dans le dossier où se situe le fichier `covidipedia.front.csproj`, un système d'hosting Microsoft va se lancer. Au bout de quelques secondes, le port du localhost sur lequel est hébergé l'application web sera mis à disposition.
 
 > :warning: **Hosting Microsoft et Cache du Navigateur**: Lorsque le code source de l'application est modifié, il est nécessaire, après sauvegarde des modifications, de relancer le système d'host Microsoft à l'aide la commande `dotnet run` afin que celles ci soient prises en compte. De même, il peut être nécessaire de vider le cache du navigateur lors de la modification des fichiers Javascript et CSS.  
 
@@ -109,7 +154,7 @@ cd $Path_to_covidipedia_connectors_folder
 dotnet run
 ```
 
-Si la commande `dotnet run` est executée dans le dossier où se situe le fichier `covidipedia.connectors.csproj`, un système d'hosting Microsoft va se lancer. Au bout de quelques secondes, le service aura terminé la mise à jour de la base de données, et le système d'hosting s'arrêtera de lui même.
+Si la commande `dotnet run` est exécutée dans le dossier où se situe le fichier `covidipedia.connectors.csproj`, un système d'hosting Microsoft va se lancer. Au bout de quelques secondes, le service aura terminé la mise à jour de la base de données, et le système d'hosting s'arrêtera de lui même.
 
 > :heavy_check_mark: **Commande dotnet run**: La commande `dotnet run` permet de tester l'application en cours de développement. Pour cela, des fichiers binaires temporaires sont générés dans les dossiers `/bin/` et `/obj/`. Il est recommandé de rajouter ces dossiers au fichier `.gitignore`, voir de les supprimer avant de procéder à un commit/push.
 
@@ -117,3 +162,65 @@ Si la commande `dotnet run` est executée dans le dossier où se situe le fichie
 </details>
 
 ## Création de binaires pour déploiement en production
+
+<br>
+
+Dans une Console de Commande (cmd - bash -powershell):
+
+```powershell linenums="1"
+cd $Path_to_covidipedia_folder
+dotnet publish -c Release -r $Target_Runtime --self-contained true -p:PublishSingleFile=true /p:PublishTrimmed=true 
+```
+
+Lorsqu'exécutée dans le dossier contenant le fichier `Covidipedia.sln`, cette commande permet de créer les binaires et autres fichiers nécessaires pour le déploiement des deux parties du projet (application web et système de connecteurs).  
+
+Explicitons les paramètres de cette commande.
+
+```powershell
+dotnet publish
+```
+
+Il s'agit le coeur de la commande. Il s'agit de la commande de publication d'exécutables/ de librairies.
+
+```powershell
+-c Release
+```
+
+Cet argument permet de définir le type de déploiement (Release/Debug).
+
+```powershell
+-r $Target_Runtime
+```
+
+Cet argument permet de définir l'environement pour lequel le compilateur doit créer les fichiers exécutables. Les environement disponibles sont `win-x64`, `linux-x64` et `osx-x64`. Ainsi, l'environement de déploiement peut être changé à loisir, peu importe l'état d'avancement du projet.
+
+```powershell
+--self-contained true
+```
+
+Cet argument force le compilateur à inclure le runtime .NET Core dans les fichiers binaires de déploiement. Si cela augmente fortement la taille des fichiers en sortie, cela à pour mérite de ne plus avoir à installer le runtime au préalable sur la machine cible, évitant ainsi des manipulations suplémentaires au client.
+
+```powershell
+-p:PublishSingleFile=true
+```
+
+Cet argument force le compilateur à combiner les fichiers sources ainsi que les éventuels librairies du runtime (si l'argument `--self-contained true` est présent) en un unique fichier, ce qui permet de simplifier un peu plus l'instalation et la portabilité du programme, au prix d'un fichier au poids plus élevé.
+
+> :heavy_check_mark: **Fichiers de configurations**: Si cette commande force la mise en commun des nombreux fichiers sources, ce n'est pour autant pas le cas des différents fichiers de configuration et autres fichiers statiques, qui resteront séparés du livrable.
+
+```powershell
+/p:PublishTrimmed=true
+```
+
+Cet argument n'est disponible que si l'argument `--self-contained true` est présent. Il demande au compilateur de n'ajouter au livrable que les dépendances de ce dernier, plutôt que l'intégralité du runtime .NET Core, ce qui permet de réduire la taille du livrable.
+
+<br>
+
+Une fois la commande exécutée, les livrables sont disponibles dans deux dossiers différents (un pour chaque projet de la solution):
+
+* Le système de connecteurs est disponible dans le dossier `covidipedia.connectors/bin/Release/netcoreapp3.1/$Target_Runtime`
+
+* L'application Web est disponible dans le dossier `covidipedia.front/bin/Release/netcoreapp3.1/$Target_Runtime`
+
+> :warning: **ConnectionString des bases de données**: Lors du déploiement, il est **nécessaire** de modifier le système de connectionString.  Premièrement, l'utilisateur PostgreSQL ne doit pas être `postgres`, car c'est le compte administrateur de PostgreSQL.  
+Enfin, il ne faut pas laisser les connectionString visibles dans le fichier `appsettings.json`. Il s'agit ici d'une mesure de sécurité. La présence des chaines dans ce fichiers permet une simplicité de développement, mais présente un risque élevé de sécurité si déployé en production. Ainsi, il est nécessaire d'également modifier la méthode d'obtention de ces connectionStrings dans les fichiers `Startup.cs` et `IdentityHostingStartup.cs`

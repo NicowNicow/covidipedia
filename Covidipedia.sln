@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "covidipedia.front", "covidipedia.front\covidipedia.front.csproj", "{FA862EBC-D6BD-4161-A28F-84069BA32D3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covidipedia.connectors", "covidipedia.connectors\covidipedia.connectors.csproj", "{EC372983-B838-4CD3-B7B2-613DEA0099D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{FA862EBC-D6BD-4161-A28F-84069BA32D3B}.Release|x64.Build.0 = Release|Any CPU
 		{FA862EBC-D6BD-4161-A28F-84069BA32D3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA862EBC-D6BD-4161-A28F-84069BA32D3B}.Release|x86.Build.0 = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Debug|x86.Build.0 = Debug|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x64.Build.0 = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

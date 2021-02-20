@@ -28,8 +28,8 @@ namespace covidipedia.front.src.Pages.Admin
             public string Id { get; set; }
 
             [Required]
-            [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [Display(Name = "Login Name")]
+            [StringLength(32, ErrorMessage = "Le {0} doit être d'au moins {2} et d'au plus {1} caractères.", MinimumLength = 6)]
+            [Display(Name = "Nom d'Utilisateur")]
             public string LoginName { get; set; }
             
             [EmailAddress]

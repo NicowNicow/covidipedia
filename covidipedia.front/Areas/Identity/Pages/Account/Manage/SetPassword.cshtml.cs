@@ -32,14 +32,14 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Le {0} doit être d'au moins {2} et d'au plus {1} caractères.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "Nouveau mot de passe")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "Confirmez le nouveau mot de passe")]
+            [Compare("NewPassword", ErrorMessage = "Les deux mots de passe ne correspondent pas.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -85,7 +85,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your password has been set.";
+            StatusMessage = "Votre mot de passe a été modifié.";
 
             return RedirectToPage();
         }

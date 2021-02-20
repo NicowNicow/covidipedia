@@ -34,7 +34,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Numéro de téléphone")]
             public string PhoneNumber { get; set; }
         }
 
@@ -89,7 +89,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Votre profile a été mis à jour";
             return RedirectToPage();
         }
     }

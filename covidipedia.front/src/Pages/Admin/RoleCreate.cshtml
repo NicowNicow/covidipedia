@@ -1,12 +1,12 @@
 ﻿@page
 @model covidipedia.front.src.Pages.Admin.RoleCreateModel
 @{
-    ViewData["Title"] = "Create Role";
+    ViewData["Title"] = "Créer un rôle";
 }
 <body>
     <h1>@ViewData["Title"]</h1>
     <hr/>
-    <a asp-page="./Index" class="btn btn-secondary">Back</a>
+    <a asp-page="./Index" class="btn btn-secondary">Retour</a>
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <form method="post">
@@ -16,6 +16,6 @@
             <input asp-for="Input.RoleName" class="form-control" />
             <span asp-validation-for="Input.RoleName" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Créer</button>
     </form>
 </body>

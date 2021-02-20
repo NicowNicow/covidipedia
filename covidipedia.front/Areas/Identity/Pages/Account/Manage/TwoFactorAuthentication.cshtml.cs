@@ -65,7 +65,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.ForgetTwoFactorClientAsync();
-            StatusMessage = "The current browser has been forgotten. When you login again from this browser you will be prompted for your 2fa code.";
+            StatusMessage = "Le navigateur actuel n'est plus sauvegardé. Un code de vérification 2fa vous sera demandé à la prochaine connexion";
             return RedirectToPage();
         }
     }

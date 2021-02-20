@@ -48,7 +48,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(7, ErrorMessage = "Le {0} doit être d'au moins {2} et d'au plus {1} caractères.", MinimumLength = 6)]
             [DataType(DataType.Text)]
             [Display(Name = "Verification Code")]
             public string Code { get; set; }
@@ -98,7 +98,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             var userId = await _userManager.GetUserIdAsync(user);
             _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
 
-            StatusMessage = "Your authenticator app has been verified.";
+            StatusMessage = "Votre authentificateur a été vérifié.";
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {

@@ -1,7 +1,7 @@
 ﻿@page "{code?}"
 @model ErrorModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Page d'Erreur";
 }
 
 <head>
@@ -10,8 +10,8 @@
 
 @if(Model.Code != 0)
 {
-    <h1 class="text-danger">Error.</h1>
-    <h2 class="text-danger">An error occurred while processing your request.</h2>
+    <h1 class="text-danger">Erreur.</h1>
+    <h2 class="text-danger">Une erreur est survenue lors du traitement de votre requête.</h2>
     @if (Model.ShowRequestId)
     {
     <p>
@@ -22,8 +22,8 @@
 
 @if(Model.Code == 0)
 {
-    <h1 class="text-danger">Error.</h1>
-    <h2 class="text-danger">You are on the error page that you reach manually</h2>
+    <h1 class="text-danger">Erreur.</h1>
+    <h2 class="text-danger">Vous êtes arrivé ici manuellement, pas vrai?</h2>
     @if (Model.ShowRequestId)
     {
     <p>

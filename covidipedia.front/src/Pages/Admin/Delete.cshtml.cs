@@ -49,7 +49,7 @@ namespace covidipedia.front.src.Pages.Admin
                 
             }
             else
-                ModelState.AddModelError("", "User Not Found");
+                ModelState.AddModelError("", "Utilisateru Introuvable");
             return Page();
         }
     }

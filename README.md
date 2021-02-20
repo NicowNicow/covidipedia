@@ -22,7 +22,8 @@ Cette commande permet de vérifier que l'installation a bien fonctionnée. Dans 
 </details>
 
 <details><summary>Guide d'installation de PostgreSQL</summary>
-
+<br>
+  
 PostgreSQL est un système d'administration de base de données disponible à [cette addresse](https://www.postgresql.org/download/).
 
 ---

@@ -1,0 +1,40 @@
+﻿@page
+@model AdminModel
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> _UserManager
+@inject RoleManager<IdentityRole> _RoleManager
+<h3> Administration</h3>
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>All Users</h1>
+
+
+
+    <a asp-action="Register" asp-controller="Account"
+       class="btn btn-primary mb-3" style="width:auto">
+        Add new user
+    </a>
+
+    @foreach (var user in _UserManager.Users)
+    {
+<div class="card mb-3">
+    <div class="card-header">
+        User Id : @user.Id
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@user.UserName</h5>
+    </div>
+    @*<div class="card-body">
+        <h5 class="card-title">@await _RoleManager.FindByNameAsync(user.UserName)</h5>
+    </div>*@
+    <div class="card-footer">
+        <a href="#" class="btn btn-danger">Edit</a>
+        <a href="#" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+    }
+
+

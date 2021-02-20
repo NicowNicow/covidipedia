@@ -1,0 +1,90 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.query-creator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 5%;
+    width: 100%;
+}
+
+.form-group {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form-group-nowrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.submit-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 1%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+th, td {
+    border:1px solid black;
+    width: 20%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-manager {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 3%;
+}
+
+.button-download {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.to-hide, #partial-view {
+    display: none;
+}
+
+.partial-view {
+    padding-bottom: 2%;
+}
+
+.separator {
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.select-table {
+    width: 30%;
+    word-wrap: break-word;
+}
+
+.main-criteria-text{
+    text-align: center;
+    font-weight: bold;
+}

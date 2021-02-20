@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covidipedia.front", "covidipedia.front\covidipedia.front.csproj", "{FA862EBC-D6BD-4161-A28F-84069BA32D3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "covidipedia.front", "covidipedia.front\covidipedia.front.csproj", "{FA862EBC-D6BD-4161-A28F-84069BA32D3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covidipedia.connectors", "covidipedia.connectors\covidipedia.connectors.csproj", "{EC372983-B838-4CD3-B7B2-613DEA0099D0}"
 EndProject
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FA862EBC-D6BD-4161-A28F-84069BA32D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x64.Build.0 = Release|Any CPU
 		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x86.ActiveCfg = Release|Any CPU
 		{EC372983-B838-4CD3-B7B2-613DEA0099D0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E449B01-D911-45D9-8DD6-BF9037B9546B}
 	EndGlobalSection
 EndGlobal

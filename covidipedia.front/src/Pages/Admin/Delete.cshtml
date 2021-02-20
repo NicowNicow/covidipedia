@@ -1,0 +1,19 @@
+﻿@page
+@model covidipedia.front.src.Pages.Admin.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/src/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr/>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Model.LoginName</h4>
+    <form class="" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-primary" asp-page="./Index">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+﻿@page
+@model covidipedia.front.src.Pages.Admin.EditModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/src/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Input.Id" />
+            <div class="form-group">
+                <label asp-for="Input.LoginName" class="control-label"></label>
+                <input asp-for="Input.LoginName" class="form-control" />
+                <span asp-validation-for="Input.LoginName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email" class="control-label"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" asp-for="Input.IsAdmin" />
+                    <label class="custom-control-label" asp-for="Input.IsAdmin">
+                        @Html.DisplayNameFor(model => model.Input.IsAdmin)
+                    </label>
+                </div>
+                <span asp-validation-for="Input.IsAdmin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" asp-for="Input.IsMedical" />
+                    <label class="custom-control-label" asp-for="Input.IsMedical">
+                        @Html.DisplayNameFor(model => model.Input.IsMedical)
+                    </label>
+                </div>
+                <span asp-validation-for="Input.IsMedical" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

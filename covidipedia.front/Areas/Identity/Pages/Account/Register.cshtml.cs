@@ -47,7 +47,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Name")]
+            [Display(Name = "Nom")]
             public string Name { get; set; }
             [Required]
             [EmailAddress]
@@ -56,12 +56,12 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Mot de Passe")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmer votre mot de passe")]
+            [Compare("Password", ErrorMessage = "Les deux mots de passes ne correspondent pas.")]
             public string ConfirmPassword { get; set; }
 
             [Required]
@@ -97,8 +97,8 @@ namespace covidipedia.front.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirmez votre addresse mail",
+                        $"Merci de confirmer votre addresse mail en <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>cliquant ici</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -6,10 +6,10 @@
 @inject RoleManager<IdentityRole> _RoleManager
 <h3> Administration</h3>
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Administration";
 }
 
-<h1>All Users</h1>
+<h1>Tous les utilisateurs</h1>
 
 
 
@@ -31,8 +31,8 @@
         <h5 class="card-title">@await _RoleManager.FindByNameAsync(user.UserName)</h5>
     </div>*@
     <div class="card-footer">
-        <a href="#" class="btn btn-danger">Edit</a>
-        <a href="#" class="btn btn-danger">Delete</a>
+        <a href="#" class="btn btn-danger">Modifier</a>
+        <a href="#" class="btn btn-danger">Supprimer</a>
     </div>
 </div>
     }

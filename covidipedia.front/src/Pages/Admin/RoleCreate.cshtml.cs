@@ -26,7 +26,7 @@ namespace covidipedia.front.src.Pages.Admin
         public class InputModel
         {
             [Required]
-            [Display(Name = "Role Name")]
+            [Display(Name = "Nom du Rôle")]
             public string RoleName { get; set; }
 
 

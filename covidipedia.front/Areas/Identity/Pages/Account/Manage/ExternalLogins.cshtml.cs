@@ -64,7 +64,7 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "The external login was removed.";
+            StatusMessage = "Le système de connexion externe à été supprimé.";
             return RedirectToPage();
         }
 
@@ -96,14 +96,14 @@ namespace covidipedia.front.Areas.Identity.Pages.Account.Manage
             var result = await _userManager.AddLoginAsync(user, info);
             if (!result.Succeeded)
             {
-                StatusMessage = "The external login was not added. External logins can only be associated with one account.";
+                StatusMessage = "Le système de connexion externe n'a pas été ajouté dû à une erreur.";
                 return RedirectToPage();
             }
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            StatusMessage = "The external login was added.";
+            StatusMessage = "Le système de connexion externe à été ajouté.";
             return RedirectToPage();
         }
     }

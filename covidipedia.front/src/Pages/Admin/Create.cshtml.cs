@@ -32,12 +32,12 @@ namespace covidipedia.front.Pages {
                 public string Email { get; set; }
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Mot de Passe")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmer le mot de passe")]
+            [Compare("Password", ErrorMessage = "Les deux mots de passes entrés ne correspondent pas.")]
             public string ConfirmPassword { get; set; }
 
 

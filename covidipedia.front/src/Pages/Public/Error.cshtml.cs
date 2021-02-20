@@ -22,40 +22,40 @@ namespace covidipedia.front.Pages
         public string showError() {
             switch(Code) {
                 case 0:
-                    return "Error Page Reached";
+                    return "Page d'Erreur atteinte";
 
                 case 400:
-                    return "Bad Request";
+                    return "La requête est invalide";
 
                 case 401:
-                    return "Authorization Required";
+                    return "Une authorisation est requise";
 
                 case 403:
-                    return "Forbidden";
+                    return "Action interdite";
 
                 case 404:
-                    return "Page Not Found";
+                    return "Page introuvable";
 
                 case 408:
-                    return "Request Time-Out";
+                    return "Le délai d'attente pour la requête a expiré";
 
                 case 410:
-                    return "Gone";
+                    return "Disparu";
                 
                 case 500:
-                    return "Internal Server Error";
+                    return "Erreur interne au Serveur";
 
                 case 502:
-                    return "Bad Gateway";
+                    return "Passerelle Invalide";
 
                 case 503:
-                    return "Service Temporarily Unavailable";
+                    return "Le Service est temporairement indisponible";
 
                 case 504:
-                    return "Gateway Time-Out";
+                    return "Le délai d'attente pour la passerelle a expiré";
 
                 default:
-                    return "Error";
+                    return "Erreur";
             }
         }
 

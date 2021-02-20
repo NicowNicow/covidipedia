@@ -48,7 +48,7 @@ CREATE DATABASE bddcovidipedia;
 
 La base de données principale est désormais créée et remplie de données utilisables pour tester les fonctionnalités de l'application lors du déploiement.
 
-> :warning: **De l'intérêt de la dernière commande**: La dernière commande permet de remplir la base de données avec des données générées de façon cohérente. Lors d'un déploiement en production, il ne faut donc pas lancer cette commande, les données générées restant fictives.
+> :heavy_check_mark: **De l'intérêt de la dernière commande**: La dernière commande permet de remplir la base de données avec des données générées de façon cohérente. Lors d'un déploiement en production, il ne faut donc pas lancer cette commande, les données générées restant fictives.
 
 ### Connexion initiale à la base de données d'authentification
 

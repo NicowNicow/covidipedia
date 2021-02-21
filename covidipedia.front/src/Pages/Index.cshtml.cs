@@ -57,7 +57,6 @@ namespace covidipedia.front.Pages
             try {
                 CSVWriter.TypeParser(JsonConvert.DeserializeObject<ArrayList>(HttpContext.Session.GetString("queryResults")), TempData.Peek("input.type").ToString(), fileName);
             } catch {
-                //TODO: Popup ou prompt ici idk
                 _logger.LogError("Session has expired: data is no longer retrievable");
             }
             return await FileDownloader(fileName);

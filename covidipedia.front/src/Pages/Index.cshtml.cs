@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Data;
 
 namespace covidipedia.front.Pages
 {
@@ -18,6 +20,8 @@ namespace covidipedia.front.Pages
         private readonly ILogger<IndexModel> _logger;
 
         public ChartPrinter chartPrinter { get; set; } = new ChartPrinter();
+
+        public DailyNumber DailyNumber { get; set; } = new DailyNumber();
 
         [BindProperty]
         public QueryFormInput input { get; set; }
@@ -30,11 +34,13 @@ namespace covidipedia.front.Pages
         //Model Constructor
         public IndexModel(ILogger<IndexModel> logger) {
             _logger = logger;
+            DailyNumber = initDailyNumber();
         }
 
 
         //Model Methods
-        public void OnGet() {}
+        public void OnGet() {
+        }
 
         public IActionResult OnPostSubmit() {
             if (!ModelState.IsValid) return Page();
@@ -79,6 +85,37 @@ namespace covidipedia.front.Pages
                 _logger.LogError($"File {fileName} not found");
             }
             return File(memory, "text/csv", fileName);
+        }
+
+        private DailyNumber initDailyNumber()
+        {
+            using (var _context = new bddcovidipediaContext())
+            {
+                DailyNumber dailyNumber = new DailyNumber();
+                dailyNumber.numberCas = _context.HistoriqueCas.Where(x => x.DateDetectionHistoriqueCas == DateTime.Now.Date).Count();
+                int numberCasDayBefore = _context.HistoriqueCas.Where(x => x.DateDetectionHistoriqueCas == DateTime.Now.AddDays(-1).Date).Count();
+                dailyNumber.numberDead = _context.HistoriqueCas.Where(x => (x.DateDetectionHistoriqueCas == DateTime.Now.Date || x.DateMajHistoriqueCas == DateTime.Now.Date) && x.EtatCasHistoriqueCas == "Decede").Count();
+                int numberDeadDaysBefore = _context.HistoriqueCas.Where(x => (x.DateDetectionHistoriqueCas == DateTime.Now.AddDays(-1).Date || x.DateMajHistoriqueCas == DateTime.Now.AddDays(-1).Date) && x.EtatCasHistoriqueCas == "Decede").Count();
+                dailyNumber.numberVaccinate = _context.Personnes.Where(x => x.DateVaccin1Personne == DateTime.Now.Date || x.DateVaccin2Personne == DateTime.Now.Date).Count();
+                int numberVaccinateDaysBefore = _context.Personnes.Where(x => x.DateVaccin1Personne == DateTime.Now.AddDays(-1).Date || x.DateVaccin2Personne == DateTime.Now.AddDays(-1).Date).Count();
+                int totalBeds = 0;
+                foreach (var hopital in _context.Hopitals)
+                {
+                    totalBeds += Convert.ToInt32(hopital.NombreLitsHopital)+Convert.ToInt32(hopital.NombreLitsReanimationHopital);
+                }
+                dailyNumber.numberBed = totalBeds - _context.Cas.Where(x => x.EtatActuelCas == "Hospitalise" || x.EtatActuelCas == "En reanimation").Count();
+                int numberTotalBedsDaysBefore = totalBeds - _context.Cas.Where(x => x.EtatActuelCas == "Hospitalise" || x.EtatActuelCas == "En reanimation").Count();
+
+                dailyNumber.percentageCas = ((dailyNumber.numberCas - numberCasDayBefore) / numberCasDayBefore) * 100;
+                dailyNumber.percentageDead = ((dailyNumber.numberDead - numberDeadDaysBefore) / numberDeadDaysBefore) * 100;
+                dailyNumber.percentageVaccinate = ((dailyNumber.numberVaccinate - numberVaccinateDaysBefore) / numberVaccinateDaysBefore) * 100;
+                dailyNumber.percentageBed = ((dailyNumber.numberBed - numberTotalBedsDaysBefore) / numberTotalBedsDaysBefore) * 100;
+                Console.WriteLine("Nombre de cas : "+dailyNumber.numberCas);
+                Console.WriteLine("Nombre de dead : "+dailyNumber.numberDead);
+                Console.WriteLine("Nombre de vaccin : "+dailyNumber.numberVaccinate);
+                Console.WriteLine("Nombre de bed : "+dailyNumber.numberBed);
+                return dailyNumber;
+            }
         }
 
     }

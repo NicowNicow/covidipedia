@@ -34,3 +34,7 @@ svg {
 .input-group-text {
     background-color: #dceafd;
 }
+
+.legend {
+    height: 100%;
+}

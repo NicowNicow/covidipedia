@@ -105,11 +105,17 @@ namespace covidipedia.front.Pages
                 }
                 dailyNumber.numberBed = totalBeds - _context.Cas.Where(x => x.EtatActuelCas == "Hospitalise" || x.EtatActuelCas == "En reanimation").Count();
                 int numberTotalBedsDaysBefore = totalBeds - _context.Cas.Where(x => x.EtatActuelCas == "Hospitalise" || x.EtatActuelCas == "En reanimation").Count();
-
-                dailyNumber.percentageCas = ((dailyNumber.numberCas - numberCasDayBefore) / numberCasDayBefore) * 100;
+                if( numberCasDayBefore != 0)
+                    dailyNumber.percentageCas = ((dailyNumber.numberCas - numberCasDayBefore) / numberCasDayBefore) * 100;
+                else dailyNumber.percentageCas = 100;
+                if( numberDeadDaysBefore != 0) 
                 dailyNumber.percentageDead = ((dailyNumber.numberDead - numberDeadDaysBefore) / numberDeadDaysBefore) * 100;
-                dailyNumber.percentageVaccinate = ((dailyNumber.numberVaccinate - numberVaccinateDaysBefore) / numberVaccinateDaysBefore) * 100;
-                dailyNumber.percentageBed = ((dailyNumber.numberBed - numberTotalBedsDaysBefore) / numberTotalBedsDaysBefore) * 100;
+                else dailyNumber.percentageDead = 100;
+                if ( dailyNumber.percentageVaccinate != 0)
+                    dailyNumber.percentageVaccinate = ((dailyNumber.numberVaccinate - numberVaccinateDaysBefore) / numberVaccinateDaysBefore) * 100;
+                if( numberVaccinateDaysBefore !=0)
+                    dailyNumber.percentageBed = ((dailyNumber.numberBed - numberTotalBedsDaysBefore) / numberTotalBedsDaysBefore) * 100;
+                else dailyNumber.percentageVaccinate = 100;
                 Console.WriteLine("Nombre de cas : "+dailyNumber.numberCas);
                 Console.WriteLine("Nombre de dead : "+dailyNumber.numberDead);
                 Console.WriteLine("Nombre de vaccin : "+dailyNumber.numberVaccinate);

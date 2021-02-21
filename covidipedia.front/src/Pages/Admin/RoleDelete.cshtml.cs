@@ -44,7 +44,7 @@ namespace covidipedia.front.src.Pages.Admin
             {
                 IdentityResult result = await roleManager.DeleteAsync(user);
                 if (result.Succeeded)
-                    return RedirectToPage("./Index");
+                    return RedirectToPage("./Role");
 
             }
             else

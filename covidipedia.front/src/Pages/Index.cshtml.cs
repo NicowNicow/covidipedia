@@ -109,10 +109,6 @@ namespace covidipedia.front.Pages
                 dailyNumber.percentageDead = ((dailyNumber.numberDead - numberDeadDaysBefore) / numberDeadDaysBefore) * 100;
                 dailyNumber.percentageVaccinate = ((dailyNumber.numberVaccinate - numberVaccinateDaysBefore) / numberVaccinateDaysBefore) * 100;
                 dailyNumber.percentageBed = ((dailyNumber.numberBed - numberTotalBedsDaysBefore) / numberTotalBedsDaysBefore) * 100;
-                Console.WriteLine("Nombre de cas : "+dailyNumber.numberCas);
-                Console.WriteLine("Nombre de dead : "+dailyNumber.numberDead);
-                Console.WriteLine("Nombre de vaccin : "+dailyNumber.numberVaccinate);
-                Console.WriteLine("Nombre de bed : "+dailyNumber.numberBed);
                 return dailyNumber;
             }
         }

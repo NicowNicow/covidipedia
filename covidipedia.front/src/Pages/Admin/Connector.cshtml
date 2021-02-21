@@ -21,12 +21,12 @@
                 <td>@connector.url</td>
                 <td>@connector.additional</td>
                 <td>
-                    <a asp-page="./ConectorEdit" asp-route-id="@connector.name" class="btn btn-sm btn-info">Modifier</a>
+                    <a asp-page="ConnectorEdit" asp-route-id="@connector.id" class="btn btn-sm btn-info">Modifier</a>
                 </td>
                 <td>
                     <form id="delete" method="post">
-                        <input type="hidden" name="connectorDeleteName" value="@connector.name" />
-                        <button id="query-submit" type="submit" asp-page-handler="Delete" class="btn btn-sm btn-danger" >Supprimer</button>
+                        <input type="hidden" name="connectorDeleteID" value="@connector.id" />
+                        <button id="query-submit" type="submit" asp-page-handler="Delete" class="btn btn-sm btn-danger">Supprimer</button>
                     </form>
                 </td>
             </tr>
@@ -35,8 +35,4 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $("body").on("submit", "#delete", function () {
-        return confirm("Etes-vous sûr de vouloir supprimer cette entrée?");
-    });
-</script>
+<script src="~/js/connectors.js"></script>

@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
 using System;
 
 namespace covidipedia.front
 {
     public class Connector {
+        public int id {get; set;}
         public string type {get; set;}
         public string name {get; set;}
         public string url {get; set;}
         public string additional {get; set;}
 
-        public Connector(string type, string name, string url, string additional) {
+        public Connector(int id, string type, string name, string url, string additional) {
+            this.id = id;
             this.type = type;
             this.name = name;
             this.url = url;
@@ -27,6 +30,10 @@ namespace covidipedia.front
             return list;
         }
 
+        public static int GetLastIndex(List<Connector> connectorsList) {
+            return connectorsList.OrderByDescending(connector => connector.id).First().id;
+        }
+
         public static void RewriteConnectorsFile(List<Connector> connectorsList, string connectorPath) {
             File.WriteAllText(connectorPath, String.Empty);
             using (StreamWriter file = new StreamWriter(File.OpenWrite(connectorPath))) {
@@ -36,8 +43,7 @@ namespace covidipedia.front
 
         private static string JsonPrettifyer(string toPrettify) {
             using (var stringReader = new StringReader(toPrettify))
-            using (var stringWriter = new StringWriter())
-            {
+            using (var stringWriter = new StringWriter()) {
                 var jsonReader = new JsonTextReader(stringReader);
                 var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
                 jsonWriter.WriteToken(jsonReader);

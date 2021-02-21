@@ -5,12 +5,14 @@ using System.IO;
 namespace covidipedia.connectors
 {
     public class Connector {
+        public int id {get; set;}
         public string type {get; set;}
         public string name {get; set;}
         public string url {get; set;}
         public string additional {get; set;}
 
-        public Connector(string type, string name, string url, string additional) {
+        public Connector(int id, string type, string name, string url, string additional) {
+            this.id = id;
             this.type = type;
             this.name = name;
             this.url = url;

@@ -14,7 +14,7 @@ namespace covidipedia.front.src.Pages.Admin
         private string connectorPath { get; set; }
         public List<Connector> connectorsList { get; set; }
         [BindProperty]
-        public string connectorDeleteName { get; set; }
+        public int connectorDeleteID { get; set; }
 
         public ConnectorModel(IConfiguration iConfig) {
             configuration = iConfig;
@@ -24,7 +24,7 @@ namespace covidipedia.front.src.Pages.Admin
 
         public IActionResult OnPostDelete() {
             if (!ModelState.IsValid) return Page();
-            connectorsList.RemoveAll(connector => connector.name == connectorDeleteName);
+            connectorsList.RemoveAll(connector => connector.id == connectorDeleteID);
             Connector.RewriteConnectorsFile(connectorsList, connectorPath);
             return Page();
         }

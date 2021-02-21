@@ -101,6 +101,15 @@ Cette manipulation permet d'éviter l'apparitition d'une `API Key Error` au dém
 
 > :heavy_check_mark: **API Key et Identifiants Administrateurs**: L'API Key SendGrid, ainsi que les identifiants administrateurs de base de l'application sont explicités dans le manuel d'utilisation, livré séparément.
 
+Dans une Console de Commande (cmd - bash -powershell):
+
+```powershell linenums="1"
+cd $Path_to_Covidipedia_Folder
+dotnet restore
+```
+
+> :heavy_check_mark: **Dotnet restore**: La commande dotnet restore permet de restaurer les dépendances d'un projet.
+
 > :warning: **ConnectionString des bases de données**: Lors du développement, il faut penser à adapter les connectionStrings dans le fichier `appsettings.json`. Pour cela, il faut remplacer le nom d'utilisateur et le mot de passe dans les connectionStrings `MainDBConnection` et `ApplicationDbContextConnection` par ceux définis lors de l'installation de PostgreSQL.
 
 ---

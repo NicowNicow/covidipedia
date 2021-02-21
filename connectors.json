@@ -1,14 +1,16 @@
 [
   {
+    "id": 1,
     "type": "csv",
     "name": "donnees-hospitalieres-nouveaux-covid19-2021-01-06-19h03.csv",
     "url": "https://www.data.gouv.fr/fr/datasets/r/6fadff46-9efd-4c53-942a-54aca783c30c",
     "additional": ""
   },
   {
+    "id": 2,
     "type": "csv",
     "name": "donnees-hospitalieres-covid19-2021-01-06-19h03.csv",
     "url": "https://www.data.gouv.fr/fr/datasets/r/63352e38-d353-4b54-bfd1-f1b3ee1cabd7",
-    "additional": ""
+    "additional": "pls work"
   }
 ]

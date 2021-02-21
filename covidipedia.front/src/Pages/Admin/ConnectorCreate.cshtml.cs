@@ -40,7 +40,7 @@ namespace covidipedia.front.Pages {
 
             public IActionResult OnPostCreate() {
                 if (!ModelState.IsValid) return RedirectToPage("./Connector");
-                connectorsList.Add(new Connector(input.type, input.name, input.url, input.additional));
+                connectorsList.Add(new Connector(Connector.GetLastIndex(connectorsList)+1,input.type, input.name, input.url, input.additional));
                 Connector.RewriteConnectorsFile(connectorsList, connectorPath);
                 return RedirectToPage("./Connector");
             }

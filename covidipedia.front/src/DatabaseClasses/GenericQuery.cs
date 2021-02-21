@@ -4,7 +4,8 @@ using System.Linq;
 using System;
 using Newtonsoft.Json;
 
-namespace covidipedia.front {
+namespace covidipedia.front 
+{
 
     public static class GenericQuery {
 

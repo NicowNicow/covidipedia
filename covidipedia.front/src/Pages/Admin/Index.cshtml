@@ -6,29 +6,33 @@
 @{
     ViewData["Title"] = "Page d'Administration";
 }
-<h1 class="card-title mb-0">Tous les utilisateurs</h1>
-<hr/>
-<a asp-page="Create" class="btn btn-sm btn-secondary">Créer un nouvel utilisateur</a>
-<a asp-page="Role" class="btn btn-sm btn-secondary">Page d'administartion des rôles</a>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr><th>ID</th><th>Nom</th><th>Email</th><th>RPPS</th><th>Mettre à jour</th><th>Supprimer</th></tr>
-    </thead>
-    <tbody>
-        @foreach (var user in _UserManager.Users)
-        {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@user.RPPS</td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@user.Id" class="btn btn-sm btn-primary">Modifier</a>
-                </td>
-                <td>
-                    <a asp-page="./Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Supprimer</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<body>
+    <h1 class="card-title mb-0">Tous les utilisateurs</h1>
+    <hr/>
+    <a asp-page="Create" class="btn btn-sm btn-secondary">Créer un nouvel utilisateur</a>
+    <a asp-page="Role" class="btn btn-sm btn-secondary">Page d'administartion des rôles</a>
+    <a asp-page="Connector" class="btn btn-sm btn-secondary">Page d'administartion des connecteurs</a>
+    <table id="admin-table" class="table table-bordered table-striped">
+        <thead>
+            <tr><th>ID</th><th>Nom</th><th>Email</th><th>RPPS</th><th>Mettre à jour</th><th>Supprimer</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var user in _UserManager.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.RPPS</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@user.Id" class="btn btn-sm btn-primary">Modifier</a>
+                    </td>
+                    <td>
+                        <a asp-page="./Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

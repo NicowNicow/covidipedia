@@ -2,7 +2,8 @@ using System.Collections;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace covidipedia.front {
+namespace covidipedia.front 
+{
 
     public static class CSVWriter {
 

@@ -9,14 +9,14 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {   <li class="nav-item">
-            <p class="nav-link text-dark">Bonjour @UserManager.GetUserName(User)</p>
+            <a class="nav-link text-dark">Bonjour @UserManager.GetUserName(User)</a>
         </li>
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Votre Compte</a>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Se Déconnecter</button>
+                <a id="logout" type="submit" class="nav-link text-dark">Se Déconnecter</a>
             </form>
         </li>
     }
@@ -30,3 +30,6 @@
         </li>
     }
 </ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/disconnect.js"></script>

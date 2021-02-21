@@ -1,0 +1,42 @@
+@page
+@model covidipedia.front.src.Pages.Admin.ConnectorModel
+@{
+    ViewData["Title"] = "Page d'Administration";
+}
+
+<body>
+    <h1 class="card-title mb-0">Tous les connecteurs</h1>
+    <hr/>
+    <a asp-page="ConnectorCreate" class="btn btn-sm btn-secondary">Créer un nouveau connecteur</a>
+    <a asp-page="Index" class="btn btn-sm btn-secondary">Page d'aministration des utilisateurs</a>
+    <a asp-page="Role" class="btn btn-sm btn-secondary">Page d'administration des rôles</a>
+
+    <table id="admin-table" class="table table-bordered table-striped">
+        <tr><th>Type</th><th>Nom</th><th>URL</th><th>Infos Supplémentaires</th><th>Modifier</th><th>Supprimer</th></tr>
+        @foreach (Connector connector in Model.connectorsList)
+        {
+            <tr>
+                <td>@connector.type</td>
+                <td>@connector.name</td>
+                <td>@connector.url</td>
+                <td>@connector.additional</td>
+                <td>
+                    <a asp-page="./ConectorEdit" asp-route-id="@connector.name" class="btn btn-sm btn-info">Modifier</a>
+                </td>
+                <td>
+                    <form id="delete" method="post">
+                        <input type="hidden" name="connectorDeleteName" value="@connector.name" />
+                        <button id="query-submit" type="submit" asp-page-handler="Delete" class="btn btn-sm btn-danger" >Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $("body").on("submit", "#delete", function () {
+        return confirm("Etes-vous sûr de vouloir supprimer cette entrée?");
+    });
+</script>

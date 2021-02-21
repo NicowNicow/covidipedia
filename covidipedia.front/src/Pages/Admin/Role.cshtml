@@ -6,21 +6,25 @@
 @{
     ViewData["Title"] = "Page d'Administration";
 }
-<h1 class="card-title mb-0">Tous les rôles</h1>
-<hr/>
-<a asp-page="RoleCreate" class="btn btn-sm btn-secondary">Créer un nouveau rôle</a>
-<a asp-page="Index" class="btn btn-sm btn-secondary">Page d'aministration des utilisateurs</a>
 
-<table class="table table-bordered table-striped">
-    <tr><th>ID</th><th>Nom</th><th>Supprimer</th></tr>
-    @foreach (var role in _RoleManager.Roles)
-    {
-        <tr>
-            <td>@role.Id</td>
-            <td>@role.Name</td>
-            <td>
-                <a asp-page="./RoleDelete" asp-route-id="@role.Id" class="btn btn-sm btn-danger">Supprimer</a>
-            </td>
-        </tr>
-    }
-</table>
+<body>
+    <h1 class="card-title mb-0">Tous les rôles</h1>
+    <hr/>
+    <a asp-page="RoleCreate" class="btn btn-sm btn-secondary">Créer un nouveau rôle</a>
+    <a asp-page="Index" class="btn btn-sm btn-secondary">Page d'aministration des utilisateurs</a>
+    <a asp-page="Connector" class="btn btn-sm btn-secondary">Page d'administartion des connecteurs</a>
+
+    <table id="admin-table" class="table table-bordered table-striped">
+        <tr><th>ID</th><th>Nom</th><th>Supprimer</th></tr>
+        @foreach (var role in _RoleManager.Roles)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                <td>
+                    <a asp-page="./RoleDelete" asp-route-id="@role.Id" class="btn btn-sm btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
